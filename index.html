@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
   <link rel="stylesheet" href="./style.css">
 
-  <!--Link Iconos-->
+  <!--Link Icons-->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
 
   <title>Ahorradas</title>
@@ -55,35 +55,99 @@
     <div class="container categorias" id="balance">
       <div class="tile is-ancestor">
         <div class="tile is-4 is-vertical is-parent">
-          <div class="tile is-child box">
-            <p class="title">Balance</p>
-            <p class="title">Ganancias</p>
-            <p class="title">Gastos</p>
-            <p class="title">Total</p>
-          
-          </div>
-          <div class="tile is-child box">
-            <div class="field">
-              <label class="label">Name</label>
-              <div class="control">
-                <input class="input" type="text" placeholder="e.g Alex Smith">
-              </div>
-            </div>
-            
-            <div class="field">
-              <label class="label">Email</label>
-              <div class="control">
-                <input class="input" type="email" placeholder="e.g. alexsmith@gmail.com">
-              </div>
-            </div>
-            <div class="field">
-              <label class="label">Email</label>
-              <div class="control">
-                <input class="input" type="email" placeholder="e.g. alexsmith@gmail.com">
-              </div>
-            </div>
-          </div>
+
+          <!-------------------------------------Balance Section-------------------------------------->
+          <section class="box">
+
+                <h2 class="title is-3 has-text-weight-bold mb-6">Balance</h2>
+
+                <article class="columns is-vcentered">
+                    <span class="column title is-size-5 has-text-weight-normal">Ganancias</span>
+                    <span class="column subtitle has-text-right has-text-success is-size-5">+$0</span>
+                </article>
+
+                <article class="columns is-vcentered">
+                    <span class="column title is-size-5 has-text-weight-normal">Gastos</span>
+                    <span class="column subtitle has-text-right has-text-success is-size-5 has-text-danger">-$0</span>
+                </article>
+
+                <article class="columns is-vcentered">
+                    <span class="column title is-size-4 has-text-weight-normal">Total</span>
+                    <span class="column subtitle has-text-right is-size-5 has-text-weight-bold">$0</span>
+                </article>    
+
+             </section> 
+
+          </section>
+
+
+
+          <!-------------------------------------Filter Section-------------------------------------->
+          <section class="tile is-child box">
+            <section class="column">
+
+                <section class="columns is-vcentered">
+                    <span class="title is-4 has-text-weight-bold mb-4">Filtros</span>
+                    <span class="column subtitle has-text-right is-size-6 has-text-link">Ocultar filtros</span>
+                </section>
+
+                <section class="field">
+                    <label for="tipo" class="label">Tipo</label>
+                    <article class="control">
+                        <article class="select is-fullwidth">
+                            <select id="tipo">
+                                <option>Todos</option>
+                                <option>Gasto</option>
+                                <option>Ganancia</option>
+                            </select>
+                        </article>
+                    </article>
+                </section>
+                
+                <section class="field">
+                    <label for="tipo" class="label">Categoría</label>
+                    <article class="control">
+                        <article class="select is-fullwidth">
+                            <select id="tipo">
+                              <option>Todas</option>
+                              <option>Servicios</option>
+                              <option>Salidas</option>
+                              <option>Educación</option>
+                              <option>Transporte</option>
+                              <option>Trabajo</option>
+                            </select>
+                        </article>
+                    </article>
+                </section>
+
+                <section class="field">
+                    <label class="label">Desde</label>
+                    <article class="control">
+                        <input id="input-fecha" class="input" type="date" name="label">
+                    </article>
+                </section>
+
+                <section class="field">
+                    <label class="label">Ordenar por</label>
+                    <article class="control">
+                        <article class="select is-fullwidth">
+                            <select id="tipo">
+                            <option>Más reciente</option>
+                            <option>Menos reciente</option>
+                            <option>Mayor monto</option>
+                            <option>Menor monto</option>
+                            <option>A/Z</option>
+                            <option>Z/A</option>
+                            </select>
+                        </article>
+                    </article>
+                </section>
+            </section>
+        </section>
         </div>
+
+
+        
         <div class="tile is-parent">
           <div class="tile is-child box">
             <p class="title">Three</p>
