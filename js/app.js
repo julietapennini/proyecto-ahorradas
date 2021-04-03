@@ -12,8 +12,9 @@ const btnReportes = document.getElementById('btn-reportes');
 const balance = document.getElementById('balance');
 const categorias = document.getElementById('categorias');
 const reportes = document.getElementById('reportes');
+const nuevaOperacion = document.getElementById('nueva-operacion');
 
-const btnNuevaOperacion = document.getElementById('btn-agregaroperacion');
+const btnNuevaOperacion = document.getElementById('btn-nuevaoperacion');
 const inputFecha = document.getElementById('input-fecha');
 
 
@@ -46,11 +47,13 @@ btnReportes.addEventListener('click', () => {
 })
 
 
-/*
+
 btnNuevaOperacion.addEventListener('click', () => {
   balance.style.display = 'none'
+  
 })
 
+/*
 const day = new Date().getDate();
 let month = new Date().getMonth() + 1;
 const year = new Date().getFullYear();

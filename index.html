@@ -69,6 +69,10 @@
   </nav>
 
   <main>
+    <!-------
+                                                              Contenedor BALANCE
+    ____________________________________________________________________________________________________________________________________
+    -------->
     <div class="container" id="balance">
       <div class="tile is-ancestor">
 
@@ -191,7 +195,7 @@
               </div>
 
               <div class="column has-text-right-tablet">
-              <button class="button is-primary">+ Nueva operación</button>
+              <button class="button is-primary" id="btn-nuevaoperacion">+ Nueva operación</button>
               </div>
             </div>
             
@@ -211,70 +215,86 @@
       </div>
     </div>
 
+
+    <!-------
+                                                              Contenedor CATEGORIAS
+    ____________________________________________________________________________________________________________________________________
+    -------->
     <div class="container hidden" id="categorias">
       <h1>Categorias</h1>
     </div>
 
+
+    <!-------
+                                                              Contenedor REPORTES
+    ____________________________________________________________________________________________________________________________________
+    -------->
     <div class="container hidden" id="reportes">
       <h1>Reportes</h1>
     </div>
-    <!--
-    <div class="columns">
-      <div class="column is-8 is-offset-2">
-        <div class="box">
-         <h2>Nueva operación</h2>
-         <div class="field mt-6">
-           <label for="descripcion" class="label">Descripción</label>
-           <input id="descripcion" class="input" type="text" placeholder="Ingresa la descripción">
-         </div>
-         <div class="field">
-           <label for="monto" class="label">Monto</label>
-           <input id="monto" class="input" type="number" placeholder="Ingresa el monto">
-         </div>
-         <div class="field">
-          <label for="tipo" class="label">Tipo</label>
-          <div class="control">
-            <div class="select is-fullwidth">
-              <select id="tipo">
-                <option>Gasto</option>
-                <option>Ganancia</option>
-              </select>
+
+    <!-------
+                                                              Contenedor NUEVA OPERACION
+    ____________________________________________________________________________________________________________________________________
+    -------->
+    <div class="container" id="nueva-operacion">
+
+      <div class="columns">
+        <div class="column is-8 is-offset-2">
+          <div class="box">
+           <h2>Nueva operación</h2>
+           <div class="field mt-6">
+             <label for="descripcion" class="label">Descripción</label>
+             <input id="descripcion" class="input" type="text" placeholder="Ingresa la descripción">
+           </div>
+           <div class="field">
+             <label for="monto" class="label">Monto</label>
+             <input id="monto" class="input" type="number" placeholder="Ingresa el monto">
+           </div>
+           <div class="field">
+            <label for="tipo" class="label">Tipo</label>
+            <div class="control">
+              <div class="select is-fullwidth">
+                <select id="tipo">
+                  <option>Gasto</option>
+                  <option>Ganancia</option>
+                </select>
+              </div>
             </div>
           </div>
-        </div>
-         <div class="field">
-          <label for="categoria" class="label">Categoría</label>
-          <div class="control">
-            <div class="select is-fullwidth">
-              <select id="categoria">
-                <option>Salidas</option>
-                <option>Educación</option>
-                <option>Transporte</option>
-                <option>Trabajo</option>
-              </select>
+           <div class="field">
+            <label for="categoria" class="label">Categoría</label>
+            <div class="control">
+              <div class="select is-fullwidth">
+                <select id="categoria">
+                  <option>Salidas</option>
+                  <option>Educación</option>
+                  <option>Transporte</option>
+                  <option>Trabajo</option>
+                </select>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="field">
-          <label for="fecha" class="label">Fecha</label>
-          <input id="input-fecha" class="input" type="date" name="label">         
-        </div>
-        <div class="field is-grouped is-grouped-right">
-          <p class="control">
-          </p>
-          <a class="button is-light">
-            Cancelar
-          </a>
-          <p class="control">
-            <a class="button is-primary">
-              Agregar
+          <div class="field">
+            <label for="fecha" class="label">Fecha</label>
+            <input id="input-fecha" class="input" type="date" name="label">         
+          </div>
+          <div class="field is-grouped is-grouped-right">
+            <p class="control">
+            </p>
+            <a class="button is-light" id="btn-cancel">
+              Cancelar
             </a>
-          </p>
-        </div>
+            <p class="control">
+              <a class="button is-primary">
+                Agregar
+              </a>
+            </p>
+          </div>
+          </div>
         </div>
       </div>
-    </div>-->
-    
+    </div>
     
   </main>
 
