@@ -7,6 +7,8 @@ ____________________________________________________________________
 const btnBalance = document.getElementById('btn-balance');
 const btnCategorias = document.getElementById('btn-categorias');
 const btnReportes = document.getElementById('btn-reportes');
+const btnNuevaOperacion = document.getElementById('btn-nuevaoperacion');
+const btnCancel = document.getElementById('btn-cancel');
 
 //Páginas
 const balance = document.getElementById('balance');
@@ -14,7 +16,7 @@ const categorias = document.getElementById('categorias');
 const reportes = document.getElementById('reportes');
 const nuevaOperacion = document.getElementById('nueva-operacion');
 
-const btnNuevaOperacion = document.getElementById('btn-nuevaoperacion');
+
 const inputFecha = document.getElementById('input-fecha');
 
 
@@ -47,12 +49,14 @@ btnReportes.addEventListener('click', () => {
 })
 
 
-
 btnNuevaOperacion.addEventListener('click', () => {
   balance.style.display = 'none'
-  
 })
 
+btnCancel.addEventListener('click', () => {
+  nuevaOperacion.style.display = 'none'
+  balance.style.display = 'block'
+})
 /*
 const day = new Date().getDate();
 let month = new Date().getMonth() + 1;
