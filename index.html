@@ -24,61 +24,61 @@
 
 
 <body>
-  <!---
-  *************************************************************************************
-                                      Navegador
-  *************************************************************************************
-  ---->
-  <nav class="navbar is-primary is-spaced" role="navigation" aria-label="main navigation">
-
-    <section class="navbar-brand">
-
-      <a class="navbar-item is-hovered" href="#">
-        <h1 class="title is-size-2 has-text-white">
-        <i class="fas fa-wallet"></i> AhorrADAs</h1>
-      </a>
-
-      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </a>
-
-    </section>
-  
-    <section id="navbarBasicExample" class="navbar-menu">
-      <article class="navbar-end">
-
-        <a class="navbar-item" id="btn-balance">
-          <i class="fas fa-chart-line mr-2" aria-hidden="true"></i>
-          Balance
+  <!-------
+                                                              NAVEGADOR
+  ____________________________________________________________________________________________________________________________________
+  -------->
+  <header>
+    <nav class="navbar is-primary is-spaced" role="navigation" aria-label="main navigationdivsection" class="navbar-brand">
+      
+      <section>
+        <a class=" navbar-item is-hovered" href="#">
+          <h1 class="title is-size-2 has-text-white">
+          <i class="fas fa-wallet"></i> AhorrADAs</h1>
         </a>
-  
-        <a class="navbar-item" id="btn-categorias">
-           <i class="fas fa-tag mr-2" aria-hidden="true"></i>
-           Categorias
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
         </a>
+      </section>
+      
+      <!-------------------------------Nav visual-------------------------------------->
+      <section id="navbarBasicExample" class="navbar-menu">
+        <article class="navbar-end">
+          <a class="navbar-item" id="btn-balance">
+            <i class="fas fa-chart-line mr-2" aria-hidden="true"></i>
+            Balance
+          </a>
+          <a class="navbar-item" id="btn-categorias">
+            <i class="fas fa-tag mr-2" aria-hidden="true"></i>
+            Categorias
+          </a>
+          <a class="navbar-item" id="btn-reportes">
+            <i class="fas fa-chart-pie mr-2" aria-hidden="true"></i>
+            Reportes
+          </a>
+        </article>
+      </section>
 
-        <a class="navbar-item" id="btn-reportes">
-           <i class="fas fa-chart-pie mr-2" aria-hidden="true"></i>
-           Reportes
-        </a>
-
-      </article>
-    </section>
-  </nav>
-
+    </nav>
+  </header>
   <main>
     <!-------
-                                                              Contenedor BALANCE
+                                                              BALANCE
     ____________________________________________________________________________________________________________________________________
     -------->
-    <div class="container" id="balance">
+    <div class="container pt-5" id="balance">
       <div class="tile is-ancestor">
 
-
-        <!-------------------------------Vertical section-------------------------------------->
-        <div class="tile is-4 is-vertical is-parent">
+        <div class="tile is-vertical is-3 is-parent">
+          <!-------------------------------Sección vertical-------------------------------------->
+          <!---
+          *************************************************************************************
+                                                Balance
+          *************************************************************************************
+          ---->
+        
 
           <!---
           *************************************************************************************
@@ -87,7 +87,7 @@
           ---->
           <section class="box">
 
-            <h2 class="title is-3 has-text-weight-bold mb-6">Balance</h2>
+            <h2 class="title has-text-weight-bold mb-6">Balance</h2>
 
             <article class="columns is-vcentered">
                 <span class="column title is-size-5 has-text-weight-normal">Ganancias</span>
@@ -108,14 +108,14 @@
 
           <!---
           *************************************************************************************
-                                                FILTERS
+                                                Filtros
           *************************************************************************************
           ---->
           <section class="tile is-child box">
             <section class="column">
 
               <section class="columns is-vcentered">
-                <span class="title is-4 has-text-weight-bold mb-4">Filtros</span>
+                <span class="title has-text-weight-bold mb-4">Filtros</span>
                 <span class="column subtitle has-text-right is-size-6 has-text-link">Ocultar filtros</span>
               </section>
 
@@ -178,7 +178,7 @@
         </div>
 
 
-        <!-------------------------------------Horizontal section-------------------------------------->
+        <!-------------------------------------Sección Horizontal-------------------------------------->
         <div class="tile is-parent">
 
           <!---
@@ -215,34 +215,16 @@
       </div>
     </div>
 
-
     <!-------
-                                                              Contenedor CATEGORIAS
+                                                              NUEVA OPERACIÓN
     ____________________________________________________________________________________________________________________________________
     -------->
-    <div class="container hidden" id="categorias">
-      <h1>Categorias</h1>
-    </div>
-
-
-    <!-------
-                                                              Contenedor REPORTES
-    ____________________________________________________________________________________________________________________________________
-    -------->
-    <div class="container hidden" id="reportes">
-      <h1>Reportes</h1>
-    </div>
-
-    <!-------
-                                                              Contenedor NUEVA OPERACION
-    ____________________________________________________________________________________________________________________________________
-    -------->
-    <div class="container" id="nueva-operacion">
+    <div class="container pt-5 hidden" id="nueva-operacion">
 
       <div class="columns">
         <div class="column is-8 is-offset-2">
           <div class="box">
-           <h2>Nueva operación</h2>
+           <h2 class="title is-size-2 has-text-weight-bold">Nueva operación</h2>
            <div class="field mt-6">
              <label for="descripcion" class="label">Descripción</label>
              <input id="descripcion" class="input" type="text" placeholder="Ingresa la descripción">
@@ -296,116 +278,18 @@
       </div>
     </div>
 
-
-    <!-- ------------------------------------- start category section---------------------------------------------------------->
-     
-    <section class="section mt-5 vista" id="vista-categoria">
-      <section class="container">
-        <section class="columns is-multiline">
-          <section class="column is-8-widescreen is-10-desktop is-offset-2-widescreen is-offset-1-desktop">
-            <article class="box">
-              <h2 class="title is-size-2 has-text-weight-bold">Categorías</h2>
-              <label class="label mt-6" for="categoria-input">Nombre</label>
-              <div class="field is-grouped">
-                <div class="control is-expanded">
-                  <input class="input" type="text" name="" id="categoria-input">
-                </div>
-                <div class="control">
-                  <button class="button is-success" id="agregar-categoria-boton">
-                    Agregar
-                  </button>
-                </div>
-              </div>
-              <div class="mt-6" id="categorias"><div class="mb-3">
-              <div class="columns is-vcentered is-mobile">
-               <div class="column">
-                   <span class="tag is-primary is-light">Comida</span>
-               </div>
-               <div class="column is-narrow has-text" <p="">
-                   <a href="#" class="mr-4 is-size-7 edit-link">Editar</a>
-                   <a href="#" class="is-size-7 delete-link">Eliminar</a>
-                   <p></p>
-               </div>
-              </div>
-          </div>
-          <div class="mb-3">
-              <div class="columns is-vcentered is-mobile">
-               <div class="column">
-                   <span class="tag is-primary is-light">Servicios</span>
-               </div>
-               <div class="column is-narrow has-text" <p="">
-                   <a href="#" class="mr-4 is-size-7 edit-link">Editar</a>
-                   <a href="#" class="is-size-7 delete-link">Eliminar</a>
-                   <p></p>
-               </div>
-              </div>
-          </div>
-          <div class="mb-3">
-           <div class="columns is-vcentered is-mobile">
-              <div class="column">
-                   <span class="tag is-primary is-light">Salidas</span>
-              </div>
-              <div class="column is-narrow has-text" <p="">
-                   <a href="#" class="mr-4 is-size-7 edit-link">Editar</a>
-                   <a href="#" class="is-size-7 delete-link">Eliminar</a>
-                   <p></p>
-              </div>
-           </div>
-          </div>
-          <div class="mb-3">
-            <div class="columns is-vcentered is-mobile">
-              <div class="column">
-                   <span class="tag is-primary is-light">Educación</span>
-              </div>
-              <div class="column is-narrow has-text" <p="">
-                   <a href="#" class="mr-4 is-size-7 edit-link">Editar</a>
-                   <a href="#" class="is-size-7 delete-link">Eliminar</a>
-                   <p></p>
-              </div>
-            </div>
-          </div>
-          <div class="mb-3">
-            <div class="columns is-vcentered is-mobile">
-              <div class="column">
-                   <span class="tag is-primary is-light">Transporte</span>
-              </div>
-              <div class="column is-narrow has-text" <p="">
-                   <a href="#" class="mr-4 is-size-7 edit-link">Editar</a>
-                   <a href="#" class="is-size-7 delete-link">Eliminar</a>
-                   <p></p>
-              </div>
-            </div>
-          </div>
-          <div class="mb-3">
-            <div class="columns is-vcentered is-mobile">
-              <div class="column">
-                   <span class="tag is-primary is-light">Trabajo</span>
-              </div>
-              <div class="column is-narrow has-text" <p="">
-                   <a href="#" class="mr-4 is-size-7 edit-link">Editar</a>
-                   <a href="#" class="is-size-7 delete-link">Eliminar</a>
-                   <p></p>
-              </div>
-            </div>
-          </div>
-         </div>
-        </article>
-       </section>
-      </section>
-    </section>
-  </section>
-
-    <!-- ------------------------------------- finish category section---------------------------------------------------------->
-    
-    <!-- ------------------------------------- start category-edition section---------------------------------------------------------->
-    
-    <section class="section mt-5 " id="vista-editar-categoria">
+    <!-------
+                                                              EDITAR OPERACIÓN
+    ____________________________________________________________________________________________________________________________________
+    -------->
+   
+    <div class="container pt-5 hidden" id="editar-operacion">
       <section class="container">
         <section class="columns is-multiline">
           <article class="column is-8-widescreen is-10-desktop is-offset-2-widescreen is-offset-1-desktop">
             <div class="box">
               <h2 class="title is-size-2 has-text-weight-bold">
-                Editar categoría
+                Editar operación
               </h2>
               <label class="label mt-6" for="editar-categoria-input">Nombre</label>
               <div class="field is-grouped">
@@ -425,12 +309,123 @@
           </article>
         </section>
       </section>
-    </section>
+    </div>
+    
+    <!-------
+                                                              CATEGORÍAS
+    ____________________________________________________________________________________________________________________________________
+    -------->
+    <div class="container pt-5 hidden" id="categorias">
+      <section class="columns is-multiline">
+        <section class="column is-8-widescreen is-10-desktop is-offset-2-widescreen is-offset-1-desktop">
+          <article class="box">
+            <h2 class="title is-size-2 has-text-weight-bold">Categorías</h2>
+            
+            <label class="label mt-6" for="categoria-input">Nombre</label>
 
-    <!-- ------------------------------------- finish category-edition section---------------------------------------------------------->
-     
+            <div class="field is-grouped">
+              <div class="control is-expanded">
+                <input class="input" type="text" name="" id="categoria-input">
+              </div>
+
+              <div class="control">
+                <button class="button is-primary" id="agregar-categoria-boton">
+                  Agregar
+                </button>
+              </div>
+            </div>
+
+              <div class="mt-6" id="categorias"><div class="mb-3">
+              <div class="columns is-vcentered is-mobile">
+               <div class="column">
+                   <span class="tag is-primary is-light">Comida</span>
+               </div>
+               <div class="column is-narrow has-text">
+                   <a href="#" class="mr-4 is-size-7 edit-link">Editar</a>
+                   <a href="#" class="is-size-7 delete-link">Eliminar</a>
+                   <p></p>
+               </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <div class="columns is-vcentered is-mobile">
+               <div class="column">
+                   <span class="tag is-primary is-light">Servicios</span>
+               </div>
+               <div class="column is-narrow has-text">
+                   <a href="#" class="mr-4 is-size-7 edit-link">Editar</a>
+                   <a href="#" class="is-size-7 delete-link">Eliminar</a>
+                   <p></p>
+               </div>
+              </div>
+            </div>
+            <div class="mb-3">
+           <div class="columns is-vcentered is-mobile">
+              <div class="column">
+                   <span class="tag is-primary is-light">Salidas</span>
+              </div>
+              <div class="column is-narrow has-text">
+                   <a href="#" class="mr-4 is-size-7 edit-link">Editar</a>
+                   <a href="#" class="is-size-7 delete-link">Eliminar</a>
+                   <p></p>
+              </div>
+           </div>
+            </div>
+            <div class="mb-3">
+            <div class="columns is-vcentered is-mobile">
+              <div class="column">
+                   <span class="tag is-primary is-light">Educación</span>
+              </div>
+              <div class="column is-narrow has-text">
+                   <a href="#" class="mr-4 is-size-7 edit-link">Editar</a>
+                   <a href="#" class="is-size-7 delete-link">Eliminar</a>
+                   <p></p>
+              </div>
+            </div>
+            </div>
+            <div class="mb-3">
+            <div class="columns is-vcentered is-mobile">
+              <div class="column">
+                   <span class="tag is-primary is-light">Transporte</span>
+              </div>
+              <div class="column is-narrow has-text">
+                   <a href="#" class="mr-4 is-size-7 edit-link">Editar</a>
+                   <a href="#" class="is-size-7 delete-link">Eliminar</a>
+                   <p></p>
+              </div>
+            </div>
+            </div>
+            <div class="mb-3">
+            <div class="columns is-vcentered is-mobile">
+              <div class="column">
+                   <span class="tag is-primary is-light">Trabajo</span>
+              </div>
+              <div class="column is-narrow has-text">
+                   <a href="#" class="mr-4 is-size-7 edit-link">Editar</a>
+                   <a href="#" class="is-size-7 delete-link">Eliminar</a>
+                   <p></p>
+              </div>
+            </div>
+            </div>
+            </div>
+          </article>
+        </section>
+      </section>
+    </div>
+
+    <!-------
+                                                              REPORTES
+    ____________________________________________________________________________________________________________________________________
+    -------->
+    <div class="container pt-5 hidden" id="reportes">
+      <div class="box column is-8-widescreen is-10-desktop is-offset-2-widescreen is-offset-1-desktop">
+        <h2 class="title is-size-2 has-text-weight-bold">Reportes</h2>
+      </div>
+      
+    </div>
   </main>
+</body>
 
-  <script src="./js/app.js"></script>
+<script src="./js/app.js"></script>
   
 </html>
