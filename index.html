@@ -225,30 +225,34 @@
         <div class="column is-8 is-offset-2">
           <div class="box">
            <h2 class="title is-size-2 has-text-weight-bold">Nueva operación</h2>
+
            <div class="field mt-6">
              <label for="descripcion" class="label">Descripción</label>
-             <input id="descripcion" class="input" type="text" placeholder="Ingresa la descripción">
+             <input class="input" id="input-descripcion" type="text" placeholder="Ingresa la descripción">
            </div>
+
            <div class="field">
              <label for="monto" class="label">Monto</label>
-             <input id="monto" class="input" type="number" placeholder="Ingresa el monto">
+             <input class="input" id="input-monto" type="number" placeholder="Ingresa el monto">
            </div>
+
            <div class="field">
             <label for="tipo" class="label">Tipo</label>
-            <div class="control">
+            <div class="control" >
               <div class="select is-fullwidth">
-                <select id="tipo">
+                <select id="input-tipo">
                   <option>Gasto</option>
                   <option>Ganancia</option>
                 </select>
               </div>
             </div>
+
           </div>
            <div class="field">
             <label for="categoria" class="label">Categoría</label>
             <div class="control">
               <div class="select is-fullwidth">
-                <select id="categoria">
+                <select id="input-categoria">
                   <option>Salidas</option>
                   <option>Educación</option>
                   <option>Transporte</option>
@@ -257,10 +261,12 @@
               </div>
             </div>
           </div>
+
           <div class="field">
             <label for="fecha" class="label">Fecha</label>
-            <input id="input-fecha" class="input" type="date" name="label">         
+            <input class="input" id="input-fecha" type="date" name="label">         
           </div>
+
           <div class="field is-grouped is-grouped-right">
             <p class="control">
             </p>
@@ -268,11 +274,12 @@
               Cancelar
             </a>
             <p class="control">
-              <a class="button is-primary">
+              <a class="button is-primary" id="btn-agregar">
                 Agregar
               </a>
             </p>
           </div>
+          
           </div>
         </div>
       </div>

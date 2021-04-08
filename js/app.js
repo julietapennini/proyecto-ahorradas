@@ -7,6 +7,7 @@ ____________________________________________________________________
 const btnBalance = document.getElementById('btn-balance');
 const btnNuevaOperacion = document.getElementById('btn-nuevaoperacion');
 const btnCancel = document.getElementById('btn-cancel');
+const btnAgregar = document.getElementById('btn-agregar');
 
 const btnCategorias = document.getElementById('btn-categorias');
 const btnReportes = document.getElementById('btn-reportes');
@@ -19,7 +20,11 @@ const editarOperacion = document.getElementById('editar-operacion');
 const categorias = document.getElementById('categorias');
 const reportes = document.getElementById('reportes');
 
-
+//Inputs
+const inputDescripcion = document.getElementById('input-descripcion');
+const inputMonto = document.getElementById('input-monto');
+const inputTipo = document.getElementById('input-tipo');
+const inputCategoria = document.getElementById('input-categoria');
 const inputFecha = document.getElementById('input-fecha');
 
 
@@ -58,28 +63,39 @@ btnReportes.addEventListener('click', () => {
   editarOperacion.style.display = 'none'
 })
 
-
+//Botón nueva operación
 btnNuevaOperacion.addEventListener('click', () => {
   balance.style.display = 'none'
   nuevaOperacion.style.display = 'block'
 })
 
+//Botón cancelar
 btnCancel.addEventListener('click', () => {
   balance.style.display = 'block'
   nuevaOperacion.style.display = 'none'
 })
 
-/*
+
+//--------------Input FECHA-------------------
+
+//Input Fecha
 const day = new Date().getDate();
 let month = new Date().getMonth() + 1;
 const year = new Date().getFullYear();
 
-console.log(new Date().getDate());
-console.log(new Date().getMonth() + 1);
-console.log(new Date().getFullYear());
-
-console.log(new Date().getMonth() < 10);
-
 inputFecha.value = `${year}-${month < 10 ? '0' + month: month}-${day}`
-// yyyy-MM-dd
-// yyyy-M-dd*/
+
+//--------------Input FECHA-------------------
+
+const operaciones = [];
+
+btnAgregar.addEventListener('click', () => {
+  console.log(inputDescripcion.value)
+   const nuevaOperacion = {
+     descripción:lñkl,
+     monto:lñklñ,
+     tipo:lñkñ,
+     categoria:kñkl,
+     fecha:
+   }
+})
