@@ -27,6 +27,8 @@ const inputTipo = document.getElementById('input-tipo');
 const inputCategoria = document.getElementById('input-categoria');
 const inputFecha = document.getElementById('input-fecha');
 
+//Pintar formulario
+const escribir= document.getElementById('escribir-operacion');
 
 /*
                             Funcionalidades
@@ -83,19 +85,45 @@ const day = new Date().getDate();
 let month = new Date().getMonth() + 1;
 const year = new Date().getFullYear();
 
-inputFecha.value = `${year}-${month < 10 ? '0' + month: month}-${day}`
+inputFecha.value = `${year}-${month < 10 ? '0' + month: month}-${day < 10 ? '0' + day: day}`
 
-//--------------Input FECHA-------------------
 
-const operaciones = [];
+//--------------Sumar operaciones-------------------
+
+let operaciones = [];
+
+
+const escribirOperacion = (operaciones) => {
+  escribir.innerHTML = '';
+  for (let index = 0; index < operaciones.length; index++) {
+    const caja =
+    `<div =${operaciones[index].id}>
+      <span>${operaciones[index].descripción} </span>
+      <span>${operaciones[index].monto} </span>
+      <span>${operaciones[index].tipo} </span>
+      <span>${operaciones[index].categoría} </span>
+      <span>${operaciones[index].fecha} </span>
+      <a>Editar</a>
+      <a>Eliminar</a>
+    </div>`
+
+    escribir.insertAdjacentHTML('beforeend', caja)
+  }
+}
 
 btnAgregar.addEventListener('click', () => {
-  console.log(inputDescripcion.value)
-   const nuevaOperacion = {
-     descripción:lñkl,
-     monto:lñklñ,
-     tipo:lñkñ,
-     categoria:kñkl,
-     fecha:
-   }
+  operaciones = JSON.parse(localStorage.getItem('operaciones'))
+  const nuevaOperacion = {
+    descripción: inputDescripcion.value,
+    monto: inputMonto.value,
+    tipo: inputTipo.value,
+    categoría: inputCategoria.value,
+    fecha: inputFecha.value,
+  }
+  operaciones.push(nuevaOperacion)
+  localStorage.setItem('operaciones', JSON.stringify(operaciones))
+  escribirOperacion(operacionesLocalStorage)
 })
+
+let operacionesLocalStorage = JSON.parse(localStorage.getItem('operaciones'))
+escribirOperacion(operacionesLocalStorage)
