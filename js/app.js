@@ -111,6 +111,7 @@ const escribirOperacion = (operaciones) => {
   }
 }
 
+//Botón agregar operación
 btnAgregar.addEventListener('click', () => {
   operaciones = JSON.parse(localStorage.getItem('operaciones'))
   const nuevaOperacion = {
@@ -122,6 +123,7 @@ btnAgregar.addEventListener('click', () => {
   }
   operaciones.push(nuevaOperacion)
   localStorage.setItem('operaciones', JSON.stringify(operaciones))
+  operacionesLocalStorage = JSON.parse(localStorage.getItem('operaciones'))
   escribirOperacion(operacionesLocalStorage)
 })
 
