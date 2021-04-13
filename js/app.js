@@ -77,7 +77,6 @@ btnCancel.addEventListener('click', () => {
   nuevaOperacion.style.display = 'none'
 })
 
-
 //--------------Input FECHA-------------------
 
 //Input Fecha
@@ -114,18 +113,21 @@ const escribirOperacion = (operaciones) => {
 //Botón agregar operación
 btnAgregar.addEventListener('click', () => {
   operaciones = JSON.parse(localStorage.getItem('operaciones'))
-  const nuevaOperacion = {
+  const pintarOperacion = {
     descripción: inputDescripcion.value,
     monto: inputMonto.value,
     tipo: inputTipo.value,
     categoría: inputCategoria.value,
     fecha: inputFecha.value,
   }
-  operaciones.push(nuevaOperacion)
+  operaciones.push(pintarOperacion)
   localStorage.setItem('operaciones', JSON.stringify(operaciones))
-  operacionesLocalStorage = JSON.parse(localStorage.getItem('operaciones'))
   escribirOperacion(operacionesLocalStorage)
+  
+  //Volver a Balance
+  balance.style.display = 'block'
+  nuevaOperacion.style.display = 'none'
 })
 
 let operacionesLocalStorage = JSON.parse(localStorage.getItem('operaciones'))
-escribirOperacion(operacionesLocalStorage)
+escribirOperacion(operaciones)
