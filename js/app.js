@@ -5,18 +5,30 @@ ____________________________________________________________________
 
 //Botones
 const btnBalance = document.getElementById('btn-balance');
+const btnNuevaOperacion = document.getElementById('btn-nuevaoperacion');
+const btnCancel = document.getElementById('btn-cancel');
+const btnAgregar = document.getElementById('btn-agregar');
+
 const btnCategorias = document.getElementById('btn-categorias');
 const btnReportes = document.getElementById('btn-reportes');
 
+
 //Páginas
 const balance = document.getElementById('balance');
+const nuevaOperacion = document.getElementById('nueva-operacion');
+const editarOperacion = document.getElementById('editar-operacion');
 const categorias = document.getElementById('categorias');
 const reportes = document.getElementById('reportes');
-const nuevaOperacion = document.getElementById('nueva-operacion');
 
-const btnNuevaOperacion = document.getElementById('btn-nuevaoperacion');
+//Inputs
+const inputDescripcion = document.getElementById('input-descripcion');
+const inputMonto = document.getElementById('input-monto');
+const inputTipo = document.getElementById('input-tipo');
+const inputCategoria = document.getElementById('input-categoria');
 const inputFecha = document.getElementById('input-fecha');
 
+//Pintar formulario
+const escribir= document.getElementById('escribir-operacion');
 
 /*
                             Funcionalidades
@@ -30,6 +42,9 @@ btnBalance.addEventListener('click', () => {
   balance.style.display = 'block'
   categorias.style.display = 'none'
   reportes.style.display = 'none'
+  nuevaOperacion.style.display = 'none'
+  editarOperacion.style.display = 'none'
+
 })
 
 //Botón categorias
@@ -37,6 +52,8 @@ btnCategorias.addEventListener('click', () => {
   balance.style.display = 'none'
   categorias.style.display = 'block'
   reportes.style.display = 'none'
+  nuevaOperacion.style.display = 'none'
+  editarOperacion.style.display = 'none'
 })
 
 //Botón reportes
@@ -44,26 +61,73 @@ btnReportes.addEventListener('click', () => {
   balance.style.display = 'none'
   categorias.style.display = 'none'
   reportes.style.display = 'block'
+  nuevaOperacion.style.display = 'none'
+  editarOperacion.style.display = 'none'
 })
 
-
-
+//Botón nueva operación
 btnNuevaOperacion.addEventListener('click', () => {
   balance.style.display = 'none'
-  
+  nuevaOperacion.style.display = 'block'
 })
 
-/*
+//Botón cancelar
+btnCancel.addEventListener('click', () => {
+  balance.style.display = 'block'
+  nuevaOperacion.style.display = 'none'
+})
+
+//--------------Input FECHA-------------------
+
+//Input Fecha
 const day = new Date().getDate();
 let month = new Date().getMonth() + 1;
 const year = new Date().getFullYear();
 
-console.log(new Date().getDate());
-console.log(new Date().getMonth() + 1);
-console.log(new Date().getFullYear());
+inputFecha.value = `${year}-${month < 10 ? '0' + month: month}-${day < 10 ? '0' + day: day}`
 
-console.log(new Date().getMonth() < 10);
 
-inputFecha.value = `${year}-${month < 10 ? '0' + month: month}-${day}`
-// yyyy-MM-dd
-// yyyy-M-dd*/
+//--------------Sumar operaciones-------------------
+
+let operaciones = [];
+
+
+const escribirOperacion = (operaciones) => {
+  escribir.innerHTML = '';
+  for (let index = 0; index < operaciones.length; index++) {
+    const caja =
+    `<div =${operaciones[index].id}>
+      <span>${operaciones[index].descripción} </span>
+      <span>${operaciones[index].monto} </span>
+      <span>${operaciones[index].tipo} </span>
+      <span>${operaciones[index].categoría} </span>
+      <span>${operaciones[index].fecha} </span>
+      <a>Editar</a>
+      <a>Eliminar</a>
+    </div>`
+
+    escribir.insertAdjacentHTML('beforeend', caja)
+  }
+}
+
+//Botón agregar operación
+btnAgregar.addEventListener('click', () => {
+  operaciones = JSON.parse(localStorage.getItem('operaciones'))
+  const pintarOperacion = {
+    descripción: inputDescripcion.value,
+    monto: inputMonto.value,
+    tipo: inputTipo.value,
+    categoría: inputCategoria.value,
+    fecha: inputFecha.value,
+  }
+  operaciones.push(pintarOperacion)
+  localStorage.setItem('operaciones', JSON.stringify(operaciones))
+  escribirOperacion(operacionesLocalStorage)
+  
+  //Volver a Balance
+  balance.style.display = 'block'
+  nuevaOperacion.style.display = 'none'
+})
+
+let operacionesLocalStorage = JSON.parse(localStorage.getItem('operaciones'))
+escribirOperacion(operaciones)
