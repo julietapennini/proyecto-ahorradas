@@ -27,8 +27,9 @@ const inputTipo = document.getElementById('input-tipo');
 const inputCategoria = document.getElementById('input-categoria');
 const inputFecha = document.getElementById('input-fecha');
 
+
 //Pintar formulario
-const escribir= document.getElementById('escribir-operacion');
+const pintarEnBalance = document.getElementById('escribir-operacion');
 
 /*
                             Funcionalidades
@@ -93,7 +94,9 @@ let operaciones = [];
 
 
 const escribirOperacion = (operaciones) => {
-  escribir.innerHTML = '';
+
+  pintarEnBalance.innerHTML = '';
+
   for (let index = 0; index < operaciones.length; index++) {
     const caja =
     `<div =${operaciones[index].id}>
@@ -106,13 +109,14 @@ const escribirOperacion = (operaciones) => {
       <a>Eliminar</a>
     </div>`
 
-    escribir.insertAdjacentHTML('beforeend', caja)
+    pintarEnBalance.insertAdjacentHTML('beforeend', caja)
   }
 }
 
 //Botón agregar operación
-btnAgregar.addEventListener('click', () => {
-  operaciones = JSON.parse(localStorage.getItem('operaciones'))
+btnAgregar.addEventListener('click', (e) => {
+  e.preventDefault() 
+
   const pintarOperacion = {
     descripción: inputDescripcion.value,
     monto: inputMonto.value,
@@ -120,14 +124,15 @@ btnAgregar.addEventListener('click', () => {
     categoría: inputCategoria.value,
     fecha: inputFecha.value,
   }
+
   operaciones.push(pintarOperacion)
   localStorage.setItem('operaciones', JSON.stringify(operaciones))
-  escribirOperacion(operacionesLocalStorage)
-  
+  operaciones = JSON.parse(localStorage.getItem('operaciones'))
+  escribirOperacion(operaciones)
+
   //Volver a Balance
   balance.style.display = 'block'
-  nuevaOperacion.style.display = 'none'
-})
+  nuevaOperacion.style.display = 'none'  
+});
 
-let operacionesLocalStorage = JSON.parse(localStorage.getItem('operaciones'))
-escribirOperacion(operaciones)
+JSON.parse(localStorage.getItem('operaciones')) == null ? escribirOperacion(operaciones) : escribirOperacion(JSON.parse(localStorage.getItem('operaciones')))
