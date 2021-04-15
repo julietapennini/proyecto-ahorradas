@@ -136,3 +136,5 @@ btnAgregar.addEventListener('click', (e) => {
 });
 
 JSON.parse(localStorage.getItem('operaciones')) == null ? escribirOperacion(operaciones) : escribirOperacion(JSON.parse(localStorage.getItem('operaciones')))
+
+//prueba
