@@ -111,42 +111,41 @@
                                                 FILTERS
           *************************************************************************************
           ---->
-          <section class="tile is-child box">
-            <section class="column">
+          <section class="box">
+            <section class="columns is-vcentered">
+              <div class="column">
+                <span class="title has-text-weight-bold mb-4">Filtros</span>
+              </div>
 
-              <section class="columns is-vcentered">
-                <span class="title is-4 has-text-weight-bold mb-4">Filtros</span>
-                <span class="column subtitle has-text-right is-size-6 has-text-link">Ocultar filtros</span>
+              <div class="column subtitle has-text-right is-size-6">
+                <a href="#" id="ocultar-filtros">
+                  Ocultar filtros
+                </a>
+              </div>
+            </section>
+
+            <section id="filtros">
+              <section class="field">
+                <label for="tipo" class="label">Tipo</label>
+                <article class="control">
+                  <article class="select is-fullwidth">
+                    <select id="tipo-select">
+                      <option>Todos</option>
+                      <option>Gasto</option>
+                      <option>Ganancia</option>
+                    </select>
+                  </article>
+                </article>
               </section>
 
-
               <section class="field">
-              <label for="tipo" class="label">Tipo</label>
-              <article class="control">
-                <article class="select is-fullwidth">
-                  <select id="tipo">
-                    <option>Todos</option>
-                    <option>Gasto</option>
-                    <option>Ganancia</option>
-                  </select>
+                <label for="tipo" class="label">Categoría</label>
+                <article class="control">
+                  <article class="select is-fullwidth">
+                    <select id="categoria-select">
+                    </select>
+                  </article>
                 </article>
-              </article>
-              </section>
-
-              <section class="field">
-              <label for="tipo" class="label">Categoría</label>
-              <article class="control">
-                <article class="select is-fullwidth">
-                  <select id="tipo">
-                    <option>Todas</option>
-                    <option>Servicios</option>
-                    <option>Salidas</option>
-                    <ption>Educación</option>
-                    <option>Transporte</option>
-                    <option>Trabajo</option>
-                  </select>
-                </article>
-              </article>
               </section>
 
               <section class="field">
@@ -160,7 +159,7 @@
                 <label class="label">Ordenar por</label>
                   <article class="control">
                       <article class="select is-fullwidth">
-                        <select id="tipo">
+                        <select id="ordenar-select">
                           <option>Más reciente</option>
                           <option>Menos reciente</option>
                           <option>Mayor monto</option>
@@ -171,9 +170,9 @@
                       </article>
                   </article>
               </section>
-
             </section>
-          </section>
+
+        </section>
         <!-------------------------------Vertical section END-------------------------------------->
         </div>
 
@@ -400,19 +399,17 @@
               </div>
             </div>
           </div>
-           <div class="field">
-            <label for="categoria" class="label">Categoría</label>
-            <div class="control">
-              <div class="select is-fullwidth">
-                <select id="categoria">
-                  <option>Salidas</option>
-                  <option>Educación</option>
-                  <option>Transporte</option>
-                  <option>Trabajo</option>
+
+          <section class="field">
+            <label for="tipo" class="label">Categoría</label>
+            <article class="control">
+              <article class="select is-fullwidth">
+                <select id="categoria-operacion-select">
                 </select>
-              </div>
-            </div>
-          </div>
+              </article>
+            </article>
+          </section>
+          
           <div class="field">
             <label for="fecha" class="label">Fecha</label>
             <input id="input-fecha" class="input" type="date" name="label">         
@@ -434,8 +431,187 @@
       </div>
     </div>
 
-
+    <!-------
+                                                              EDITAR OPERACIÓN
+    ____________________________________________________________________________________________________________________________________
+    -------->
+   
+    <div class="container pt-5 hidden" id="editar-operacion">
+      <section class="container">
+        <section class="columns is-multiline">
+          <article class="column is-8-widescreen is-10-desktop is-offset-2-widescreen is-offset-1-desktop">
+            <div class="box">
+              <h2 class="title is-size-2 has-text-weight-bold">
+                Editar operación
+              </h2>
+              <label class="label mt-6" for="editar-categoria-input">Nombre</label>
+              <div class="field is-grouped">
+                <div class="control is-expanded">
+                  <input class="input" type="text" name="" id="editar-categoria-input">
+                </div>
+              </div>
+              <div class="buttons mt-6">
+                <button class="button is-light" id="cancelar-categoria-boton">
+                  Cancelar
+                </button>
+                <button class="button is-success" id="editar-categoria-boton">
+                  Editar
+                </button>
+              </div>
+            </div>
+          </article>
+        </section>
+      </section>
+    </div>
     
+    <!-------
+                                                              CATEGORÍAS
+    ____________________________________________________________________________________________________________________________________
+    -------->
+    <div class="container pt-5 hidden" id="categorias">
+      <section class="columns is-multiline">
+        <section class="column is-8-widescreen is-10-desktop is-offset-2-widescreen is-offset-1-desktop">
+          <article class="box">
+            <h2 class="title is-size-2 has-text-weight-bold">Categorías</h2>
+            
+            <label class="label mt-6" for="categoria-input">Nombre</label>
+
+            <div class="field is-grouped">
+              <div class="control is-expanded">
+                <input class="input" type="text" name="" id="categoria-input">
+              </div>
+
+              <div class="control">
+                <button class="button is-primary" id="agregar-categoria-boton" onclick="addCategories()">
+                  Agregar
+                </button>
+              </div>
+            </div>
+
+              <div class="mt-6" id="lista-categorias"><div class="mb-3">
+              <div class="columns is-vcentered is-mobile">
+               <div class="column">
+                   <span class="tag is-primary is-light">Comida</span>
+               </div>
+               <div class="column is-narrow has-text">
+                   <a href="#" class="mr-4 is-size-7 edit-link">Editar</a>
+                   <a href="#" class="is-size-7 delete-link">Eliminar</a>
+                   <p></p>
+               </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <div class="columns is-vcentered is-mobile">
+               <div class="column">
+                   <span class="tag is-primary is-light">Servicios</span>
+               </div>
+               <div class="column is-narrow has-text">
+                   <a href="#" class="mr-4 is-size-7 edit-link">Editar</a>
+                   <a href="#" class="is-size-7 delete-link">Eliminar</a>
+                   <p></p>
+               </div>
+              </div>
+            </div>
+            <div class="mb-3">
+           <div class="columns is-vcentered is-mobile">
+              <div class="column">
+                   <span class="tag is-primary is-light">Salidas</span>
+              </div>
+              <div class="column is-narrow has-text">
+                   <a href="#" class="mr-4 is-size-7 edit-link">Editar</a>
+                   <a href="#" class="is-size-7 delete-link">Eliminar</a>
+                   <p></p>
+              </div>
+           </div>
+            </div>
+            <div class="mb-3">
+            <div class="columns is-vcentered is-mobile">
+              <div class="column">
+                   <span class="tag is-primary is-light">Educación</span>
+              </div>
+              <div class="column is-narrow has-text">
+                   <a href="#" class="mr-4 is-size-7 edit-link">Editar</a>
+                   <a href="#" class="is-size-7 delete-link">Eliminar</a>
+                   <p></p>
+              </div>
+            </div>
+            </div>
+            <div class="mb-3">
+            <div class="columns is-vcentered is-mobile">
+              <div class="column">
+                   <span class="tag is-primary is-light">Transporte</span>
+              </div>
+              <div class="column is-narrow has-text">
+                   <a href="#" class="mr-4 is-size-7 edit-link">Editar</a>
+                   <a href="#" class="is-size-7 delete-link">Eliminar</a>
+                   <p></p>
+              </div>
+            </div>
+            </div>
+            <div class="mb-3">
+            <div class="columns is-vcentered is-mobile">
+              <div class="column">
+                   <span class="tag is-primary is-light">Trabajo</span>
+              </div>
+              <div class="column is-narrow has-text">
+                   <a href="#" class="mr-4 is-size-7 edit-link">Editar</a>
+                   <a href="#" class="is-size-7 delete-link">Eliminar</a>
+                   <p></p>
+              </div>
+            </div>
+            </div>
+            </div>
+          </article>
+        </section>
+      </section>
+    </div>
+
+    <!-------
+                                                              REPORTES
+    ____________________________________________________________________________________________________________________________________
+    -------->
+    <div class="container pt-5 hidden" id="reportes">
+      <div class="box column is-8-widescreen is-10-desktop is-offset-2-widescreen is-offset-1-desktop">
+        <h2 class="title is-size-2 has-text-weight-bold">Reportes</h2>
+      </div>
+      
+    </div>
+
+        <!-------
+                                                            EDITAR CATEGORÍA
+    ____________________________________________________________________________________________________________________________________
+    -------->
+    <div class="container pt-5 hidden" id="editar-categoria">
+      <section class="columns is-multiline">
+        <div class="column is-8-widescreen is-10-desktop is-offset-2-widescreen is-offset-1-desktop">
+          <article class="box">          
+            <h2 class="title is-size-2 has-text-weight-bold">Editar categoría</h2>
+          
+            <label class="label mt-6" for="categoria-input">Nombre</label>
+
+            <div class="field is-grouped">
+              <div class="control is-expanded">
+                  <input class="input" type="text" name="" id="input-editar-categoria">
+              </div>              
+            </div>
+
+            <div class="field is-grouped is-grouped-right">
+              <p class="control">
+              </p>
+              <a class="button is-light" id="btn-cancel-edit-category">
+                Cancelar
+              </a>
+              <p class="control">
+                <a class="button is-primary" id="btn-edit-edit-category">
+                  Editar
+                </a>
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+
   </main>
 
   <script src="./js/app.js"></script>
