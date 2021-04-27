@@ -93,7 +93,6 @@ inputFecha.value = `${year}-${month < 10 ? '0' + month: month}-${day < 10 ? '0' 
 
 let operaciones = [];
 
-
 const escribirOperacion = (operaciones) => {
 
   pintarEnBalance.innerHTML = '';
