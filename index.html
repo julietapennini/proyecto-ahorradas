@@ -112,42 +112,42 @@
                                                 Filtros
           *************************************************************************************
           ---->
-          <section class="tile is-child box">
-            <section class="column">
+          <section class="box">
 
-              <section class="columns is-vcentered">
+            <section class="columns is-vcentered">
+              <div class="column">
                 <span class="title has-text-weight-bold mb-4">Filtros</span>
-                <span class="column subtitle has-text-right is-size-6 has-text-link">Ocultar filtros</span>
+              </div>
+
+              <div class="column subtitle has-text-right is-size-6">
+                <a href="#" id="ocultar-filtros">
+                  Ocultar filtros
+                </a>
+              </div>
+            </section>
+
+            <section id="filtros">
+              <section class="field">
+                <label for="tipo" class="label">Tipo</label>
+                <article class="control">
+                  <article class="select is-fullwidth">
+                    <select id="tipo-select">
+                      <option>Todos</option>
+                      <option>Gasto</option>
+                      <option>Ganancia</option>
+                    </select>
+                  </article>
+                </article>
               </section>
 
-
               <section class="field">
-              <label for="tipo" class="label">Tipo</label>
-              <article class="control">
-                <article class="select is-fullwidth">
-                  <select id="tipo">
-                    <option>Todos</option>
-                    <option>Gasto</option>
-                    <option>Ganancia</option>
-                  </select>
+                <label for="tipo" class="label">Categoría</label>
+                <article class="control">
+                  <article class="select is-fullwidth">
+                    <select id="categoria-select">
+                    </select>
+                  </article>
                 </article>
-              </article>
-              </section>
-
-              <section class="field">
-              <label for="tipo" class="label">Categoría</label>
-              <article class="control">
-                <article class="select is-fullwidth">
-                  <select id="tipo">
-                    <option>Todas</option>
-                    <option>Servicios</option>
-                    <option>Salidas</option>
-                    <ption>Educación</option>
-                    <option>Transporte</option>
-                    <option>Trabajo</option>
-                  </select>
-                </article>
-              </article>
               </section>
 
               <section class="field">
@@ -161,7 +161,7 @@
                 <label class="label">Ordenar por</label>
                   <article class="control">
                       <article class="select is-fullwidth">
-                        <select id="tipo">
+                        <select id="ordenar-select">
                           <option>Más reciente</option>
                           <option>Menos reciente</option>
                           <option>Mayor monto</option>
@@ -172,9 +172,9 @@
                       </article>
                   </article>
               </section>
-
             </section>
-          </section>
+
+        </section>
         <!-------------------------------Vertical section END-------------------------------------->
         </div>
 
@@ -259,19 +259,16 @@
             </div>
 
           </div>
-           <div class="field">
-            <label for="categoria" class="label">Categoría</label>
-            <div class="control">
-              <div class="select is-fullwidth">
-                <select id="input-categoria">
-                  <option>Salidas</option>
-                  <option>Educación</option>
-                  <option>Transporte</option>
-                  <option>Trabajo</option>
+
+          <section class="field">
+            <label for="tipo" class="label">Categoría</label>
+            <article class="control">
+              <article class="select is-fullwidth">
+                <select id="categoria-operacion-select">
                 </select>
-              </div>
-            </div>
-          </div>
+              </article>
+            </article>
+          </section>
 
           <div class="field">
             <label for="fecha" class="label">Fecha</label>
@@ -347,7 +344,7 @@
               </div>
 
               <div class="control">
-                <button class="button is-primary" id="agregar-categoria-boton">
+                <button class="button is-primary" id="agregar-categoria-boton" onclick="addCategories()">
                   Agregar
                 </button>
               </div>

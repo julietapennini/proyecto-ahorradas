@@ -137,4 +137,17 @@ btnAgregar.addEventListener('click', (e) => {
 
 JSON.parse(localStorage.getItem('operaciones')) == null ? escribirOperacion(operaciones) : escribirOperacion(JSON.parse(localStorage.getItem('operaciones')))
 
-//prueba
+
+//Botón ocultar/mostrar filtros
+const ocultarFiltros = document.getElementById('ocultar-filtros');
+const filtros = document.getElementById('filtros')
+
+ocultarFiltros.addEventListener('click', () => {
+  if (ocultarFiltros.innerText === 'Ocultar filtros') {
+    ocultarFiltros.innerText = 'Mostrar filtros'
+    filtros.classList.add('is-hidden')
+  } else {
+    ocultarFiltros.innerText = 'Ocultar filtros'
+    filtros.classList.remove('is-hidden')
+  }
+});
