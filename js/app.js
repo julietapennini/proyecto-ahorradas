@@ -121,7 +121,7 @@ btnAgregar.addEventListener('click', (e) => {
     descripción: inputDescripcion.value,
     monto: inputMonto.value,
     tipo: inputTipo.value,
-    categoría: inputCategoria.value,
+    categoría: selectCategoriasOperacion.value,
     fecha: inputFecha.value,
   }
 
@@ -279,3 +279,5 @@ const main = () => {
 };
 
 main();
+
+//prueba de nuevo, de nuevo
