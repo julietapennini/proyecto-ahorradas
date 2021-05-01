@@ -28,6 +28,9 @@ const inputTipo = document.getElementById('input-tipo');
 const inputCategoria = document.getElementById('input-categoria');
 const inputFecha = document.getElementById('input-fecha');
 
+//Inputs filtros
+const inputFechaFiltros = document.getElementById('input-fecha-filtros');
+
 
 //Pintar formulario
 const pintarEnBalance = document.getElementById('escribir-operacion');
@@ -37,7 +40,7 @@ const pintarEnBalance = document.getElementById('escribir-operacion');
 ____________________________________________________________________
 */
 
-//--------------Botones que llevan a nueva página-------------------
+//--------------Botones-------------------
 
 //Botón balance
 btnBalance.addEventListener('click', () => {
@@ -86,10 +89,15 @@ const day = new Date().getDate();
 let month = new Date().getMonth() + 1;
 const year = new Date().getFullYear();
 
-inputFecha.value = `${year}-${month < 10 ? '0' + month: month}-${day < 10 ? '0' + day: day}`
+inputFecha.value = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day: day}`;
+inputFechaFiltros.value = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day: day}`;
 
 
-//--------------Sumar operaciones-------------------
+/*
+ *************************************************************************************
+                                    Operaciones
+ *************************************************************************************
+*/
 
 let operaciones = [];
 
@@ -99,14 +107,15 @@ const escribirOperacion = (operaciones) => {
 
   for (let index = 0; index < operaciones.length; index++) {
     const caja =
-    `<div =${operaciones[index].id}>
-      <span>${operaciones[index].descripción} </span>
-      <span>${operaciones[index].monto} </span>
-      <span>${operaciones[index].tipo} </span>
-      <span>${operaciones[index].categoría} </span>
-      <span>${operaciones[index].fecha} </span>
-      <a>Editar</a>
-      <a>Eliminar</a>
+    `<div id="${operaciones[index].id}" class="columns">
+      <div class="column is-3 estilo-descripcion">${operaciones[index].descripcion}</div>
+      <div class="column is-2 estilo-categoria">${operaciones[index].categoria[0].name}</div>
+      <div class="column is-3 has-text-right">${operaciones[index].fecha}</div>
+      <div class="column is-2 has-text-right ${operaciones[index].tipo === 'ganancia' ? 'estilo-ganancia' : 'estilo-gasto'}">${operaciones[index].tipo === 'ganancia' ? '+' : '-'}${operaciones[index].monto}</div>
+      <div class="column is-2 has-text-right">
+        <a class="editar-op">Editar</a>
+        <a class="editar-op">Eliminar</a>
+      </div>
     </div>`
 
     pintarEnBalance.insertAdjacentHTML('beforeend', caja)
@@ -118,10 +127,10 @@ btnAgregar.addEventListener('click', (e) => {
   e.preventDefault() 
 
   const pintarOperacion = {
-    descripción: inputDescripcion.value,
+    descripcion: inputDescripcion.value,
     monto: inputMonto.value,
     tipo: inputTipo.value,
-    categoría: selectCategoriasOperacion.value,
+    categoria: selectCategoriasOperacion.value,
     fecha: inputFecha.value,
   }
 
@@ -137,8 +146,14 @@ btnAgregar.addEventListener('click', (e) => {
 
 JSON.parse(localStorage.getItem('operaciones')) == null ? escribirOperacion(operaciones) : escribirOperacion(JSON.parse(localStorage.getItem('operaciones')))
 
+/*
+ *************************************************************************************
+                                    Filtros
+ *************************************************************************************
+*/
 
 //Botón ocultar/mostrar filtros
+
 const ocultarFiltros = document.getElementById('ocultar-filtros');
 const filtros = document.getElementById('filtros')
 
@@ -152,6 +167,93 @@ ocultarFiltros.addEventListener('click', () => {
   }
 });
 
+
+// filtros "Tipo" y "Categoría"
+/*let filtrosOperaciones = [...operaciones];
+
+const filtros = (e) =>{
+  let atr = '';
+  if(e.target.id === 'input-tipo'){
+    filtrosOperaciones = [...operaciones];
+    selectCategoriasOperacion.value = 'todos';
+    atr = 'tipo';
+  } else {
+    inputTipo.value = 'todos';
+    atr = 'categoría'
+  }
+
+filtrosOperaciones = filtrosOperaciones.filter(operaciones => operaciones[atr] === e.target.value);
+e.target.value === 'todos' ? escribirOperacion (operaciones) : escribirOperacion (filtrosOperaciones);
+}
+
+selectCategoriasOperacion.addEventListener('change', (e) => {filtros(e)});
+inputTipo.addEventListener('change', (e) => {filtros(e)});
+*/
+// Filtros fecha
+
+inputFechaFiltros.addEventListener('change', (e) =>{
+  let resultado = operaciones.filter(operaciones => operaciones.fecha === e.target.value);
+  escribirOperacion(resultado);
+})
+
+// Ordenar por
+const ordernarSelect = document.getElementById('ordenar-select');
+
+ordernarSelect.addEventListener('change', ()=>{
+  let ordernarPor = [...operaciones];
+
+  if(ordernarSelect.value === 'a-z'){
+    ordernarPor.sort((a, b) => a.inputDescripcion > b.inputDescripcion ? 1 : -1)
+  }
+
+  if(ordernarSelect.value === 'z-a'){
+    ordernarPor.sort((a, b) => a.inputDescripcion < b.inputDescripcion ? 1 : -1)
+  }
+
+  if(ordernarSelect.value === 'mas-reciente'){
+    ordernarPor.sort((a, b) => a.inputFecha < b.inputFecha ? 1 : -1)
+  }
+
+  if(ordernarSelect.value === 'menos-reciente'){
+    ordernarPor.sort((a, b) => a.inputFecha > b.inputFecha ? 1 : -1)
+  }
+
+  if(ordernarSelect.value === 'mayor-monto'){
+    ordernarPor.sort((a, b) => Number(a.inputMonto) < Number(b.inputMonto) ? 1 : -1)
+  }
+
+  if(ordernarSelect.value === 'menos-monto'){
+    ordernarPor.sort((a, b) => Number(a.inputMonto) > Number(b.inputMonto) ? 1 : -1)
+  }
+
+  escribirOperacion(ordernarPor)
+})
+
+/*
+ *************************************************************************************
+                                    Balance
+ *************************************************************************************
+*/
+
+/*const earningsBalance = document.getElementById('earnings');
+const expensesBalance = document.getElementById('expenses');
+const balanceBalance = document.getElementById('balance');
+
+const balance = () =>{
+  let earnings = operations.filter(element => element.type === 'gain').reduce((inicial, current) => Number(inicial) + Number(current.amount), 0);
+  let expenses = operations.filter(element => element.type === 'expense').reduce((inicial, current) => Number(inicial) + Number(current.amount), 0);
+
+  earningsBalance.innerHTML = `+$${!profits ? 0 : earnings}`;
+  expensesBalance.innerHTML = `-$${!spending ? 0 : expenses}`;
+
+  balanceBalance.innerHTML = `$${earnings - expenses}`;
+}*/
+
+/*
+ *************************************************************************************
+                                    Categorías
+ *************************************************************************************
+*/
 
 //Añadir categoria
 const categoriaInput = document.getElementById('categoria-input');
@@ -264,10 +366,10 @@ const setValueCategoriesSelect = () => {
   selectCategorias.innerHTML = `<option value="Todas">Todas</option>`;
  
   for (let i = 0; i < categories.length; i++) {
-    const categoria = `<option value="${categories[i].id}">${categories[i].name}</option>`
+    const filtroCategoria = `<option value="${categories[i].id}">${categories[i].name}</option>`
     
-    selectCategorias.insertAdjacentHTML("beforeend", categoria);
-    selectCategoriasOperacion.insertAdjacentHTML("beforeend", categoria);
+    selectCategorias.insertAdjacentHTML("beforeend", filtroCategoria);
+    selectCategoriasOperacion.insertAdjacentHTML("beforeend", filtroCategoria);
   };  
 };
 
@@ -279,5 +381,3 @@ const main = () => {
 };
 
 main();
-
-//prueba de nuevo, de nuevo

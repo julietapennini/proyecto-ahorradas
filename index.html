@@ -127,6 +127,7 @@
               </section>
 
               <section id="filtros">
+
                 <section class="field">
                   <label for="tipo" class="label">Tipo</label>
                   <article class="control">
@@ -153,7 +154,7 @@
                 <section class="field">
                   <label class="label">Desde</label>
                   <article class="control">
-                    <input id="input-fecha" class="input" type="date" name="label">
+                    <input id="input-fecha-filtros" class="input" type="date" name="label">
                   </article>
                 </section>  
 
@@ -162,16 +163,17 @@
                     <article class="control">
                         <article class="select is-fullwidth">
                           <select id="ordenar-select">
-                            <option>Más reciente</option>
-                            <option>Menos reciente</option>
-                            <option>Mayor monto</option>
-                            <option>Menor monto</option>
-                            <option>A/Z</option>
-                            <option>Z/A</option>
+                            <option value="mas-reciente">Más reciente</option>
+                            <option value="menos-reciente">Menos reciente</option>
+                            <option value="mayor-monto">Mayor monto</option>
+                            <option value="menor-monto">Menor monto</option>
+                            <option value="a-z">A/Z</option>
+                            <option value="z-a">Z/A</option>
                           </select>
                         </article>
                     </article>
                 </section>
+
               </section>
 
           </section>
@@ -252,8 +254,9 @@
             <div class="control" >
               <div class="select is-fullwidth">
                 <select id="input-tipo">
-                  <option>Gasto</option>
-                  <option>Ganancia</option>
+                  <option value="gasto">Gasto</option>
+                  <option value="ganancia">Ganancia</option>
+                  <option value="todos">Todos</option>
                 </select>
               </div>
             </div>
