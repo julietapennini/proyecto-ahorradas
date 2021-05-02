@@ -69,18 +69,12 @@
                                                               BALANCE
     ____________________________________________________________________________________________________________________________________
     -------->
-    <div class="container pt-5" id="balance">
+    <div class="container pt-5" id="pagina-balance">
       <div class="tile is-ancestor">
 
         <div class="tile is-vertical is-3 is-parent">
           <!-------------------------------Sección vertical-------------------------------------->
-          <!---
-          *************************************************************************************
-                                                Balance
-          *************************************************************************************
-          ---->
-        
-
+          
           <!---
           *************************************************************************************
                                                  BALANCE
@@ -201,8 +195,18 @@
               <button class="button is-primary" id="btn-nuevaoperacion">+ Nueva operación</button>
               </div>
             </div>
-            
-            <div id="tabla-operaciones">
+
+            <div id="ver-sin-operaciones">
+              <div class="my-6 py-6">
+                <figure class="image">
+                  <img src="img/wallet.svg">
+                </figure>
+                <h4 class="is-size-4 has-text-centered mt-6 mb-4 has-text-weight-semibold">Sin resultados</h4>
+                <p class="has-text-centered">Cambia los filtros o agrega operaciones</p>
+              </div>
+            </div>
+
+            <div class="is-hidden"id="tabla-operaciones">
               <div class="columns has-text-weight-semibold is-hidden-mobile">
                 <div class="column is-3">Descripción</div>
                 <div class="column is-3">Categorías</div>
@@ -212,15 +216,6 @@
               </div>
               <div id="escribir-operacion"></div>
             </div>
-
-            <div class="my-6 py-6" id="info-balance">
-              <figure class="image">
-                <img src="img/wallet.svg">
-              </figure>
-              <h4 class="is-size-4 has-text-centered mt-6 mb-4 has-text-weight-semibold">Sin resultados</h4>
-              <p class="has-text-centered">Cambia los filtros o agrega operaciones</p>
-            </div>
-
           </div>
           <!-------------------------------------Horizontal section END-------------------------------------->
         </div>
@@ -232,7 +227,7 @@
                                                               NUEVA OPERACIÓN
     ____________________________________________________________________________________________________________________________________
     -------->
-    <div class="container pt-5 hidden" id="nueva-operacion">
+    <div class="container pt-5 hidden" id="pagina-nueva-operacion">
 
       <div class="columns">
         <div class="column is-8 is-offset-2">
@@ -435,7 +430,7 @@
                                                               REPORTES
     ____________________________________________________________________________________________________________________________________
     -------->
-    <div class="container pt-5 hidden" id="reportes">
+    <div class="container pt-5 hidden" id="pagina-reportes">
       <div class="box column is-8-widescreen is-10-desktop is-offset-2-widescreen is-offset-1-desktop">
         <h2 class="title is-size-2 has-text-weight-bold">Reportes</h2>
       </div>
