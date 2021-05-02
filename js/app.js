@@ -17,7 +17,7 @@ const btnReportes = document.getElementById('btn-reportes');
 const balance = document.getElementById('balance');
 const nuevaOperacion = document.getElementById('nueva-operacion');
 const editarOperacion = document.getElementById('editar-operacion');
-const categorias = document.getElementById('categorias');
+const paginaCategorias = document.getElementById('pagina-categorias');
 const reportes = document.getElementById('reportes');
 const editarCategoria = document.getElementById('editar-categoria');
 
@@ -28,13 +28,27 @@ const inputTipo = document.getElementById('input-tipo');
 const inputCategoria = document.getElementById('input-categoria');
 const inputFecha = document.getElementById('input-fecha');
 
-//Inputs filtros
+//Filtros
 const inputFechaFiltros = document.getElementById('input-fecha-filtros');
 
 
 //Pintar formulario
 const pintarEnBalance = document.getElementById('escribir-operacion');
 
+//Categorias
+const categoriaInput = document.getElementById('categoria-input');
+const agregarCategoria = document.getElementById('agregar-categoria-boton');
+const listaCategorias = document.getElementById('lista-categorias');
+const selectCategorias = document.getElementById('categoria-select');
+const inputEditCategoria = document.getElementById('input-editar-categoria');
+const btnCancelEditarCategoria = document.getElementById('btn-cancel-edit-category');
+const btnEditarCategoria = document.getElementById('btn-edit-edit-category');
+const selectCategoriasOperacion = document.getElementById('categoria-operacion-select');
+
+//Balance
+const balanceGanancia = document.getElementById("balance-ganancias");
+const balanceGasto = document.getElementById("balance-gastos");
+const balanceTotal = document.getElementById("balance-total");
 /*
                             Funcionalidades
 ____________________________________________________________________
@@ -45,7 +59,7 @@ ____________________________________________________________________
 //Botón balance
 btnBalance.addEventListener('click', () => {
   balance.style.display = 'block'
-  categorias.style.display = 'none'
+  paginaCategorias.style.display = 'none'
   reportes.style.display = 'none'
   nuevaOperacion.style.display = 'none'
   editarOperacion.style.display = 'none'
@@ -55,7 +69,7 @@ btnBalance.addEventListener('click', () => {
 //Botón categorias
 btnCategorias.addEventListener('click', () => {
   balance.style.display = 'none'
-  categorias.style.display = 'block'
+  paginaCategorias.style.display = 'block'
   reportes.style.display = 'none'
   nuevaOperacion.style.display = 'none'
   editarOperacion.style.display = 'none'
@@ -64,7 +78,7 @@ btnCategorias.addEventListener('click', () => {
 //Botón reportes
 btnReportes.addEventListener('click', () => {
   balance.style.display = 'none'
-  categorias.style.display = 'none'
+  paginaCategorias.style.display = 'none'
   reportes.style.display = 'block'
   nuevaOperacion.style.display = 'none'
   editarOperacion.style.display = 'none'
@@ -109,7 +123,7 @@ const escribirOperacion = (operaciones) => {
     const caja =
     `<div id="${operaciones[index].id}" class="columns">
       <div class="column is-3 estilo-descripcion">${operaciones[index].descripcion}</div>
-      <div class="column is-2 estilo-categoria">${operaciones[index].categoria[0].name}</div>
+      <div class="column is-2 estilo-categoria">${operaciones[index].categoria}</div>
       <div class="column is-3 has-text-right">${operaciones[index].fecha}</div>
       <div class="column is-2 has-text-right ${operaciones[index].tipo === 'ganancia' ? 'estilo-ganancia' : 'estilo-gasto'}">${operaciones[index].tipo === 'ganancia' ? '+' : '-'}${operaciones[index].monto}</div>
       <div class="column is-2 has-text-right">
@@ -145,6 +159,141 @@ btnAgregar.addEventListener('click', (e) => {
 });
 
 JSON.parse(localStorage.getItem('operaciones')) == null ? escribirOperacion(operaciones) : escribirOperacion(JSON.parse(localStorage.getItem('operaciones')))
+
+/*
+ *************************************************************************************
+                                    Categorías
+ *************************************************************************************
+*/
+
+let categories = [
+  { id: 0, name: "Servicios" },
+  { id: 1, name: "Trasporte" },
+  { id: 2, name: "Educación" },
+  { id: 3, name: "Trabajo" },
+  { id: 4, name: "Comida" },
+];
+
+//Añadir categorías a local storage
+const addCategories = () => {
+  if (categoriaInput.value != "") {
+    categories.push({ id: categories.length, name: categoriaInput.value });
+    setValueCategoriesSelect();
+    categoriesFromList();
+    categoriaInput.value = "";
+  }
+  localStorage.setItem('categorias', JSON.stringify(categories))
+  categories = JSON.parse(localStorage.getItem('categorias'))
+};
+
+//Editar categorías
+let index;
+const editCategory = (category) => {
+  editarCategoria.style.display = 'block'
+  categorias.style.display = 'none'
+
+  index = categories.findIndex((e) => e.id === Number(category));
+  inputEditCategoria.value = categories[index].name
+  return index
+};
+
+//Botón editar categorías
+btnEditarCategoria.addEventListener("click", () => {
+  categories[index].name = inputEditCategoria.value;
+  localStorage.setItem("categorias", JSON.stringify(categories));
+  categoriesFromList(categories);
+  setValueCategoriesSelect(categories);
+  editarCategoria.style.display = 'none'
+  categorias.style.display = 'block'
+});
+
+
+//Eliminar categorías
+const deleteCategory = (category) => {
+  const value = categories.findIndex((e) => e.id == category);
+  if (value >= 0) {
+    categories.splice(value, 1);
+    categoriesFromList();
+    setValueCategoriesSelect();
+    localStorage.setItem("categorias", JSON.stringify(categories));    
+  };
+};
+
+//Botón eliminar categorías
+btnCancelEditarCategoria.addEventListener('click', () => {
+  editarCategoria.style.display = 'none'
+  categorias.style.display = 'block'
+});
+
+//Añadir categorías a HTML
+const categoriesFromList = () => {
+  listaCategorias.innerHTML = "";
+  tagsCategories = "";
+  categories.forEach((category) => {
+     
+    let node =
+    `<div class="mb-3">
+     <div class="columns is-vcentered is-mobile">
+      <div class="column">
+          <span class="tag is-primary is-light">${category.name}</span>
+      </div>
+      <div class="column is-narrow has-text">
+          <a href="#" class="mr-4 is-size-7 edit-link" onclick="editCategory(${category.id})">Editar</a>
+          <a href="#" class="is-size-7 delete-link" onclick="deleteCategory(${category.id})">Eliminar</a>
+          <p></p>
+      </div>
+      </div>
+    </div>`;
+
+    tagsCategories += node;
+  });
+  listaCategorias.innerHTML = tagsCategories;
+};
+
+//Imprimir categorías
+const imprimirCategorias = () => {
+  let storedList = localStorage.getItem('categorias');
+  
+  if (storedList !== null) {
+    categories = JSON.parse(storedList)
+  } 
+  return categories
+}
+imprimirCategorias()
+
+//Añadir categorías a los select de filtros y de nueva operación
+const setValueCategoriesSelect = () => {
+  selectCategoriasOperacion.innerHTML = "";
+  selectCategorias.innerHTML = `<option value="Todas">Todas</option>`;
+ 
+  for (let i = 0; i < categories.length; i++) {
+    const filtroCategoria = `<option value="${categories[i].name}">${categories[i].name}</option>`
+    
+    selectCategorias.insertAdjacentHTML("beforeend", filtroCategoria);
+    selectCategoriasOperacion.insertAdjacentHTML("beforeend", filtroCategoria);
+  };  
+};
+
+//Función de carga inicial de values y categorías
+const main = () => {
+  setValueCategoriesSelect();
+  categoriesFromList();
+  imprimirCategorias()
+};
+
+main();
+
+/*
+ *************************************************************************************
+                                    Reportes
+ *************************************************************************************
+*/
+
+//Reporte elementos
+const gananciaSumar = operaciones.some(el => el.tipo === 'ganancia');
+const gastoRestar = operaciones.some(el => el.tipo === 'gasto');
+
+
 
 /*
  *************************************************************************************
@@ -235,149 +384,51 @@ ordernarSelect.addEventListener('change', ()=>{
  *************************************************************************************
 */
 
-/*const earningsBalance = document.getElementById('earnings');
-const expensesBalance = document.getElementById('expenses');
-const balanceBalance = document.getElementById('balance');
+const balanceData = (operaciones) => {
 
-const balance = () =>{
-  let earnings = operations.filter(element => element.type === 'gain').reduce((inicial, current) => Number(inicial) + Number(current.amount), 0);
-  let expenses = operations.filter(element => element.type === 'expense').reduce((inicial, current) => Number(inicial) + Number(current.amount), 0);
+  return operaciones.reduce(
+    (balance, operacion) => {
+      if (operacion.tipo === "ganancia") {
+        return {
+          ...balance,
+          ganancia: Number(balance.ganancia) + Number(operacion.monto),
+          total: Number(balance.total) + Number(operacion.monto),
+        };
+      }
 
-  earningsBalance.innerHTML = `+$${!profits ? 0 : earnings}`;
-  expensesBalance.innerHTML = `-$${!spending ? 0 : expenses}`;
+      if (operacion.tipo === "gasto") {
+        return {
+          ...balance,
+          gasto: Number(balance.gasto) + Number(operacion.monto),
+          total: Number(balance.total) + Number(operacion.monto),
+        };
+      }
+    },
+    {
+      ganancia: 0,
+      gasto: 0,
+      total: 0,
+    }
+  );
+};
 
-  balanceBalance.innerHTML = `$${earnings - expenses}`;
-}*/
 
-/*
- *************************************************************************************
-                                    Categorías
- *************************************************************************************
-*/
+// Pintar balance
 
-//Añadir categoria
-const categoriaInput = document.getElementById('categoria-input');
-const agregarCategoria = document.getElementById('agregar-categoria-boton');
-const listaCategorias = document.getElementById('lista-categorias');
-const selectCategorias = document.getElementById('categoria-select');
-const inputEditCategoria = document.getElementById('input-editar-categoria');
-const btnCancelEditarCategoria = document.getElementById('btn-cancel-edit-category');
-const btnEditarCategoria = document.getElementById('btn-edit-edit-category');
-const selectCategoriasOperacion = document.getElementById('categoria-operacion-select');
+const balanceHTML = (operaciones) => {
+  const objBalance = balanceData(operaciones);
 
-let categories = [
-  { id: 0, name: "Servicios" },
-  { id: 1, name: "Trasporte" },
-  { id: 2, name: "Educación" },
-  { id: 3, name: "Trabajo" },
-  { id: 4, name: "Comida" },
-];
+  balanceTotal.classList.remove("has-text-danger", "has-text-success");
 
-//Añadir categorías a local storage
-const addCategories = () => {
-  if (categoriaInput.value != "") {
-    categories.push({ id: categories.length, name: categoriaInput.value });
-    setValueCategoriesSelect();
-    categoriesFromList();
-    categoriaInput.value = "";
+  if (objBalance.total > 0) {
+    balanceTotal.classList.add("has-text-success");
   }
-  localStorage.setItem('categorias', JSON.stringify(categories))
-  categories = JSON.parse(localStorage.getItem('categorias'))
+  if (objBalance.total < 0) {
+    balanceTotal.classList.add("has-text-danger");
+  }
+
+  balanceGanancia.innerHTML = `$${objBalance["ganancias"]}`;
+  balanceGasto.innerHTML = `$${objBalance["gastos"]}`;
+  balanceTotal.innerHTML = `$${objBalance["total"]}`;
 };
-
-//Editar categorías
-let index;
-const editCategory = (category) => {
-  editarCategoria.style.display = 'block'
-  categorias.style.display = 'none'
-
-  index = categories.findIndex((e) => e.id === Number(category));
-  inputEditCategoria.value = categories[index].name
-  return index
-};
-
-//Botón editar categorías
-btnEditarCategoria.addEventListener("click", () => {
-  categories[index].name = inputEditCategoria.value;
-  localStorage.setItem("categorias", JSON.stringify(categories));
-  categoriesFromList(categories);
-  setValueCategoriesSelect(categories);
-  editarCategoria.style.display = 'none'
-  categorias.style.display = 'block'
-});
-
-
-//Eliminar categorías
-const deleteCategory = (category) => {
-  const value = categories.findIndex((e) => e.id == category);
-  if (value >= 0) {
-    categories.splice(value, 1);
-    categoriesFromList();
-    setValueCategoriesSelect();
-    localStorage.setItem("categorias", JSON.stringify(categories));    
-  };
-};
-
-//Botón eliminar categorías
-btnCancelEditarCategoria.addEventListener('click', () => {
-  editarCategoria.style.display = 'none'
-  categorias.style.display = 'block'
-});
-
-//Añadir categorías a HTML
-const categoriesFromList = () => {
-  listaCategorias.innerHTML = "";
-  tagsCategories = "";
-  categories.forEach((category) => {
-     
-    let node =
-     `<div class="mb-3">
-     <div class="columns is-vcentered is-mobile">
-      <div class="column">
-          <span class="tag is-primary is-light">${category.name}</span>
-      </div>
-      <div class="column is-narrow has-text">
-          <a href="#" class="mr-4 is-size-7 edit-link" onclick="editCategory(${category.id})">Editar</a>
-          <a href="#" class="is-size-7 delete-link" onclick="deleteCategory(${category.id})">Eliminar</a>
-          <p></p>
-      </div>
-     </div>
-   </div>`;
-
-    tagsCategories += node;
-  });
-  listaCategorias.innerHTML = tagsCategories;
-};
-
-//Imprimir categorías
-const imprimirCategorias = () => {
-  let storedList = localStorage.getItem('categorias');
-  
-  if (storedList !== null) {
-    categories = JSON.parse(storedList)
-  } 
-  return categories
-}
-imprimirCategorias()
-
-//Añadir categorías a los select de filtros y de nueva operación
-const setValueCategoriesSelect = () => {
-  selectCategoriasOperacion.innerHTML = "";
-  selectCategorias.innerHTML = `<option value="Todas">Todas</option>`;
- 
-  for (let i = 0; i < categories.length; i++) {
-    const filtroCategoria = `<option value="${categories[i].id}">${categories[i].name}</option>`
-    
-    selectCategorias.insertAdjacentHTML("beforeend", filtroCategoria);
-    selectCategoriasOperacion.insertAdjacentHTML("beforeend", filtroCategoria);
-  };  
-};
-
-//Función de carga inicial de values y categorías
-const main = () => {
-  setValueCategoriesSelect();
-  categoriesFromList();
-  imprimirCategorias()
-};
-
-main();
+console.log(balanceHTML)
