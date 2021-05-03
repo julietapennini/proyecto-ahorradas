@@ -8,13 +8,17 @@ const btnBalance = document.getElementById('btn-balance');
 const btnNuevaOperacion = document.getElementById('btn-nuevaoperacion');
 const btnCancel = document.getElementById('btn-cancel');
 const btnAgregar = document.getElementById('btn-agregar');
+
 const btnCategorias = document.getElementById('btn-categorias');
 const btnReportes = document.getElementById('btn-reportes');
+
+const btnEliminarOperacion = document.getElementById('btn-eliminar-operacion');
+const btnEditarOperacion = document.getElementById('btn-editar-operacion');
 
 //Páginas
 const paginaBalance = document.getElementById('pagina-balance');
 const paginaNuevaOperacion = document.getElementById('pagina-nueva-operacion');
-const editarOperacion = document.getElementById('editar-operacion');
+const paginaEditarOperacion = document.getElementById('pagina-editar-operacion');
 const paginaCategorias = document.getElementById('pagina-categorias');
 const paginaReportes = document.getElementById('pagina-reportes');
 const editarCategoria = document.getElementById('editar-categoria');
@@ -67,8 +71,7 @@ btnBalance.addEventListener('click', () => {
   paginaCategorias.style.display = 'none'
   paginaReportes.style.display = 'none'
   paginaNuevaOperacion.style.display = 'none'
-  editarOperacion.style.display = 'none'
-
+  paginaEditarOperacion.style.display = 'none'
 })
 
 //Botón categorias
@@ -77,7 +80,7 @@ btnCategorias.addEventListener('click', () => {
   paginaCategorias.style.display = 'block'
   paginaReportes.style.display = 'none'
   paginaNuevaOperacion.style.display = 'none'
-  editarOperacion.style.display = 'none'
+  paginaEditarOperacion.style.display = 'none'
 })
 
 //Botón reportes
@@ -86,7 +89,7 @@ btnReportes.addEventListener('click', () => {
   paginaCategorias.style.display = 'none'
   paginaReportes.style.display = 'block'
   paginaNuevaOperacion.style.display = 'none'
-  editarOperacion.style.display = 'none'
+  paginaEditarOperacion.style.display = 'none'
 })
 
 //Botón nueva operación
@@ -100,6 +103,7 @@ btnCancel.addEventListener('click', () => {
   paginaBalance.style.display = 'block'
   paginaNuevaOperacion.style.display = 'none'
 })
+
 
 //--------------Input FECHA-------------------
 
@@ -204,8 +208,8 @@ const escribirOperacion = (operaciones) => {
       <div class="column is-3 has-text-right">${operaciones[i].fecha}</div>
       <div class="column is-2 has-text-right ${operaciones[i].tipo === 'ganancia' ? 'estilo-ganancia' : 'estilo-gasto'}">${operaciones[i].tipo === 'ganancia' ? '+' : '-'}${operaciones[i].monto}</div>
       <div class="column is-2 has-text-right">
-        <a class="editar-op">Editar</a>
-        <a class="editar-op">Eliminar</a>
+        <button class="editar-op" >Editar</button>
+        <button class="editar-op">Eliminar</button>
       </div>
     </div>`
 
@@ -218,31 +222,70 @@ operaciones =
 escribirOperacion(operaciones);
 checkearOperaciones();
 
+/*
 //EDITAR OPERACIONES
-const ocultarSeccionEditarOperacion = () => {
-  paginaCategorias.classList.add("is-hidden");
-  paginaReportes.classList.add("is-hidden");
-  paginaNuevaOperacion.classList.add("is-hidden");
-  paginaBalance.classList.add("is-hidden");
-  formEditOperation.classList.remove("is-hidden");
-};
+const btnOne = document.getElementById('bnt-one');
 
 const mostrarSeccionEditarOperacion = () => {
-  paginaCategorias.classList.add("is-hidden");
-  paginaReportes.classList.add("is-hidden");
-  paginaNuevaOperacion.classList.add("is-hidden");
-  paginaBalance.classList.add("is-hidden");
-  balanceSection.classList.remove("is-hidden");
+  paginaNuevaOperacion.style.display = 'none'
+  paginaBalance.style.display = 'none'
+  paginaEditarOperacion.style.display = 'block'
 };
 
+const ocultarSeccionEditarOperacion = () => {
+  paginaBalance.style.display = 'block'
+  paginaEditarOperacion.style.display = 'none'
+};
+
+// Determinar posición en el arrego de la operación a editar
+let posicion;
+
+const editarOperacion = (operacion) => {
+
+  ocultarSeccionEditarOperacion();
+
+  posicion = operaciones.findIndex((elem) => elem.id === operacion);
+
+  inputDescripcion.value = operaciones[posicion].descripcion;
+  inputMonto.value = operaciones[posicion].monto;
+  inputTipo.value = operaciones[posicion].tipo;
+  selectCategoriasOperacion.value = operaciones[posicion].categoria;
+  inputFecha.value = operaciones[posicion].fecha;
+
+  if (inputTipo.value === "gasto") {
+    inputMonto.value = Number(operaciones[posicion].monto) * -1;
+  }
+  return posicion;
+};
+*/
+
+//Botón editar operación
+btnEditarOperacion.addEventListener("click", () => {
+  alert('hola boluda')
+  operaciones[posicion].descripcion = inputDescripcion.value;
+  operaciones[posicion].monto = inputMonto.value;
+  operaciones[posicion].tipo = inputTipo.value;
+  operaciones[posicion].categoria = selectCategoriasOperacion.value;
+  operaciones[posicion].fecha = inputFecha.value;
+
+  if (operaciones[posicion].tipo === "gasto") {
+    operaciones[posicion].monto = Number(inputMonto.value) * -1;
+  }
+
+  localStorage.setItem("operacionesStorage", JSON.stringify(operaciones));
+  escribirOperacion(operaciones);
+  balanceHTML(operaciones);
+  reportes(operaciones);
+  filtrarOperaciones();
+
+  ocultarSeccionEditarOperacion();
+});
 
 /*
  ************************************************************************************
                                     Categorías
  ************************************************************************************
 */
-
-
 
 //Añadir categorías a local storage
 const addCategories = () => {
