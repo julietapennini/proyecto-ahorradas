@@ -366,18 +366,18 @@ const categoriesFromList = () => {
   categories.forEach((category) => {
      
     let node =
-    `<div class="mb-3">
-     <div class="columns is-vcentered is-mobile">
-      <div class="column">
+    `<section class="mb-3">
+     <article class="columns is-vcentered is-mobile">
+      <article class="column">
           <span class="tag is-primary is-light">${category.name}</span>
-      </div>
-      <div class="column is-narrow has-text">
+      </article>
+      <article class="column is-narrow has-text">
           <a href="#" class="mr-4 is-size-7 edit-link" onclick="editCategory(${category.id})">Editar</a>
           <a href="#" class="is-size-7 delete-link" onclick="deleteCategory(${category.id})">Eliminar</a>
           <p></p>
-      </div>
-      </div>
-    </div>`;
+      </article>
+      </article>
+    </section>`;
 
     tagsCategories += node;
   });
