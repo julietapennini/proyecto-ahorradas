@@ -566,3 +566,5 @@ const balanceHTML = (operaciones) => {
   balanceGasto.innerHTML = `$${objBalance["gastos"]}`;
   balanceTotal.innerHTML = `$${objBalance["total"]}`;
 };
+
+//probando merge a development
