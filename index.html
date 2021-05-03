@@ -53,7 +53,7 @@
       <section>
         <a class=" navbar-item is-hovered" href="#">
           <h1 class="title is-size-2 has-text-white">
-          <i class="fas fa-wallet"></i> AhorrADAs</h1>
+          <i class="fas fa-wallet" aria-hidden="true"></i> AhorrADAs</h1>
         </a>
         <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
           <span aria-hidden="true"></span>
@@ -132,7 +132,7 @@
                 </div>
 
                 <div class="column subtitle has-text-right is-size-6">
-                  <a href="#" id="ocultar-filtros">
+                  <a href="#" id="ocultar-filtros" aria-label="Botón para ocultar y mostrar los filtros">
                     Ocultar filtros
                   </a>
                 </div>
@@ -210,7 +210,7 @@
               </div>
 
               <div class="column has-text-right-tablet">
-              <button class="button is-primary" id="btn-nuevaoperacion">+ Nueva operación</button>
+              <button class="button is-primary" id="btn-nuevaoperacion" aria-label="Botón para añadir una nueva operación">+ Nueva operación</button>
               </div>
             </div>
 
@@ -293,10 +293,10 @@
 
           <div class="field is-grouped is-grouped-right">
             <p class="control">
-              <a class="button is-light" id="btn-cancel">Cancelar</a>
+              <a class="button is-light" id="btn-cancel" aria-label="Botón de cancelar añadir nueva operación">Cancelar</a>
             </p>
             <p class="control">
-              <a class="button is-primary" id="btn-agregar">Agregar</a>
+              <a class="button is-primary" id="btn-agregar" aria-label="Botón de añadir nueva operación">Agregar</a>
             </p>
           </div>
           
@@ -358,10 +358,10 @@
 
           <div class="field is-grouped is-grouped-right">
             <p class="control">
-              <a class="button is-light" id="btn-cancelar-operacion">Cancelar</a>
+              <a class="button is-light" id="btn-cancelar-operacion" aria-label="Botón de cancelar editar nueva operación">Cancelar</a>
             </p>
             <p class="control">
-              <a class="button is-primary" id="btn-editar-operacion">Editar</a>
+              <a class="button is-primary" id="btn-editar-operacion" aria-label="Botón de editar nueva operación">Editar</a>
             </p>
           </div>
           
@@ -388,7 +388,7 @@
               </div>
 
               <div class="control">
-                <button class="button is-primary" id="agregar-categoria-boton" onclick="addCategories()">
+                <button class="button is-primary" id="agregar-categoria-boton" onclick="addCategories()" aria-label="Botón de agregar nueva categoría">
                   Agregar
                 </button>
               </div>
@@ -504,11 +504,11 @@
             <div class="field is-grouped is-grouped-right">
               <p class="control">
               </p>
-              <a class="button is-light" id="btn-cancel-edit-category">
+              <a class="button is-light" id="btn-cancel-edit-category" aria-label="Botón de cancelar editar categoría">
                 Cancelar
               </a>
               <p class="control">
-                <a class="button is-primary" id="btn-edit-edit-category">
+                <a class="button is-primary" id="btn-edit-edit-category" aria-label="Botón de editar categoría">
                   Editar
                 </a>
               </p>
