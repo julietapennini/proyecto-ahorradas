@@ -69,18 +69,12 @@
                                                               BALANCE
     ____________________________________________________________________________________________________________________________________
     -------->
-    <div class="container pt-5" id="balance">
+    <div class="container pt-5" id="pagina-balance">
       <div class="tile is-ancestor">
 
         <div class="tile is-vertical is-3 is-parent">
           <!-------------------------------Sección vertical-------------------------------------->
-          <!---
-          *************************************************************************************
-                                                Balance
-          *************************************************************************************
-          ---->
-        
-
+          
           <!---
           *************************************************************************************
                                                  BALANCE
@@ -92,17 +86,17 @@
 
             <article class="columns is-vcentered">
                 <span class="column title is-size-5 has-text-weight-normal">Ganancias</span>
-                <span class="column subtitle has-text-right has-text-success is-size-5" id="ganancias">+$0</span>
+                <span class="column subtitle has-text-right has-text-success is-size-5" id="balance-ganancias">+$0</span>
             </article>
 
             <article class="columns is-vcentered">
                 <span class="column title is-size-5 has-text-weight-normal">Gastos</span>
-                <span class="column subtitle has-text-right has-text-success is-size-5 has-text-danger" id="gastos">-$0</span>
+                <span class="column subtitle has-text-right has-text-success is-size-5 has-text-danger" id="balance-gastos">-$0</span>
             </article>
 
             <article class="columns is-vcentered">
                 <span class="column title is-size-4 has-text-weight-normal">Total</span>
-                <span class="column subtitle has-text-right is-size-5 has-text-weight-bold" id="total">$0</span>
+                <span class="column subtitle has-text-right is-size-5 has-text-weight-bold" id="balance-total">$0</span>
             </article>    
 
           </section>
@@ -127,6 +121,7 @@
               </section>
 
               <section id="filtros">
+
                 <section class="field">
                   <label for="tipo" class="label">Tipo</label>
                   <article class="control">
@@ -153,7 +148,7 @@
                 <section class="field">
                   <label class="label">Desde</label>
                   <article class="control">
-                    <input id="input-fecha" class="input" type="date" name="label">
+                    <input id="input-fecha-filtros" class="input" type="date" name="label">
                   </article>
                 </section>  
 
@@ -162,16 +157,17 @@
                     <article class="control">
                         <article class="select is-fullwidth">
                           <select id="ordenar-select">
-                            <option>Más reciente</option>
-                            <option>Menos reciente</option>
-                            <option>Mayor monto</option>
-                            <option>Menor monto</option>
-                            <option>A/Z</option>
-                            <option>Z/A</option>
+                            <option value="mas-reciente">Más reciente</option>
+                            <option value="menos-reciente">Menos reciente</option>
+                            <option value="mayor-monto">Mayor monto</option>
+                            <option value="menor-monto">Menor monto</option>
+                            <option value="a-z">A/Z</option>
+                            <option value="z-a">Z/A</option>
                           </select>
                         </article>
                     </article>
                 </section>
+
               </section>
 
           </section>
@@ -184,7 +180,7 @@
 
           <!---
             *************************************************************************************
-                                                  OPERATIONS
+                                                  OPERACIONES
             *************************************************************************************
           ---->
         
@@ -199,8 +195,18 @@
               <button class="button is-primary" id="btn-nuevaoperacion">+ Nueva operación</button>
               </div>
             </div>
-            
-            <div id="tabla-operaciones">
+
+            <div id="ver-sin-operaciones">
+              <div class="my-6 py-6">
+                <figure class="image">
+                  <img src="img/wallet.svg">
+                </figure>
+                <h4 class="is-size-4 has-text-centered mt-6 mb-4 has-text-weight-semibold">Sin resultados</h4>
+                <p class="has-text-centered">Cambia los filtros o agrega operaciones</p>
+              </div>
+            </div>
+
+            <div class="is-hidden"id="tabla-operaciones">
               <div class="columns has-text-weight-semibold is-hidden-mobile">
                 <div class="column is-3">Descripción</div>
                 <div class="column is-3">Categorías</div>
@@ -210,15 +216,6 @@
               </div>
               <div id="escribir-operacion"></div>
             </div>
-
-            <div class="my-6 py-6" id="info-balance">
-              <figure class="image">
-                <img src="img/wallet.svg">
-              </figure>
-              <h4 class="is-size-4 has-text-centered mt-6 mb-4 has-text-weight-semibold">Sin resultados</h4>
-              <p class="has-text-centered">Cambia los filtros o agrega operaciones</p>
-            </div>
-
           </div>
           <!-------------------------------------Horizontal section END-------------------------------------->
         </div>
@@ -230,7 +227,7 @@
                                                               NUEVA OPERACIÓN
     ____________________________________________________________________________________________________________________________________
     -------->
-    <div class="container pt-5 hidden" id="nueva-operacion">
+    <div class="container pt-5 hidden" id="pagina-nueva-operacion">
 
       <div class="columns">
         <div class="column is-8 is-offset-2">
@@ -252,8 +249,9 @@
             <div class="control" >
               <div class="select is-fullwidth">
                 <select id="input-tipo">
-                  <option>Gasto</option>
-                  <option>Ganancia</option>
+                  <option value="gasto">Gasto</option>
+                  <option value="ganancia">Ganancia</option>
+                  <option value="todos">Todos</option>
                 </select>
               </div>
             </div>
@@ -277,14 +275,10 @@
 
           <div class="field is-grouped is-grouped-right">
             <p class="control">
+              <a class="button is-light" id="btn-cancel">Cancelar</a>
             </p>
-            <a class="button is-light" id="btn-cancel">
-              Cancelar
-            </a>
             <p class="control">
-              <a class="button is-primary" id="btn-agregar">
-                Agregar
-              </a>
+              <a class="button is-primary" id="btn-agregar">Agregar</a>
             </p>
           </div>
           
@@ -298,39 +292,71 @@
     ____________________________________________________________________________________________________________________________________
     -------->
    
-    <div class="container pt-5 hidden" id="editar-operacion">
-      <section class="container">
-        <section class="columns is-multiline">
-          <article class="column is-8-widescreen is-10-desktop is-offset-2-widescreen is-offset-1-desktop">
-            <div class="box">
-              <h2 class="title is-size-2 has-text-weight-bold">
-                Editar operación
-              </h2>
-              <label class="label mt-6" for="editar-categoria-input">Nombre</label>
-              <div class="field is-grouped">
-                <div class="control is-expanded">
-                  <input class="input" type="text" name="" id="editar-categoria-input">
-                </div>
-              </div>
-              <div class="buttons mt-6">
-                <button class="button is-light" id="cancelar-categoria-boton">
-                  Cancelar
-                </button>
-                <button class="button is-success" id="editar-categoria-boton">
-                  Editar
-                </button>
+    <div class="container pt-5 hidden" id="pagina-editar-operacion">
+
+      <div class="columns">
+        <div class="column is-8 is-offset-2">
+          <div class="box">
+           <h2 class="title is-size-2 has-text-weight-bold">Editar Operación</h2>
+
+           <div class="field mt-6">
+             <label for="descripcion" class="label">Descripción</label>
+             <input class="input" id="input-descripcion" type="text" placeholder="Ingresa la descripción">
+           </div>
+
+           <div class="field">
+             <label for="monto" class="label">Monto</label>
+             <input class="input" id="input-monto" type="number" placeholder="Ingresa el monto">
+           </div>
+
+           <div class="field">
+            <label for="tipo" class="label">Tipo</label>
+            <div class="control" >
+              <div class="select is-fullwidth">
+                <select id="input-tipo">
+                  <option value="gasto">Gasto</option>
+                  <option value="ganancia">Ganancia</option>
+                  <option value="todos">Todos</option>
+                </select>
               </div>
             </div>
-          </article>
-        </section>
-      </section>
+
+          </div>
+
+          <section class="field">
+            <label for="tipo" class="label">Categoría</label>
+            <article class="control">
+              <article class="select is-fullwidth">
+                <select id="categoria-operacion-select">
+                </select>
+              </article>
+            </article>
+          </section>
+
+          <div class="field">
+            <label for="fecha" class="label">Fecha</label>
+            <input class="input" id="input-fecha" type="date" name="label">         
+          </div>
+
+          <div class="field is-grouped is-grouped-right">
+            <p class="control">
+              <a class="button is-light" id="btn-cancelar-operacion">Cancelar</a>
+            </p>
+            <p class="control">
+              <a class="button is-primary" id="btn-editar-operacion">Editar</a>
+            </p>
+          </div>
+          
+          </div>
+        </div>
+      </div>
     </div>
     
     <!-------
                                                               CATEGORÍAS
     ____________________________________________________________________________________________________________________________________
     -------->
-    <div class="container pt-5 hidden" id="categorias">
+    <div class="container pt-5 hidden" id="pagina-categorias">
       <section class="columns is-multiline">
         <section class="column is-8-widescreen is-10-desktop is-offset-2-widescreen is-offset-1-desktop">
           <article class="box">
@@ -432,6 +458,7 @@
                                                               REPORTES
     ____________________________________________________________________________________________________________________________________
     -------->
+
     <section id="reports-section" class="is-hidden">
       <div class="box column is-6 is-offset-3 is-10-mobile is-offset-1-mobile px-5 py-4 fit-content">
         <div class="field">
@@ -486,8 +513,6 @@
       </section>
     </div>
   </main>
+  <script src="./js/app.js"></script>
 </body>
-
-<script src="./js/app.js"></script>
-  
 </html>
