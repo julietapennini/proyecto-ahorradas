@@ -567,4 +567,4 @@ const balanceHTML = (operaciones) => {
   balanceTotal.innerHTML = `$${objBalance["total"]}`;
 };
 
-//probando merge a development
+//probando merge a development desde julieta
