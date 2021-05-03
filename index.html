@@ -481,18 +481,78 @@
                                                               REPORTES
     ____________________________________________________________________________________________________________________________________
     -------->
-    <div class="container pt-5 hidden" id="pagina-reportes">
-      <div class="box column is-8-widescreen is-10-desktop is-offset-2-widescreen is-offset-1-desktop">
-        <h2 class="title is-size-2 has-text-weight-bold">Reportes</h2>
-      </div>
-      
-    </div>
+    <section id="paginaReportes" class="is-hidden">
+      <div class="box column is-6 is-offset-3 is-10-mobile is-offset-1-mobile px-5 py-4 fit-content mb-5">
+        <p class="tile is-size-3 has-text-weight-bold">Reportes</p>
+        <!-- SECCION SIN REPORTES -->
+        <div id="sin-reportes" class="field">
+          <div class="column is-6 is-offset-3">
+            <figure class="image">
+              <img src="">
+            </figure>
+          </div>
+          <div class="column is-align-items-center">
+            <p class="title is-size-4 is-size-6-mobile has-text-centered">Operaciones insuficientes</p>
+            <p class="subtitle is-size-6 is-size-7-mobile has-text-centered">Prueba agregando más operaciones</p>
+          </div>
+        </div>
 
+        <!-- COMIENZA LISTADO DE REPORTES -->
+        <article id="listado-reportes" class="is-hidden mb-2"> 
+        <div  class="column has-text-weight-medium m-0 mt-6 ">
+          <!-- RESUMEN -->
+          <p class="subtitle has-text-weight-medium">Resumen</p>
+          <div class="columns m-0 is-mobile is-justify-content-space-between">
+            <div class="column is-6">Categoría con mayor ganancia</div>
+            <div id="categoria-mayor-ganancia"></div>
+          </div>
+          <div class="columns m-0 is-mobile is-justify-content-space-between">
+            <div class="column is-6">Categoría con mayor gasto</div>
+            <div id="categoria-mayor-gasto"></div>
+          </div>
+          <div class="columns m-0 is-mobile is-justify-content-space-between">
+            <div class="column is-6">Categoría con mayor balance</div>
+            <div id="categoria-mayor-balance"></div>
+          </div>
+          <div class="columns m-0 is-mobile is-justify-content-space-between mr-5 pr-2">
+            <div class="column is-4">Mes con mayor ganancia</div>
+            <div id="mes-mayor-ganancia"></div>
+          </div>
+          <div class="columns m-0 is-mobile is-justify-content-space-between mr-5 pr-2">
+            <div class="column is-4">Mes con mayor gasto</div>
+            <div id="mes-mayor-gasto"></div>
+          </div>
+        </div>
+        <!-- TOTALES POR CATEGORIA -->
+        <p class="subtitle has-text-weight-medium mt-6">Totales por categorías</p>
+        <div class="columns has-text-weight-medium m-0">
+          <div class="column has-text-centered is-3">Categoría</div>
+          <div class="column has-text-centered is-3">Ganancias</div>
+          <div class="column has-text-centered is-3">Gastos</div>
+          <div class="column has-text-centered is-3">Balance</div>
+        </div>
+        <div id="reporte-total-categorias"></div>
+
+        <!-- TOTALES POR MES -->
+        <p class="subtitle has-text-weight-medium mt-6">Totales por mes</p>
+        <div class="columns has-text-weight-medium m-0">
+          <div class="column has-text-centered is-3">Mes</div>
+          <div class="column has-text-centered is-3">Ganancias</div>
+          <div class="column has-text-centered is-3">Gastos</div>
+          <div class="column has-text-centered is-3">Balance</div>
+        </div>
+        <div id="reporte-total-mes"></div>
+
+      </article>
+      <!-- TERMINA LISTADO DE REPORTES -->
+      </div>
+    </section>
+    <!-- TERMINA SECCION REPORTES -->
         <!-------
                                                             EDITAR CATEGORÍA
     ____________________________________________________________________________________________________________________________________
     -------->
-    <section class="container pt-5 hidden" id="editar-categoria">
+    <section class="container pt-5" id="editar-categoria">
       <section class="columns is-multiline">
         <section class="column is-8-widescreen is-10-desktop is-offset-2-widescreen is-offset-1-desktop">
           <article class="box">          

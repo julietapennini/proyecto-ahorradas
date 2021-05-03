@@ -406,7 +406,32 @@ main();
 const gananciaSumar = operaciones.some(el => el.tipo === 'ganancia');
 const gastoRestar = operaciones.some(el => el.tipo === 'gasto');
 
+//DOM Reportes
+const listadoReportes = document.getElementById("listado-reportes");
+const sinReportes = document.getElementById("sin-reportes");
+const categoriaMayorGanancia = document.getElementById("categoria-mayor-ganancia");
+const categoriaMayorGasto = document.getElementById("categoria-mayor-gasto");
+const categoriaMayorBalance = document.getElementById("categoria-mayor-balance");
+const mesMayorGanancia = document.getElementById("mes-mayor-ganancia");
+const mesMayorGasto = document.getElementById("mes-mayor-gasto");
+const reporteTotalCateg = document.getElementById("reporte-total-categorias");
+const reporteTotalMes = document.getElementById("reporte-total-mes");
 
+//Mostrar/ocultar la sección no hay reportes o la lista de reportes.
+const reportes = (operaciones) => {
+  if (
+    pintarOperacion("ganancia", operaciones).length &&
+    pintarOperacion("gasto", operaciones).length
+  ) {
+    sinReportes.classList.add("is-hidden");
+    listadoReportes.classList.remove("is-hidden");
+  } else {
+    sinReportes.classList.remove("is-hidden");
+    listadoReportes.classList.add("is-hidden");
+  }
+  gastosGananciasPorCategorias(operaciones);
+  gastosGananciasMes(operaciones);
+};
 
 /*
  ************************************************************************************
