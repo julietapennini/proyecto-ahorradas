@@ -235,17 +235,17 @@
            <h2 class="title is-size-2 has-text-weight-bold">Nueva operación</h2>
 
            <div class="field mt-6">
-             <label for="descripcion" class="label">Descripción</label>
+             <label for="input-descripcion" class="label">Descripción</label>
              <input class="input" id="input-descripcion" type="text" placeholder="Ingresa la descripción">
            </div>
 
            <div class="field">
-             <label for="monto" class="label">Monto</label>
+             <label for="input-monto" class="label">Monto</label>
              <input class="input" id="input-monto" type="number" placeholder="Ingresa el monto">
            </div>
 
            <div class="field">
-            <label for="tipo" class="label">Tipo</label>
+            <label for="input-tipo" class="label">Tipo</label>
             <div class="control" >
               <div class="select is-fullwidth">
                 <select id="input-tipo">
@@ -259,7 +259,7 @@
           </div>
 
           <section class="field">
-            <label for="tipo" class="label">Categoría</label>
+            <label for="categoria-operacion-select" class="label">Categoría</label>
             <article class="control">
               <article class="select is-fullwidth">
                 <select id="categoria-operacion-select">
@@ -269,13 +269,13 @@
           </section>
 
           <div class="field">
-            <label for="fecha" class="label">Fecha</label>
+            <label for="input-fecha" class="label">Fecha</label>
             <input class="input" id="input-fecha" type="date" name="label">         
           </div>
 
           <div class="field is-grouped is-grouped-right">
             <p class="control">
-              <a class="button is-light" id="btn-cancel">Cancelar</a>
+              <a class="button is-light" id="btn-cancelar">Cancelar</a>
             </p>
             <p class="control">
               <a class="button is-primary" id="btn-agregar">Agregar</a>
@@ -300,20 +300,20 @@
            <h2 class="title is-size-2 has-text-weight-bold">Editar Operación</h2>
 
            <div class="field mt-6">
-             <label for="descripcion" class="label">Descripción</label>
-             <input class="input" id="input-descripcion" type="text" placeholder="Ingresa la descripción">
+             <label for="input-editar-descripcion" class="label">Descripción</label>
+             <input class="input" id="input-editar-descripcion" type="text" placeholder="Ingresa la descripción">
            </div>
 
            <div class="field">
-             <label for="monto" class="label">Monto</label>
-             <input class="input" id="input-monto" type="number" placeholder="Ingresa el monto">
+             <label for="input-editar-monto" class="label">Monto</label>
+             <input class="input" id="input-editar-monto" type="number" placeholder="Ingresa el monto">
            </div>
 
            <div class="field">
-            <label for="tipo" class="label">Tipo</label>
+            <label for="input-editar-tipo" class="label">Tipo</label>
             <div class="control" >
               <div class="select is-fullwidth">
-                <select id="input-tipo">
+                <select id="input-editar-tipo">
                   <option value="gasto">Gasto</option>
                   <option value="ganancia">Ganancia</option>
                   <option value="todos">Todos</option>
@@ -324,26 +324,26 @@
           </div>
 
           <section class="field">
-            <label for="tipo" class="label">Categoría</label>
+            <label for="categoria-operacion-editar-select" class="label">Categoría</label>
             <article class="control">
               <article class="select is-fullwidth">
-                <select id="categoria-operacion-select">
+                <select id="categoria-operacion-editar-select">
                 </select>
               </article>
             </article>
           </section>
 
           <div class="field">
-            <label for="fecha" class="label">Fecha</label>
-            <input class="input" id="input-fecha" type="date" name="label">         
+            <label for="input-editar-fecha" class="label">Fecha</label>
+            <input class="input" id="input-editar-fecha" type="date" name="label">         
           </div>
 
           <div class="field is-grouped is-grouped-right">
             <p class="control">
-              <a class="button is-light" id="btn-cancelar-operacion">Cancelar</a>
+              <button class="button is-light" id="btn-cancelar-editar">Cancelar</button>
             </p>
             <p class="control">
-              <a class="button is-primary" id="btn-editar-operacion">Editar</a>
+              <button class="button is-primary" id="btn-editar-editar" >Editar</button>
             </p>
           </div>
           
@@ -500,6 +500,7 @@
       </section>
     </div>
   </main>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/node-uuid/1.4.7/uuid.min.js"></script>
   <script src="./js/app.js"></script>
 </body>
 </html>
