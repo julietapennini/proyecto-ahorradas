@@ -259,6 +259,7 @@ const editarOperacion = (operacion) => {
   inputEditarCategoria.value = operaciones[posicion].categoria;
   inputEditarFecha.value = operaciones[posicion].fecha;
 
+
   return posicion;
 };
 
@@ -270,6 +271,7 @@ btnEditarEditar.addEventListener("click", () => {
   operaciones[posicion].categoria = inputEditarCategoria.value;
   operaciones[posicion].fecha = inputEditarFecha.value;
 
+  
   localStorage.setItem("operacionesStorage", JSON.stringify(operaciones));
   escribirOperacion(operaciones);
 
@@ -322,11 +324,10 @@ const addCategories = () => {
 let i;
 const editCategory = (category) => {
   editarCategoria.style.display = 'block'
-  categorias.style.display = 'none'
+  paginaCategorias.style.display = 'none'
 
   i = categories.findIndex((e) => e.id === Number(category));
   inputEditCategoria.value = categories[i].name
-  balanceHTML(operaciones);
   return i
 };
 
@@ -337,7 +338,7 @@ btnEditarCategoria.addEventListener("click", () => {
   categoriesFromList(categories);
   setValueCategoriesSelect(categories);
   editarCategoria.style.display = 'none'
-  categorias.style.display = 'block'
+  paginaCategorias.style.display = 'block'
 });
 
 
@@ -546,7 +547,6 @@ const balanceData = (operaciones) => {
     }
   );
 };
-
 
 // Pintar balance
 
