@@ -351,7 +351,6 @@ btnEditarCategoria.addEventListener("click", () => {
   paginaCategorias.style.display = 'block'
 });
 
-
 //Eliminar categorías
 const deleteCategory = (category) => {
   const value = categories.findIndex((e) => e.id == category);
