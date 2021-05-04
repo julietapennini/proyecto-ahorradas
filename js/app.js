@@ -5,15 +5,9 @@ ____________________________________________________________________
 
 //Botones
 const btnBalance = document.getElementById('btn-balance');
-const btnNuevaOperacion = document.getElementById('btn-nuevaoperacion');
-const btnCancel = document.getElementById('btn-cancel');
-const btnAgregar = document.getElementById('btn-agregar');
-
 const btnCategorias = document.getElementById('btn-categorias');
 const btnReportes = document.getElementById('btn-reportes');
-
-const btnEliminarOperacion = document.getElementById('btn-eliminar-operacion');
-const btnEditarOperacion = document.getElementById('btn-editar-operacion');
+const burgerMenu = document.getElementById("navbar-burger");
 
 //Páginas
 const paginaBalance = document.getElementById('pagina-balance');
@@ -22,22 +16,7 @@ const paginaEditarOperacion = document.getElementById('pagina-editar-operacion')
 const paginaCategorias = document.getElementById('pagina-categorias');
 const paginaReportes = document.getElementById('pagina-reportes');
 const editarCategoria = document.getElementById('editar-categoria');
-
-//Inputs nueva operación
-const inputDescripcion = document.getElementById('input-descripcion');
-const inputMonto = document.getElementById('input-monto');
-const inputTipo = document.getElementById('input-tipo');
-const inputCategoria = document.getElementById('input-categoria');
-const inputFecha = document.getElementById('input-fecha');
-
-
-
-//Operaciones
-const tablaOperaciones = document.getElementById("tabla-operaciones");
-const verSinOperaciones = document.getElementById("ver-sin-operaciones");
-
-//Pintar operacion
-const pintarEnBalance = document.getElementById('escribir-operacion');
+const navbarMenu = document.getElementById("navbar-menu")
 
 //Categorias
 const categoriaInput = document.getElementById('categoria-input');
@@ -49,6 +28,42 @@ const btnCancelEditarCategoria = document.getElementById('btn-cancel-edit-catego
 const btnEditarCategoria = document.getElementById('btn-edit-edit-category');
 const selectCategoriasOperacion = document.getElementById('categoria-operacion-select');
 
+//Botón nueva operación
+const btnNuevaOperacion = document.getElementById('btn-nuevaoperacion');
+
+//Inputs nueva operación
+const inputDescripcion = document.getElementById('input-descripcion');
+const inputMonto = document.getElementById('input-monto');
+const inputTipo = document.getElementById('input-tipo');
+const inputCategoria = document.getElementById('input-categoria');
+const inputFecha = document.getElementById('input-fecha');
+
+//Botón agregar-cancelar en nueva operación
+const btnCancelar = document.getElementById('btn-cancelar');
+const btnAgregar = document.getElementById('btn-agregar');
+
+//Operaciones
+const tablaOperaciones = document.getElementById("tabla-operaciones");
+const verSinOperaciones = document.getElementById("ver-sin-operaciones");
+
+//Pintar operacion
+const pintarEnBalance = document.getElementById('escribir-operacion');
+
+//Botones editar-eliminar en balance
+const btnEliminarOperacion = document.getElementById('btn-eliminar-operacion');
+const btnEditarOperacion = document.getElementById('btn-editar-operacion');
+
+//Inputs editar operación
+const inputEditarDescripcion = document.getElementById('input-editar-descripcion');
+const inputEditarMonto = document.getElementById('input-editar-monto');
+const inputEditarTipo = document.getElementById('input-editar-tipo');
+const inputEditarCategoria = document.getElementById('categoria-operacion-editar-select');
+const inputEditarFecha = document.getElementById('input-editar-fecha');
+
+//Botones editar-cancelar editar operación
+const btnCancelarEditar = document.getElementById('btn-cancelar-editar');
+const btnEditarEditar = document.getElementById('btn-editar-editar');
+
 //Filtros
 const inputFechaFiltros = document.getElementById('input-fecha-filtros');
 
@@ -56,6 +71,12 @@ const inputFechaFiltros = document.getElementById('input-fecha-filtros');
 const balanceGanancia = document.getElementById("balance-ganancias");
 const balanceGasto = document.getElementById("balance-gastos");
 const balanceTotal = document.getElementById("balance-total");
+
+//Menú hamburguesa
+burgerMenu.addEventListener("click", () => {
+  burgerMenu.classList.toggle("is-active");
+  navbarMenu.classList.toggle("is-active");
+})
 
 
 /*
@@ -99,11 +120,16 @@ btnNuevaOperacion.addEventListener('click', () => {
 })
 
 //Botón cancelar
-btnCancel.addEventListener('click', () => {
+btnCancelar.addEventListener('click', () => {
   paginaBalance.style.display = 'block'
   paginaNuevaOperacion.style.display = 'none'
 })
 
+//Botón editar-cancelar
+btnCancelarEditar.addEventListener('click', () => {
+  paginaBalance.style.display = 'block'
+  paginaEditarOperacion.style.display = 'none'
+})
 
 //--------------Input FECHA-------------------
 
@@ -121,6 +147,7 @@ const date = () => {
 
 inputFecha.value = date();
 inputFechaFiltros.value = date();
+inputEditarFecha.value = inputFecha.value;
 
 
 /*
@@ -133,11 +160,11 @@ inputFechaFiltros.value = date();
 
 //Creando categorías
 let categories = [
-  { id: 0, name: "Servicios" },
-  { id: 1, name: "Trasporte" },
-  { id: 2, name: "Educación" },
-  { id: 3, name: "Trabajo" },
-  { id: 4, name: "Comida" },
+  { id: uuid.v4(), name: "Servicios" },
+  { id: uuid.v4(), name: "Trasporte" },
+  { id: uuid.v4(), name: "Educación" },
+  { id: uuid.v4(), name: "Trabajo" },
+  { id: uuid.v4(), name: "Comida" },
 ];
 
 //Formulario Operaciones valores predeterminados
@@ -172,6 +199,7 @@ let operaciones = [];
 btnAgregar.addEventListener('click', () => {
 
   const pintarOperacion = {
+    id: uuid.v4(),
     descripcion: inputDescripcion.value,
     monto: inputMonto.value,
     tipo: inputTipo.value,
@@ -187,9 +215,9 @@ btnAgregar.addEventListener('click', () => {
 
   operacionResetearFormulario()
   escribirOperacion(tomarOperacionesStorage);
-  /*balanceHTML(tomarOperacionesStorage);
-  paginaReportes(tomarOperacionesStorage);
-  filtrarOperaciones()*/
+  balanceHTML(tomarOperacionesStorage);
+  /*paginaReportes(tomarOperacionesStorage);
+  filtrarOperaciones();*/
 
   //Volver a Balance
   paginaBalance.style.display = 'block'
@@ -208,8 +236,8 @@ const escribirOperacion = (operaciones) => {
       <div class="column is-3 has-text-right">${operaciones[i].fecha}</div>
       <div class="column is-2 has-text-right ${operaciones[i].tipo === 'ganancia' ? 'estilo-ganancia' : 'estilo-gasto'}">${operaciones[i].tipo === 'ganancia' ? '+' : '-'}${operaciones[i].monto}</div>
       <div class="column is-2 has-text-right">
-        <button class="editar-op" >Editar</button>
-        <button class="editar-op">Eliminar</button>
+        <button class="button is-info is-inverted is-small" onclick="editarOperacion('${operaciones[i].id}')">Editar</button>
+        <button class="button is-danger is-inverted is-small" onclick="eliminarOperacion('${operaciones[i].id}')">Eliminar</button>
       </div>
     </div>`
 
@@ -217,69 +245,70 @@ const escribirOperacion = (operaciones) => {
   }
 }
 
-operaciones =
-  JSON.parse(localStorage.getItem("operacionesStorage")) ?? operaciones;
+operaciones = JSON.parse(localStorage.getItem("operacionesStorage")) ?? operaciones;
 escribirOperacion(operaciones);
 checkearOperaciones();
 
-/*
 //EDITAR OPERACIONES
-const btnOne = document.getElementById('bnt-one');
 
-const mostrarSeccionEditarOperacion = () => {
-  paginaNuevaOperacion.style.display = 'none'
-  paginaBalance.style.display = 'none'
-  paginaEditarOperacion.style.display = 'block'
-};
-
-const ocultarSeccionEditarOperacion = () => {
-  paginaBalance.style.display = 'block'
-  paginaEditarOperacion.style.display = 'none'
-};
-
-// Determinar posición en el arrego de la operación a editar
+// posición en el arrego de la operación a editar
 let posicion;
 
 const editarOperacion = (operacion) => {
 
-  ocultarSeccionEditarOperacion();
+  paginaBalance.style.display = 'none';
+  paginaEditarOperacion.style.display = 'block'
 
   posicion = operaciones.findIndex((elem) => elem.id === operacion);
 
-  inputDescripcion.value = operaciones[posicion].descripcion;
-  inputMonto.value = operaciones[posicion].monto;
-  inputTipo.value = operaciones[posicion].tipo;
-  selectCategoriasOperacion.value = operaciones[posicion].categoria;
-  inputFecha.value = operaciones[posicion].fecha;
+  inputEditarDescripcion.value = operaciones[posicion].descripcion;
+  inputEditarMonto.value = operaciones[posicion].monto;
+  inputEditarTipo.value = operaciones[posicion].tipo;
+  inputEditarCategoria.value = operaciones[posicion].categoria;
+  inputEditarFecha.value = operaciones[posicion].fecha;
 
-  if (inputTipo.value === "gasto") {
-    inputMonto.value = Number(operaciones[posicion].monto) * -1;
-  }
+
   return posicion;
 };
-*/
 
-//Botón editar operación
-btnEditarOperacion.addEventListener("click", () => {
-  alert('hola boluda')
-  operaciones[posicion].descripcion = inputDescripcion.value;
-  operaciones[posicion].monto = inputMonto.value;
-  operaciones[posicion].tipo = inputTipo.value;
-  operaciones[posicion].categoria = selectCategoriasOperacion.value;
-  operaciones[posicion].fecha = inputFecha.value;
+// Botón editar operación
+btnEditarEditar.addEventListener("click", () => {
+  operaciones[posicion].descripcion = inputEditarDescripcion.value;
+  operaciones[posicion].monto = inputEditarMonto.value;
+  operaciones[posicion].tipo = inputEditarTipo.value;
+  operaciones[posicion].categoria = inputEditarCategoria.value;
+  operaciones[posicion].fecha = inputEditarFecha.value;
 
-  if (operaciones[posicion].tipo === "gasto") {
-    operaciones[posicion].monto = Number(inputMonto.value) * -1;
-  }
-
+  
   localStorage.setItem("operacionesStorage", JSON.stringify(operaciones));
   escribirOperacion(operaciones);
-  balanceHTML(operaciones);
-  reportes(operaciones);
-  filtrarOperaciones();
 
-  ocultarSeccionEditarOperacion();
+  balanceHTML(operaciones);
+  /*reportes(operaciones);
+  filtrarOperaciones();*/
+  
+  //volver a balance
+  paginaBalance.style.display = 'block';
+  paginaEditarOperacion.style.display = 'none'
 });
+
+//Eliminar Operaciones
+const eliminarOperacion = (operacion) => {
+
+  const value = operaciones.findIndex((elem) => elem.id === operacion);
+  
+  if (value >= 0) {
+    operaciones.splice(value, 1);
+    localStorage.setItem("operacionesStorage", JSON.stringify(operaciones));
+    escribirOperacion(operaciones);
+    balanceHTML(operaciones);
+    /*reportes(operations);
+    filtrarOperaciones();*/
+  }
+};
+
+
+
 
 /*
  ************************************************************************************
@@ -335,7 +364,7 @@ const deleteCategory = (category) => {
 //Botón eliminar categorías
 btnCancelEditarCategoria.addEventListener('click', () => {
   editarCategoria.style.display = 'none'
-  categorias.style.display = 'block'
+  paginaCategorias.style.display = 'block'
 });
 
 //Añadir categorías a HTML
@@ -378,12 +407,14 @@ imprimirCategorias()
 const setValueCategoriesSelect = () => {
   selectCategoriasOperacion.innerHTML = "";
   selectCategorias.innerHTML = `<option value="Todas">Todas</option>`;
- 
+  inputEditarCategoria.innerHTML = "";
+
   for (let i = 0; i < categories.length; i++) {
     const filtroCategoria = `<option value="${categories[i].name}">${categories[i].name}</option>`
     
     selectCategorias.insertAdjacentHTML("beforeend", filtroCategoria);
     selectCategoriasOperacion.insertAdjacentHTML("beforeend", filtroCategoria);
+    inputEditarCategoria.insertAdjacentHTML("beforeend", filtroCategoria);
   };  
 };
 
@@ -523,11 +554,11 @@ ordernarSelect.addEventListener('change', ()=>{
 */
 
 const balanceData = (operaciones) => {
-
   return operaciones.reduce(
     (balance, operacion) => {
       if (operacion.tipo === "ganancia") {
         return {
+          //Entrar al array operaciones, buscar la operación, buscar balance
           ...balance,
           ganancia: Number(balance.ganancia) + Number(operacion.monto),
           total: Number(balance.total) + Number(operacion.monto),
@@ -550,7 +581,6 @@ const balanceData = (operaciones) => {
   );
 };
 
-
 // Pintar balance
 
 const balanceHTML = (operaciones) => {
@@ -569,5 +599,3 @@ const balanceHTML = (operaciones) => {
   balanceGasto.innerHTML = `$${objBalance["gastos"]}`;
   balanceTotal.innerHTML = `$${objBalance["total"]}`;
 };
-
-

@@ -50,20 +50,21 @@
   <header>
     <nav class="navbar is-primary is-spaced" role="navigation" aria-label="main navigationdivsection" class="navbar-brand">
       
-      <section>
+      <section class="navbar-brand">
         <a class=" navbar-item is-hovered" href="#">
           <h1 class="title is-size-2 has-text-white">
           <i class="fas fa-wallet" aria-hidden="true"></i> AhorrADAs</h1>
         </a>
-        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
+        <a role="button" id="navbar-burger" class="navbar-burger is-align-self-center" aria-label="menu"
+        aria-expanded="false" data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
       </section>
       
       <!-------------------------------Nav visual-------------------------------------->
-      <section id="navbarBasicExample" class="navbar-menu">
+      <section id="navbar-menu" class="navbar-menu">
         <article class="navbar-end">
           <a class="navbar-item" id="btn-balance">
             <i class="fas fa-chart-line mr-2" aria-hidden="true"></i>
@@ -87,7 +88,7 @@
                                                               BALANCE
     ____________________________________________________________________________________________________________________________________
     -------->
-    <div class="container pt-5" id="pagina-balance">
+    <div class="container px-5" id="pagina-balance">
       <div class="tile is-ancestor">
 
         <div class="tile is-vertical is-3 is-parent">
@@ -102,17 +103,17 @@
 
             <h2 class="title has-text-weight-bold mb-6">Balance</h2>
 
-            <article class="columns is-vcentered">
+            <article class="columns is-vcentered is-mobile">
                 <span class="column title is-size-5 has-text-weight-normal">Ganancias</span>
                 <span class="column subtitle has-text-right has-text-success is-size-5" id="balance-ganancias">+$0</span>
             </article>
 
-            <article class="columns is-vcentered">
+            <article class="columns is-vcentered is-mobile">
                 <span class="column title is-size-5 has-text-weight-normal">Gastos</span>
                 <span class="column subtitle has-text-right has-text-success is-size-5 has-text-danger" id="balance-gastos">-$0</span>
             </article>
 
-            <article class="columns is-vcentered">
+            <article class="columns is-vcentered is-mobile">
                 <span class="column title is-size-4 has-text-weight-normal">Total</span>
                 <span class="column subtitle has-text-right is-size-5 has-text-weight-bold" id="balance-total">$0</span>
             </article>    
@@ -126,7 +127,7 @@
           ---->
           <section class="box">
 
-              <section class="columns is-vcentered">
+              <section class="columns is-vcentered is-mobile">
                 <div class="column">
                   <span class="title has-text-weight-bold mb-4">Filtros</span>
                 </div>
@@ -253,19 +254,20 @@
            <h2 class="title is-size-2 has-text-weight-bold">Nueva operación</h2>
 
            <article class="field mt-6">
-             <label for="descripcion" class="label">Descripción</label>
+             <label for="input-descripcion" class="label">Descripción</label>
              <input class="input" id="input-descripcion" type="text" placeholder="Ingresa la descripción">
            </article>
 
            <article class="field">
-             <label for="monto" class="label">Monto</label>
+             <label for="input-monto" class="label">Monto</label>
              <input class="input" id="input-monto" type="number" placeholder="Ingresa el monto">
            </article>
-
+            
            <section class="field">
-            <label for="tipo" class="label">Tipo</label>
-            <article class="control" >
+            <label for="input-tipo" class="label">Tipo</label>
+            <article class="control">
               <article class="select is-fullwidth">
+                
                 <select id="input-tipo">
                   <option value="gasto">Gasto</option>
                   <option value="ganancia">Ganancia</option>
@@ -276,7 +278,7 @@
           </section>
 
           <section class="field">
-            <label for="tipo" class="label">Categoría</label>
+            <label for="categoria-operacion-select" class="label">Categoría</label>
             <article class="control">
               <article class="select is-fullwidth">
                 <select id="categoria-operacion-select">
@@ -285,14 +287,15 @@
             </article>
           </section>
 
+
           <article class="field">
-            <label for="fecha" class="label">Fecha</label>
+            <label for="input-fecha" class="label">Fecha</label>
             <input class="input" id="input-fecha" type="date" name="label">         
           </article>
 
           <article class="field is-grouped is-grouped-right">
             <p class="control">
-              <a class="button is-light" id="btn-cancel" aria-label="Botón de cancelar añadir nueva operación">Cancelar</a>
+              <a class="button is-light" id="btn-cancelar" aria-label="Botón de cancelar añadir nueva operación">Cancelar</a>
             </p>
             <p class="control">
               <a class="button is-primary" id="btn-agregar" aria-label="Botón de añadir nueva operación">Agregar</a>
@@ -317,20 +320,20 @@
            <h2 class="title is-size-2 has-text-weight-bold">Editar Operación</h2>
 
            <article class="field mt-6">
-             <label for="descripcion" class="label">Descripción</label>
-             <input class="input" id="input-descripcion" type="text" placeholder="Ingresa la descripción">
+             <label for="input-editar-descripcion" class="label">Descripción</label>
+             <input class="input" id="input-editar-descripcion" type="text" placeholder="Ingresa la descripción">
            </article>
 
            <article class="field">
-             <label for="monto" class="label">Monto</label>
-             <input class="input" id="input-monto" type="number" placeholder="Ingresa el monto">
+             <label for="input-editar-monto" class="label">Monto</label>
+             <input class="input" id="input-editar-monto" type="number" placeholder="Ingresa el monto">
            </article>
 
            <section class="field">
-            <label for="tipo" class="label">Tipo</label>
+            <label for="input-editar-tipo" class="label">Tipo</label>
             <article class="control" >
               <div class="select is-fullwidth">
-                <select id="input-tipo">
+                <select id="input-editar-tipo">
                   <option value="gasto">Gasto</option>
                   <option value="ganancia">Ganancia</option>
                   <option value="todos">Todos</option>
@@ -341,26 +344,29 @@
           </div>
 
           <section class="field">
-            <label for="tipo" class="label">Categoría</label>
+            <label for="categoria-operacion-editar-select" class="label">Categoría</label>
             <article class="control">
               <article class="select is-fullwidth">
-                <select id="categoria-operacion-select">
+                <select id="categoria-operacion-editar-select">
                 </select>
               </article>
             </article>
           </section>
 
+
           <article class="field">
-            <label for="fecha" class="label">Fecha</label>
-            <input class="input" id="input-fecha" type="date" name="label">         
+            <label for="input-editar-fecha" class="label">Fecha</label>
+            <input class="input" id="input-editar-fecha" type="date" name="label">         
           </article>
 
           <article class="field is-grouped is-grouped-right">
             <p class="control">
-              <a class="button is-light" id="btn-cancelar-operacion" aria-label="Botón de cancelar editar nueva operación">Cancelar</a>
+
+              <button class="button is-light" id="btn-cancelar-editar" aria-label="Botón de cancelar editar nueva operación">Cancelar</button>
             </p>
             <p class="control">
-              <a class="button is-primary" id="btn-editar-operacion" aria-label="Botón de editar nueva operación">Editar</a>
+              <button class="button is-primary" id="btn-editar-editar" aria-label="Botón de editar nueva operación">Editar</button>
+
             </p>
           </article>
           
@@ -583,6 +589,7 @@
       </section>
     </section>
   </main>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/node-uuid/1.4.7/uuid.min.js"></script>
   <script src="./js/app.js"></script>
 </body>
 </html>
