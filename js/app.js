@@ -498,7 +498,7 @@ const mostrarListaReportes = (Operaciones) => {
  let maxGanancia = getMaximosCategory("ganancia");
  let maxGasto = getMaximosCategory("gasto");
  let maxBalance = getMaximosCategory("balance");
-  //console.log(maxGanancia);
+  console.log(maxGanancia);
   //console.log(maxGasto);
   //console.log(maxBalance);
 
