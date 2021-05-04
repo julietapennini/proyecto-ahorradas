@@ -425,6 +425,139 @@ main();
 
 /*
  ************************************************************************************
+
+                                    Reportes
+ ************************************************************************************
+*/
+//Reporte elementos
+const gananciaSumar = operaciones.some(el => el.tipo === 'ganancia');
+const gastoRestar = operaciones.some(el => el.tipo === 'gasto');
+
+//DOM Reportes
+const listadoReportes = document.getElementById("listado-reportes");
+const sinReportes = document.getElementById("sin-reportes");
+const reporteResumen = document.getElementById("reporte-resumen");
+const categoriaMayorGanancia = document.getElementById("categoria-mayor-ganancia");
+const categoriaMayorGasto = document.getElementById("categoria-mayor-gasto");
+const categoriaMayorBalance = document.getElementById("categoria-mayor-balance");
+const mesMayorGanancia = document.getElementById("mes-mayor-ganancia");
+const mesMayorGasto = document.getElementById("mes-mayor-gasto");
+const reporteTotalCateg = document.getElementById("reporte-total-categorias");
+const reporteTotalMes = document.getElementById("reporte-total-mes");
+
+let reportsSections = {
+  resumen: [],
+  totalesCategory: [],
+  totalesMes: [],
+};
+console.log(reportsSections);
+
+//Mostrar/ocultar la sección no hay reportes o la lista de reportes.
+const mostrarListaReportes = (Operaciones) => {
+    for (let i = 0; i < operaciones.length; i++) {
+    //Si no hay operaciones mostrar imagen.
+    if (Operaciones === 0){
+      listadoReportes.classList.add("is-hidden");
+      sinReportes.classList.remove("is-hidden");
+    //Si hay operaciones mostrar lista y ocultar imagen. 
+    } else {
+      sinReportes.classList.add("is-hidden");
+      listadoReportes.classList.remove("is-hidden");
+    }
+  }};
+  mostrarListaReportes(operaciones);
+
+  generaReporte = ()=>{
+    let reportesGeneralesCategorias = [];
+    categories.forEach((category) => {
+        let itemReport = {
+         category: category.name,
+         ganancia: 0,
+         gasto: 0,
+         balance: 0,
+        };
+        operaciones.forEach((operaciones) => {
+            if (category.name === operaciones.category) {
+                if (operaciones.tipo === "gasto") {
+                    itemReport.gasto += parseFloat(operaciones.monto);
+                }
+                if (operaciones.tipo === "ganancia") {
+                    itemReport.ganancia += parseFloat(operaciones.monto);
+            }
+        }
+    });
+    itemReport.balance = itemReport.ganancia - itemReport.gasto;
+    reportesGeneralesCategorias.push(itemReport);
+ });
+ reportsSections.totalesCategory = reportesGeneralesCategorias;
+ console.log(reportesGeneralesCategorias);
+
+ let maxGanancia = getMaximosCategory("ganancia");
+ let maxGasto = getMaximosCategory("gasto");
+ let maxBalance = getMaximosCategory("balance");
+  console.log(maxGanancia);
+  //console.log(maxGasto);
+  //console.log(maxBalance);
+
+ reportsSections.resumen.push({
+    title: "Categoría con mayor ganancia",
+    category: maxGanancia.category,
+    monto: maxGanancia.ganancia,
+  });
+  reportsSections.resumen.push({
+    title: "Categoría con mayor gasto",
+    category: maxGasto.category,
+    monto: maxGasto.gasto,
+  });
+  reportsSections.resumen.push({
+    title: "Categoría con mayor balance",
+    category: maxBalance.category,
+    monto: maxBalance.balance,
+  });
+  console.log(reportsSections.resumen);
+  pintarReporte();
+};
+
+const getMaximosCategory = (campo) => {
+    return reportsSections.totalesCategory.reduce((prev, current) =>
+      prev[campo] > current[campo] ? prev : current
+    );
+  };
+
+  pintarReporte = () => {
+    reporteTotalCateg.innerHTML = "";
+    reportsSections.totalesCategory.forEach((category) => {
+      let nodo = document.createElement("div");
+      nodo.innerHTML = `
+      <div class="columns has-text-weight-medium is-mobile">
+      <div class="column">${category.category}</div>
+      <div class="column">${category.ganancia}</div>
+      <div class="column">${category.gasto}</div>
+      <div class="column">${category.balance}</div>
+    </div>
+    `;
+     reporteTotalCateg.appendChild(nodo);
+    });
+  
+    reportResumen.innerHTML = "";
+    reportsSections.resumen.forEach((resumen) => {
+      let nodo = document.createElement("div");
+      nodo.innerHTML = `
+      <div class="columns has-text-weight-medium is-mobile">
+        <div class="column">${resumen.title}</div>
+        <div class="column">
+          <span class="tag is-info is-light is-medium">${resumen.category}</span>
+        </div>
+        <div class="column">${resumen.monto}</div>
+      </div>
+    `;
+      reportResumen.appendChild(nodo);
+    });
+  };
+  
+/*
+ ************************************************************************************
+
                                     Filtros
  ************************************************************************************
 */
