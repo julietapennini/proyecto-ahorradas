@@ -364,7 +364,7 @@ const deleteCategory = (category) => {
 //Botón eliminar categorías
 btnCancelEditarCategoria.addEventListener('click', () => {
   editarCategoria.style.display = 'none'
-  categorias.style.display = 'block'
+  paginaCategorias.style.display = 'block'
 });
 
 //Añadir categorías a HTML
