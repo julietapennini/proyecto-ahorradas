@@ -162,16 +162,22 @@ inputEditarFecha.value = inputFecha.value;
                                     Operaciones
  ************************************************************************************
 */
+const generateId = () => {
+  let p1 = Math.floor(Math.random() * 0x10000);
+  //console.log(p1, p1.toString(16));
+  let p2 = new Date().getTime();
+  return `${p1}${p2}`;
+};
 
 //NUEVA OPERACIÓN
 
 //Creando categorías
 let categories = [
-  { id: uuid.v4(), name: "Servicios" },
-  { id: uuid.v4(), name: "Trasporte" },
-  { id: uuid.v4(), name: "Educación" },
-  { id: uuid.v4(), name: "Trabajo" },
-  { id: uuid.v4(), name: "Comida" },
+  { id: generateId(), name: "Servicios" },
+  { id: generateId(), name: "Trasporte" },
+  { id: generateId(), name: "Educación" },
+  { id: generateId(), name: "Trabajo" },
+  { id: generateId(), name: "Comida" },
 ];
 
 //Formulario Operaciones valores predeterminados
@@ -321,7 +327,7 @@ const eliminarOperacion = (operacion) => {
 //Añadir categorías a local storage
 const addCategories = () => {
   if (categoriaInput.value != "") {
-    categories.push({ id: categories.length, name: categoriaInput.value });
+    categories.push({ id: generateId(), name: categoriaInput.value });
     setValueCategoriesSelect();
     categoriesFromList();
     categoriaInput.value = "";
@@ -332,28 +338,31 @@ const addCategories = () => {
 
 //Editar categorías
 let i;
-const editCategory = (category) => {
+const editCategory = () => {
   editarCategoria.style.display = 'block'
   paginaCategorias.style.display = 'none'
 
-  i = categories.findIndex((e) => e.id === Number(category));
-  inputEditCategoria.value = categories[i].name
-  return i
+  categories.findIndex((e) => e.id === categories);
+  inputEditCategoria.value = categories[i].name  
+  
+  return i  
 };
 
 //Botón editar categorías
 btnEditarCategoria.addEventListener("click", () => {
-  categories[i].name = inputEditCategoria.value;
+  //categories[i].name = inputEditCategoria.value;
   localStorage.setItem("categorias", JSON.stringify(categories));
   categoriesFromList(categories);
   setValueCategoriesSelect(categories);
   editarCategoria.style.display = 'none'
   paginaCategorias.style.display = 'block'
+  console.log(inputEditCategoria.value);
 });
 
 //Eliminar categorías
 const deleteCategory = (category) => {
   const value = categories.findIndex((e) => e.id == category);
+  console.log(value, "quiero eliminar", category);
   if (value >= 0) {
     categories.splice(value, 1);
     categoriesFromList();
