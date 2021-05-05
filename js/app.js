@@ -166,7 +166,7 @@ const generateId = () => {
 let categories = [
   { id: generateId(), name: "Servicios" },
   { id: generateId(), name: "Trasporte" },
-  { id: generateId(), name: "Educación" },
+  { id: generateId(), name: "Educación" }, 
   { id: generateId(), name: "Trabajo" },
   { id: generateId(), name: "Comida" },
 ];
@@ -369,7 +369,7 @@ const deleteCategory = (category) => {
 //Botón eliminar categorías
 btnCancelEditarCategoria.addEventListener('click', () => {
   editarCategoria.style.display = 'none'
-  categorias.style.display = 'block'
+  paginaCategorias.style.display = 'block'
 });
 
 //Añadir categorías a HTML
@@ -434,7 +434,6 @@ main();
 
 /*
  ************************************************************************************
-
                                     Reportes
  ************************************************************************************
 */
