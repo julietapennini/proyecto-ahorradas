@@ -467,7 +467,7 @@ const mostrarListaReportes = (Operaciones) => {
     if (Operaciones === 0){
       listadoReportes.classList.add("is-hidden");
       sinReportes.classList.remove("is-hidden");
-    //Si hay operaciones mostrar lista y ocultar imagen. 
+    //Si hay operaciones mostrar lista y ocultar imagen
     } else {
       sinReportes.classList.add("is-hidden");
       listadoReportes.classList.remove("is-hidden");
