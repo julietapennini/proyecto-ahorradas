@@ -186,22 +186,22 @@ const operacionResetearFormulario = () => {
 
 
 //Ocultar imagen - mostrar tabla
-const checkearOperaciones = (arrOperaciones) => {
-  for (let i = 0; i < operaciones.length; i++) {
-  //Si no hay operaciones, ocultar tabla y mostrar imagen.
-  if (arrOperaciones === 0){
-    tablaOperaciones.classList.add("is-hidden");
-    verSinOperaciones.classList.remove("is-hidden");
-  //Si hay operaciones, mostrar tabla y ocultar imagen. 
+const checkearOperaciones = (operaciones) => {
+    //Si no hay operaciones, ocultar tabla y mostrar imagen.
+  if (operaciones == 0){
+    tablaOperaciones.style.display = 'none' ;
+    verSinOperaciones.style.display = 'block' ;
+    //Si hay operaciones, mostrar tabla y ocultar imagen. 
   } else {
-    verSinOperaciones.classList.add("is-hidden");
-    tablaOperaciones.classList.remove("is-hidden");
+    tablaOperaciones.style.display = 'block' ;
+    verSinOperaciones.style.display = 'none' ;
   }
-}};
+};
 
+let operaciones = [];
 
 //AGREGAR OPERACIÓN
-let operaciones = [];
+
 
 //Botón agregar operación
 btnAgregar.addEventListener('click', () => {
@@ -247,7 +247,7 @@ const escribirOperacion = (operaciones) => {
       <div class="column is-2 estilo-categoria">${operaciones[i].categoria}</div>
       <div class="column is-3 has-text-right">${operaciones[i].fecha}</div>
       <div class="column is-2 has-text-right ${operaciones[i].tipo === 'ganancia' ? 'has-text-primary' : 'has-text-danger'}">
-      ${operaciones[i].tipo === 'ganancia' ? '$' : '$'}${operaciones[i].monto}</div>
+     ${operaciones[i].monto}</div>
       <div class="column is-2 has-text-right">
         <button class="button is-info is-inverted is-small" onclick="editarOperacion('${operaciones[i].id}')">Editar</button>
         <button class="button is-danger is-inverted is-small" onclick="eliminarOperacion('${operaciones[i].id}')">Eliminar</button>
@@ -260,7 +260,7 @@ const escribirOperacion = (operaciones) => {
 
 operaciones = JSON.parse(localStorage.getItem("operacionesStorage")) ?? operaciones;
 escribirOperacion(operaciones);
-checkearOperaciones();
+checkearOperaciones(operaciones);
 
 //EDITAR OPERACIONES
 
