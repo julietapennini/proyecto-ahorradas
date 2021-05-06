@@ -447,7 +447,6 @@ main();
  ************************************************************************************
 */
 
-
 const balanceData = (operaciones) => {
   return operaciones.reduce(
     (balance, operacion) => {
@@ -492,8 +491,8 @@ const balanceHTML = (operaciones) => {
     balanceTotal.classList.add("has-text-danger");
   }
 
-  balanceGanancias.innerHTML = `$${objBalance["ganancias"]}`;
-  balanceGastos.innerHTML = `$${objBalance["gastos"]}`;
+  balanceGanancias.innerHTML = `$${objBalance["ganancia"]}`;
+  balanceGastos.innerHTML = `$${objBalance["gasto"]}`;
   balanceTotal.innerHTML = `$${objBalance["total"]}`;
 };
 
