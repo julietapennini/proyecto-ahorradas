@@ -164,11 +164,11 @@ const generateId = () => {
 
 //Creando categorías
 let categories = [
-  { id: generateId(), name: "Servicios" },
-  { id: generateId(), name: "Trasporte" },
-  { id: generateId(), name: "Educación" }, 
-  { id: generateId(), name: "Trabajo" },
-  { id: generateId(), name: "Comida" },
+  { id: 0, name: "Servicios" },
+  { id: 2, name: "Trasporte" },
+  { id: 3, name: "Educación" }, 
+  { id: 4, name: "Trabajo" },
+  { id: 5, name: "Comida" },
 ];
 
 //Formulario Operaciones valores predeterminados
@@ -317,8 +317,39 @@ const eliminarOperacion = (operacion) => {
                                     Categorías
  ************************************************************************************
 */
-
 //Añadir categorías a local storage
+const addCategories = () => {
+  if (categoriaInput.value != "") {
+    categories.push({ id: categories.length, name: categoriaInput.value });
+    setValueCategoriesSelect();
+    categoriesFromList();
+    categoriaInput.value = "";
+  }
+  localStorage.setItem('categorias', JSON.stringify(categories))
+  categories = JSON.parse(localStorage.getItem('categorias'))
+};
+
+//Editar categorías
+let index;
+const editCategory = (category) => {
+  editarCategoria.style.display = 'block'
+  paginaCategorias.style.display = 'none'
+
+  index = categories.findIndex((e) => e.id === Number(category));
+  inputEditCategoria.value = categories[index].name
+  return index
+};
+
+//Botón editar categorías
+btnEditarCategoria.addEventListener("click", () => {
+  categories[index].name = inputEditCategoria.value;
+  localStorage.setItem("categorias", JSON.stringify(categories));
+  categoriesFromList(categories);
+  setValueCategoriesSelect(categories);
+  editarCategoria.style.display = 'none'
+  paginaCategorias.style.display = 'block'
+});
+/* //Añadir categorías a local storage
 const addCategories = () => {
   if (categoriaInput.value != "") {
     categories.push({ id: generateId(), name: categoriaInput.value });
@@ -351,7 +382,7 @@ btnEditarCategoria.addEventListener("click", () => {
   editarCategoria.style.display = 'none'
   paginaCategorias.style.display = 'block'
   console.log(inputEditCategoria.value);
-});
+}); */
 
 
 //Eliminar categorías
