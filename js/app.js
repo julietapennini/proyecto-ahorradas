@@ -243,14 +243,13 @@ const escribirOperacion = (operaciones) => {
     
     const caja =
     `<div id="${operaciones[i].id}" class="columns">
-      <div class="column is-3 estilo-descripcion">${operaciones[i].descripcion}</div>
-      <div class="column is-2 estilo-categoria">${operaciones[i].categoria}</div>
-      <div class="column is-3 has-text-right">${operaciones[i].fecha}</div>
-      <div class="column is-2 has-text-right ${operaciones[i].tipo === 'ganancia' ? 'has-text-primary' : 'has-text-danger'}">
-     ${operaciones[i].monto}</div>
-      <div class="column is-2 has-text-right">
-        <button class="button is-info is-inverted is-small" onclick="editarOperacion('${operaciones[i].id}')">Editar</button>
-        <button class="button is-danger is-inverted is-small" onclick="eliminarOperacion('${operaciones[i].id}')">Eliminar</button>
+      <div class="column is-3 is-medium">${operaciones[i].descripcion}</div>
+      <div class="column is-3" is-medium>${operaciones[i].categoria}</div>
+      <div class="column is-2 is-medium">${operaciones[i].fecha}</div>
+      <div class="column is-2 is-medium has-text-right ${operaciones[i].tipo === 'ganancia' ? 'tag is-primary is-light is-rounded' : 'tag is-danger is-light is-rounded'}">$${operaciones[i].monto}</div>
+      <div class="column is-2 is-medium has-text-right">
+        <button class="button is-inverted tag is-link" onclick="editarOperacion('${operaciones[i].id}')"><i class="fas fa-pen"></i></i></button>
+        <button class="button is-inverted tag is-danger" onclick="eliminarOperacion('${operaciones[i].id}')"><i class="fas fa-trash-alt"></i></button>
       </div>
     </div>`
 
@@ -391,7 +390,7 @@ const categoriesFromList = () => {
     `<section class="mb-3">
      <article class="columns is-vcentered is-mobile">
       <article class="column">
-          <span class="tag is-primary is-light">${category.name}</span>
+          <span class="tag is-info is-light is-rounded">${category.name}</span>
       </article>
       <article class="column is-narrow has-text">
           <a href="#" class="mr-4 is-size-7 edit-link" onclick="editCategory(${category.id})">Editar</a>
@@ -640,6 +639,7 @@ btnOcultarFiltros.addEventListener('click', () => {
   }
 });
 
+//Filtros tipo y categoría
 const filtrado = (e) => {
   operacionesFiltradas = [...operaciones];
 
@@ -649,25 +649,28 @@ const filtrado = (e) => {
     operacionesFiltradas = [...operaciones];
     selectCategorias.value = 'Todas';
     elegirValor = 'tipo';
+    
   } else{
-    filtroTipo.value = 'Todos';
-    elegirValor = 'categoria'
+    filtroTipo.value = 'todos';
+    elegirValor = 'categoria';
   }
 
   operacionesFiltradas = operacionesFiltradas.filter(operaciones => operaciones[elegirValor]=== e.target.value);
-  e.target.value === 'Todas' ? escribirOperacion(operaciones) : escribirOperacion(operacionesFiltradas);
+  e.target.value === 'todos' ? escribirOperacion(operaciones) : escribirOperacion(operacionesFiltradas)
 
 }
 
 selectCategorias.addEventListener('change', (e)=> {filtrado(e)});
 filtroTipo.addEventListener('change', (e)=> {filtrado(e)});
 
+//Filtro fecha
 filtroFecha.addEventListener('change', (e)=> {
   let resultadoFecha = operaciones.filter(operaciones => operaciones.fecha === e.target.value);
 
   escribirOperacion(resultadoFecha);
 })
 
+//Filtro ordenar
 filtroOrdenar.addEventListener('change', ()=>{
 
   let resultadoOrdenar = [...operaciones];
