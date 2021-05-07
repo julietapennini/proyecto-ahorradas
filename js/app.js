@@ -7,6 +7,7 @@ ____________________________________________________________________
 const btnBalance = document.getElementById('btn-balance');
 const btnCategorias = document.getElementById('btn-categorias');
 const btnReportes = document.getElementById('btn-reportes');
+const burgerMenu = document.getElementById("navbar-burger");
 
 //Páginas
 const paginaBalance = document.getElementById('pagina-balance');
@@ -15,6 +16,7 @@ const paginaEditarOperacion = document.getElementById('pagina-editar-operacion')
 const paginaCategorias = document.getElementById('pagina-categorias');
 const paginaReportes = document.getElementById('pagina-reportes');
 const editarCategoria = document.getElementById('editar-categoria');
+const navbarMenu = document.getElementById("navbar-menu")
 
 //Categorias
 const categoriaInput = document.getElementById('categoria-input');
@@ -76,6 +78,12 @@ const filtroOrdenar = document.getElementById('filtro-ordenar');
 const balanceGanancias = document.getElementById("balance-ganancias");
 const balanceGastos = document.getElementById("balance-gastos");
 const balanceTotal = document.getElementById("balance-total");
+
+//Menú hamburguesa
+burgerMenu.addEventListener("click", () => {
+  burgerMenu.classList.toggle("is-active");
+  navbarMenu.classList.toggle("is-active");
+})
 
 
 /*
@@ -242,14 +250,32 @@ const escribirOperacion = (operaciones) => {
   for (let i = 0; i < operaciones.length; i++) {
     
     const caja =
-    `<div id="${operaciones[i].id}" class="columns">
-      <div class="column is-3 is-medium">${operaciones[i].descripcion}</div>
-      <div class="column is-3" is-medium>${operaciones[i].categoria}</div>
-      <div class="column is-2 is-medium">${operaciones[i].fecha}</div>
-      <div class="column is-2 is-medium has-text-right ${operaciones[i].tipo === 'ganancia' ? 'tag is-primary is-light is-rounded' : 'tag is-danger is-light is-rounded'}">$${operaciones[i].monto}</div>
-      <div class="column is-2 is-medium has-text-right">
-        <button class="button is-inverted tag is-link" onclick="editarOperacion('${operaciones[i].id}')"><i class="fas fa-pen"></i></i></button>
-        <button class="button is-inverted tag is-danger" onclick="eliminarOperacion('${operaciones[i].id}')"><i class="fas fa-trash-alt"></i></button>
+
+    `
+    <div id="${operaciones[i].id}">
+      <div class="mb-3">
+        <div class="columns is-multiline is-mobile is-vcentered">
+          <div class="column is-3-tablet is-6-mobile">
+            <h3 class="has-text-weight-semibold is-size-6">${operaciones[i].descripcion}</h3>
+          </div>
+
+          <div class="column is-3-tablet is-6-mobile has-text-right-mobile">
+            <span class="tag is-info is-light is-rounded is-size-6">${operaciones[i].categoria}</span>
+          </div>
+
+          <div class="column is-2-tablet has-text-grey is-hidden-mobile has-text-left-tablet is-size-6">
+          ${operaciones[i].fecha}
+          </div>
+          
+          <div class="column is-2 has-text-right is-size-6 ${operaciones[i].tipo === 'ganancia' ? 'tag is-primary is-light is-rounded' : 'tag is-danger is-light is-rounded'}">
+          $${operaciones[i].monto}</div>
+
+          <div class="column is-2-tablet has-text-right">
+            <button class="button is-inverted tag is-link is-size-6" onclick="editarOperacion('${operaciones[i].id}')"><i class="fas fa-pen"></i></i></button>
+            <button class="button is-inverted tag is-danger is-size-6" onclick="eliminarOperacion('${operaciones[i].id}')"><i class="fas fa-trash-alt"></i></button>
+          </div>
+        </div>
+
       </div>
     </div>`
 
@@ -390,11 +416,11 @@ const categoriesFromList = () => {
     `<section class="mb-3">
      <article class="columns is-vcentered is-mobile">
       <article class="column">
-          <span class="tag is-info is-light is-rounded">${category.name}</span>
+          <span class="tag is-info is-light is-rounded is-size-6">${category.name}</span>
       </article>
       <article class="column is-narrow has-text">
-          <a href="#" class="mr-4 is-size-7 edit-link" onclick="editCategory(${category.id})">Editar</a>
-          <a href="#" class="is-size-7 delete-link" onclick="deleteCategory(${category.id})">Eliminar</a>
+          <a href="#" class="button is-inverted tag is-link is-size-6" onclick="editCategory(${category.id})"><i class="fas fa-pen"></i></i></a>
+          <a href="#" class="button is-inverted tag is-danger is-size-6" onclick="deleteCategory(${category.id})"><i class="fas fa-trash-alt"></i></a>
           <p></p>
       </article>
       </article>
