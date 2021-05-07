@@ -656,8 +656,11 @@ const filtrado = (e) => {
   }
 
   operacionesFiltradas = operacionesFiltradas.filter(operaciones => operaciones[elegirValor]=== e.target.value);
-  e.target.value === 'todos' ? escribirOperacion(operaciones) : escribirOperacion(operacionesFiltradas)
-
+  if (e.target.value === 'todos'|| e.target.value === 'Todas') {
+    escribirOperacion(operaciones);
+  } else{
+    escribirOperacion(operacionesFiltradas);
+  }
 }
 
 selectCategorias.addEventListener('change', (e)=> {filtrado(e)});
