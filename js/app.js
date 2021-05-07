@@ -7,6 +7,7 @@ ____________________________________________________________________
 const btnBalance = document.getElementById('btn-balance');
 const btnCategorias = document.getElementById('btn-categorias');
 const btnReportes = document.getElementById('btn-reportes');
+const burgerMenu = document.getElementById("navbar-burger");
 
 //Páginas
 const paginaBalance = document.getElementById('pagina-balance');
@@ -15,6 +16,7 @@ const paginaEditarOperacion = document.getElementById('pagina-editar-operacion')
 const paginaCategorias = document.getElementById('pagina-categorias');
 const paginaReportes = document.getElementById('pagina-reportes');
 const editarCategoria = document.getElementById('editar-categoria');
+const navbarMenu = document.getElementById("navbar-menu")
 
 //Categorias
 const categoriaInput = document.getElementById('categoria-input');
@@ -76,6 +78,12 @@ const filtroOrdenar = document.getElementById('filtro-ordenar');
 const balanceGanancias = document.getElementById("balance-ganancias");
 const balanceGastos = document.getElementById("balance-gastos");
 const balanceTotal = document.getElementById("balance-total");
+
+//Menú hamburguesa
+burgerMenu.addEventListener("click", () => {
+  burgerMenu.classList.toggle("is-active");
+  navbarMenu.classList.toggle("is-active");
+})
 
 
 /*
