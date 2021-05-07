@@ -88,7 +88,7 @@
                                                               BALANCE
     ____________________________________________________________________________________________________________________________________
     -------->
-    <div class="container px-5" id="pagina-balance">
+    <div class="container pt-5" id="pagina-balance">
       <div class="tile is-ancestor">
 
         <div class="tile is-vertical is-3 is-parent">
@@ -105,12 +105,12 @@
 
             <article class="columns is-vcentered is-mobile">
                 <span class="column title is-size-5 has-text-weight-normal">Ganancias</span>
-                <span class="column subtitle has-text-right has-text-success is-size-5" id="balance-ganancias">+$0</span>
+                <span class="column subtitle has-text-right has-text-success is-size-5" id="balance-ganancias">$0</span>
             </article>
 
             <article class="columns is-vcentered is-mobile">
                 <span class="column title is-size-5 has-text-weight-normal">Gastos</span>
-                <span class="column subtitle has-text-right has-text-success is-size-5 has-text-danger" id="balance-gastos">-$0</span>
+                <span class="column subtitle has-text-right has-text-success is-size-5 has-text-danger" id="balance-gastos">$0</span>
             </article>
 
             <article class="columns is-vcentered is-mobile">
@@ -142,7 +142,7 @@
               <section class="field">
                 <label for="filtro-tipo" class="label">Tipo</label>
                 <article class="control">
-                  <article class="select is-fullwidth">
+                  <article class="select is-fullwidth is-rounded">
                     <select id="filtro-tipo">
                       <option value="todos">Todos</option>
                       <option value="gasto">Gasto</option>
@@ -155,7 +155,7 @@
               <section class="field">
                 <label for="filtro-categoria" class="label">Categoría</label>
                 <article class="control">
-                  <article class="select is-fullwidth">
+                  <article class="select is-fullwidth is-rounded">
                     <select id="filtro-categoria"></select>
                   </article>
                 </article>
@@ -164,14 +164,14 @@
               <section class="field">
                 <label for="filtro-fecha" class="label">Desde</label>
                 <article class="control">
-                  <input id="filtro-fecha" class="input" type="date" name="label">
+                  <input id="filtro-fecha" class="input input is-rounded" type="date" name="label">
                 </article>
               </section>  
 
               <section class="field">
                 <label for="filtro-ordenar" class="label">Ordenar por</label>
                   <article class="control">
-                    <article class="select is-fullwidth">
+                    <article class="select is-fullwidth is-rounded">
                       <select id="filtro-ordenar">
                         <option value="a-z">A-Z</option>
                         <option value="z-a">Z-A</option>
@@ -199,8 +199,8 @@
                                                   OPERACIONES
             *************************************************************************************
           ---->
-                  
-          <section class="tile is-child box">
+        
+          <section class="tile is-child box pl-5">
 
             <section class="columns mb-4">
               <article class="column">
@@ -226,8 +226,8 @@
               <article class="columns has-text-weight-semibold is-hidden-mobile">
                 <div class="column is-3">Descripción</div>
                 <div class="column is-3">Categorías</div>
-                <div class="column is-2 has-text-right">Fecha</div>
-                <div class="column is-2 has-text-right">Monto</div>
+                <div class="column is-2">Fecha</div>
+                <div class="column is-2">Monto</div>
                 <div class="column is-2 has-text-right">Acciones</div>
               </article>
               <div id="escribir-operacion"></div>
@@ -252,23 +252,22 @@
 
            <article class="field mt-6">
              <label for="input-descripcion" class="label">Descripción</label>
-             <input class="input" id="input-descripcion" type="text" placeholder="Ingresa la descripción">
+             <input class="input is-rounded" id="input-descripcion" type="text" placeholder="Ingresa la descripción">
            </article>
 
            <article class="field">
              <label for="input-monto" class="label">Monto</label>
-             <input class="input" id="input-monto" type="number" placeholder="Ingresa el monto">
+             <input class="input is-rounded" id="input-monto" type="number" placeholder="Ingresa el monto">
            </article>
             
            <section class="field">
             <label for="input-tipo" class="label">Tipo</label>
             <article class="control">
-              <article class="select is-fullwidth">
+              <article class="select is-fullwidth is-rounded">
                 
                 <select id="input-tipo">
                   <option value="gasto">Gasto</option>
                   <option value="ganancia">Ganancia</option>
-                  <option value="todos">Todos</option>
                 </select>
               </article>
             </article>
@@ -277,7 +276,7 @@
           <section class="field">
             <label for="categoria-operacion-select" class="label">Categoría</label>
             <article class="control">
-              <article class="select is-fullwidth">
+              <article class="select is-fullwidth is-rounded">
                 <select id="categoria-operacion-select">
                 </select>
               </article>
@@ -287,7 +286,7 @@
 
           <article class="field">
             <label for="input-fecha" class="label">Fecha</label>
-            <input class="input" id="input-fecha" type="date" name="label">         
+            <input class="input is-rounded" id="input-fecha" type="date" name="label">         
           </article>
 
           <article class="field is-grouped is-grouped-right">
@@ -318,22 +317,21 @@
 
            <article class="field mt-6">
              <label for="input-editar-descripcion" class="label">Descripción</label>
-             <input class="input" id="input-editar-descripcion" type="text" placeholder="Ingresa la descripción">
+             <input class="input is-rounded" id="input-editar-descripcion" type="text" placeholder="Ingresa la descripción">
            </article>
 
            <article class="field">
              <label for="input-editar-monto" class="label">Monto</label>
-             <input class="input" id="input-editar-monto" type="number" placeholder="Ingresa el monto">
+             <input class="input is-rounded" id="input-editar-monto" type="number" placeholder="Ingresa el monto">
            </article>
 
            <section class="field">
             <label for="input-editar-tipo" class="label">Tipo</label>
             <article class="control" >
-              <div class="select is-fullwidth">
+              <div class="select is-fullwidth is-rounded">
                 <select id="input-editar-tipo">
                   <option value="gasto">Gasto</option>
                   <option value="ganancia">Ganancia</option>
-                  <option value="todos">Todos</option>
                 </select>
               </article>
             </section>
@@ -343,7 +341,7 @@
           <section class="field">
             <label for="categoria-operacion-editar-select" class="label">Categoría</label>
             <article class="control">
-              <article class="select is-fullwidth">
+              <article class="select is-fullwidth is-rounded">
                 <select id="categoria-operacion-editar-select">
                 </select>
               </article>
@@ -353,13 +351,12 @@
 
           <article class="field">
             <label for="input-editar-fecha" class="label">Fecha</label>
-            <input class="input" id="input-editar-fecha" type="date" name="label">         
+            <input class="input is-rounded" id="input-editar-fecha" type="date" name="label">         
           </article>
 
           <article class="field is-grouped is-grouped-right">
             <p class="control">
-
-              <button class="button is-light" id="btn-cancelar-editar" aria-label="Botón de cancelar editar nueva operación">Cancelar</button>
+              <button class="button is-light is-rounded" id="btn-cancelar-editar" aria-label="Botón de cancelar editar nueva operación">Cancelar</button>
             </p>
             <p class="control">
               <button class="button button is-link is-rounded" id="btn-editar-editar" aria-label="Botón de editar nueva operación">Editar</button>
@@ -386,7 +383,7 @@
 
             <section class="field is-grouped">
               <article class="control is-expanded">
-                <input class="input" type="text" name="" id="categoria-input">
+                <input class="input is-rounded" type="text" name="" id="categoria-input">
               </article>
 
               <article class="control">
@@ -570,16 +567,16 @@
 
             <section class="field is-grouped">
               <article class="control is-expanded">
-                  <input class="input" type="text" name="" id="input-editar-categoria">
+                  <input class="input is-rounded" type="text" name="" id="input-editar-categoria">
               </article>              
             </section>
 
             <article class="field is-grouped is-grouped-right">
               <p class="control">
-              </p>
-              <a class="button is-light" id="btn-cancel-edit-category" aria-label="Botón de cancelar editar categoría">
-                Cancelar
+                <a class="button is-light is-rounded" id="btn-cancel-edit-category" aria-label="Botón de cancelar editar categoría">
+                  Cancelar
               </a>
+              </p>
               <p class="control">
                 <a class="button button is-link is-rounded" id="btn-edit-edit-category" aria-label="Botón de editar categoría">
                   Editar

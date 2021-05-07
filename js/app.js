@@ -250,30 +250,32 @@ const escribirOperacion = (operaciones) => {
   for (let i = 0; i < operaciones.length; i++) {
     
     const caja =
+
     `
     <div id="${operaciones[i].id}">
       <div class="mb-3">
         <div class="columns is-multiline is-mobile is-vcentered">
           <div class="column is-3-tablet is-6-mobile">
-            <h3 class="has-text-weight-semibold">${operaciones[i].descripcion}</h3>
+            <h3 class="has-text-weight-semibold is-size-6">${operaciones[i].descripcion}</h3>
           </div>
 
           <div class="column is-3-tablet is-6-mobile has-text-right-mobile">
-            <span class="tag is-primary is-light">${operaciones[i].categoria}</span>
+            <span class="tag is-info is-light is-rounded is-size-6">${operaciones[i].categoria}</span>
           </div>
 
-          <div class="column is-2-tablet has-text-grey is-hidden-mobile has-text-right-tablet">
+          <div class="column is-2-tablet has-text-grey is-hidden-mobile has-text-left-tablet is-size-6">
           ${operaciones[i].fecha}
           </div>
           
-          <div class="column is-2 has-text-right has-text-weight-bold ${operaciones[i].tipo === 'ganancia' ? 'has-text-primary' : 'has-text-danger'}">
-          ${operaciones[i].monto}</div>
+          <div class="column is-2 has-text-right is-size-6 ${operaciones[i].tipo === 'ganancia' ? 'tag is-primary is-light is-rounded' : 'tag is-danger is-light is-rounded'}">
+          $${operaciones[i].monto}</div>
 
           <div class="column is-2-tablet has-text-right">
-            <button class="button is-info is-inverted is-small" onclick="editarOperacion('${operaciones[i].id}')">Editar</button>
-            <button class="button is-danger is-inverted is-small" onclick="eliminarOperacion('${operaciones[i].id}')">Eliminar</button>
+            <button class="button is-inverted tag is-link is-size-6" onclick="editarOperacion('${operaciones[i].id}')"><i class="fas fa-pen"></i></i></button>
+            <button class="button is-inverted tag is-danger is-size-6" onclick="eliminarOperacion('${operaciones[i].id}')"><i class="fas fa-trash-alt"></i></button>
           </div>
         </div>
+
       </div>
     </div>`
 
@@ -414,11 +416,11 @@ const categoriesFromList = () => {
     `<section class="mb-3">
      <article class="columns is-vcentered is-mobile">
       <article class="column">
-          <span class="tag is-primary is-light">${category.name}</span>
+          <span class="tag is-info is-light is-rounded is-size-6">${category.name}</span>
       </article>
       <article class="column is-narrow has-text">
-          <a href="#" class="mr-4 is-size-7 edit-link" onclick="editCategory(${category.id})">Editar</a>
-          <a href="#" class="is-size-7 delete-link" onclick="deleteCategory(${category.id})">Eliminar</a>
+          <a href="#" class="button is-inverted tag is-link is-size-6" onclick="editCategory(${category.id})"><i class="fas fa-pen"></i></i></a>
+          <a href="#" class="button is-inverted tag is-danger is-size-6" onclick="deleteCategory(${category.id})"><i class="fas fa-trash-alt"></i></a>
           <p></p>
       </article>
       </article>
@@ -663,6 +665,7 @@ btnOcultarFiltros.addEventListener('click', () => {
   }
 });
 
+//Filtros tipo y categoría
 const filtrado = (e) => {
   operacionesFiltradas = [...operaciones];
 
@@ -672,25 +675,31 @@ const filtrado = (e) => {
     operacionesFiltradas = [...operaciones];
     selectCategorias.value = 'Todas';
     elegirValor = 'tipo';
+    
   } else{
-    filtroTipo.value = 'Todos';
-    elegirValor = 'categoria'
+    filtroTipo.value = 'todos';
+    elegirValor = 'categoria';
   }
 
   operacionesFiltradas = operacionesFiltradas.filter(operaciones => operaciones[elegirValor]=== e.target.value);
-  e.target.value === 'Todas' ? escribirOperacion(operaciones) : escribirOperacion(operacionesFiltradas);
-
+  if (e.target.value === 'todos'|| e.target.value === 'Todas') {
+    escribirOperacion(operaciones);
+  } else{
+    escribirOperacion(operacionesFiltradas);
+  }
 }
 
 selectCategorias.addEventListener('change', (e)=> {filtrado(e)});
 filtroTipo.addEventListener('change', (e)=> {filtrado(e)});
 
+//Filtro fecha
 filtroFecha.addEventListener('change', (e)=> {
   let resultadoFecha = operaciones.filter(operaciones => operaciones.fecha === e.target.value);
 
   escribirOperacion(resultadoFecha);
 })
 
+//Filtro ordenar
 filtroOrdenar.addEventListener('change', ()=>{
 
   let resultadoOrdenar = [...operaciones];
