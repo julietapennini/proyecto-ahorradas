@@ -7,6 +7,7 @@ ____________________________________________________________________
 const btnBalance = document.getElementById('btn-balance');
 const btnCategorias = document.getElementById('btn-categorias');
 const btnReportes = document.getElementById('btn-reportes');
+const burgerMenu = document.getElementById("navbar-burger");
 
 //Páginas
 const paginaBalance = document.getElementById('pagina-balance');
@@ -15,6 +16,7 @@ const paginaEditarOperacion = document.getElementById('pagina-editar-operacion')
 const paginaCategorias = document.getElementById('pagina-categorias');
 const paginaReportes = document.getElementById('pagina-reportes');
 const editarCategoria = document.getElementById('editar-categoria');
+const navbarMenu = document.getElementById("navbar-menu")
 
 //Categorias
 const categoriaInput = document.getElementById('categoria-input');
@@ -76,6 +78,12 @@ const filtroOrdenar = document.getElementById('filtro-ordenar');
 const balanceGanancias = document.getElementById("balance-ganancias");
 const balanceGastos = document.getElementById("balance-gastos");
 const balanceTotal = document.getElementById("balance-total");
+
+//Menú hamburguesa
+burgerMenu.addEventListener("click", () => {
+  burgerMenu.classList.toggle("is-active");
+  navbarMenu.classList.toggle("is-active");
+})
 
 
 /*
@@ -242,15 +250,30 @@ const escribirOperacion = (operaciones) => {
   for (let i = 0; i < operaciones.length; i++) {
     
     const caja =
-    `<div id="${operaciones[i].id}" class="columns">
-      <div class="column is-3 estilo-descripcion">${operaciones[i].descripcion}</div>
-      <div class="column is-2 estilo-categoria">${operaciones[i].categoria}</div>
-      <div class="column is-3 has-text-right">${operaciones[i].fecha}</div>
-      <div class="column is-2 has-text-right ${operaciones[i].tipo === 'ganancia' ? 'has-text-primary' : 'has-text-danger'}">
-     ${operaciones[i].monto}</div>
-      <div class="column is-2 has-text-right">
-        <button class="button is-info is-inverted is-small" onclick="editarOperacion('${operaciones[i].id}')">Editar</button>
-        <button class="button is-danger is-inverted is-small" onclick="eliminarOperacion('${operaciones[i].id}')">Eliminar</button>
+    `
+    <div id="${operaciones[i].id}">
+      <div class="mb-3">
+        <div class="columns is-multiline is-mobile is-vcentered">
+          <div class="column is-3-tablet is-6-mobile">
+            <h3 class="has-text-weight-semibold">${operaciones[i].descripcion}</h3>
+          </div>
+
+          <div class="column is-3-tablet is-6-mobile has-text-right-mobile">
+            <span class="tag is-primary is-light">${operaciones[i].categoria}</span>
+          </div>
+
+          <div class="column is-2-tablet has-text-grey is-hidden-mobile has-text-right-tablet">
+          ${operaciones[i].fecha}
+          </div>
+          
+          <div class="column is-2 has-text-right has-text-weight-bold ${operaciones[i].tipo === 'ganancia' ? 'has-text-primary' : 'has-text-danger'}">
+          ${operaciones[i].monto}</div>
+
+          <div class="column is-2-tablet has-text-right">
+            <button class="button is-info is-inverted is-small" onclick="editarOperacion('${operaciones[i].id}')">Editar</button>
+            <button class="button is-danger is-inverted is-small" onclick="eliminarOperacion('${operaciones[i].id}')">Eliminar</button>
+          </div>
+        </div>
       </div>
     </div>`
 
