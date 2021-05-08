@@ -122,6 +122,7 @@ btnReportes.addEventListener('click', () => {
   paginaEditarOperacion.style.display = 'none'
   editarCategoria.style.display = 'none'
   filtrarOperaciones()
+  mostrarListaReportes(operaciones)
 })
 
 //Botón nueva operación
@@ -207,6 +208,7 @@ const checkearOperaciones = (operaciones) => {
 };
 
 let operaciones = [];
+let balance = [];
 
 //AGREGAR OPERACIÓN
 
@@ -387,6 +389,7 @@ btnEditarCategoria.addEventListener("click", () => {
   editarCategoria.style.display = 'none'
   paginaCategorias.style.display = 'block'
 });
+
 //Eliminar categorías
 const deleteCategory = (category) => {
   const value = categories.findIndex((e) => e.id == category);
@@ -469,6 +472,121 @@ main();
 
 /*
  ************************************************************************************
+                                    Filtros
+ ************************************************************************************
+*/
+
+//Botón ocultar-mostrar filtros
+btnOcultarFiltros.addEventListener('click', () => {
+  if (btnOcultarFiltros.innerText === 'Ocultar filtros') {
+    btnOcultarFiltros.innerText = 'Mostrar filtros'
+    filtros.style.display = 'none'
+  } else {
+    btnOcultarFiltros.innerText = 'Ocultar filtros'
+    filtros.style.display = 'block'
+  }
+});
+
+const filtrarTipo = (tipo, operacionesFiltradas) => {
+  const result = operacionesFiltradas.filter((operacionDeFiltro) => operacionDeFiltro.tipo === tipo);
+  return result;
+};
+
+const filtrarCategoria = (categoria, operacionesFiltradas) => {
+  const result = operacionesFiltradas.filter((operacionDeFiltro) => operacionDeFiltro.categoria === categoria);
+  return result;
+};
+
+const filtrarFechaMayorOIgual = (fecha, operacionesFiltradas) => {
+  const result = operacionesFiltradas.filter(
+      (operacionDeFiltro) => new Date(operacionDeFiltro.fecha).getTime() >= new Date(fecha).getTime());
+  return result;
+};
+
+const ordenarMasMenosReciente = (operacionDeFiltro, orden) => {
+  let result
+  if (orden === 'mas-reciente') {
+      result = [...operacionDeFiltro].sort((a, b) => a.fecha > b.fecha ? 1 : -1)
+  } else {
+      result = [...operacionDeFiltro].sort((a, b) => a.fecha < b.fecha ? 1 : -1)
+  }
+  return result
+}
+
+const ordenarMayorMenorMonto = (operacionDeFiltro, orden) => {
+  let result
+  if (orden === 'mayor-monto') {
+      result = [...operacionDeFiltro].sort((a, b) => a.monto < b.monto ? 1 : -1)
+  } else {
+      result = [...operacionDeFiltro].sort((a, b) => a.monto > b.monto ? 1 : -1)
+  }
+  return result
+};
+
+const ordenarAZ_ZA = (operacionDeFiltro, orden) => {
+  let result
+  if (orden === 'a-z') {
+      result = [...operacionDeFiltro].sort((a, b) => a.descripcion > b.descripcion ? 1 : -1)
+  } else {
+      result = [...operacionDeFiltro].sort((a, b) => a.descripcion < b.descripcion ? 1 : -1)
+  }
+  return result
+};
+
+const filtrarOperaciones = () => {
+  const tipo = filtroTipo.value;
+  const categoria = selectCategorias.value;
+  const fecha = filtroFecha.value;
+  const orden = filtroOrdenar.value;
+
+  let operacionesFiltradas = [...operaciones];
+
+  if (tipo !== 'todos') {
+      operacionesFiltradas = filtrarTipo(tipo, operacionesFiltradas);
+  }
+
+  if (categoria !== 'Todas') {
+      operacionesFiltradas = filtrarCategoria(categoria, operacionesFiltradas);
+  }
+
+  operacionesFiltradas = filtrarFechaMayorOIgual(fecha, operacionesFiltradas);
+
+
+  switch (orden) {
+      case 'mas-reciente':
+          operacionesFiltradas = ordenarMasMenosReciente(operacionesFiltradas, 'mas-reciente')
+          break;
+      case 'menos-reciente':
+          operacionesFiltradas = ordenarMasMenosReciente(operacionesFiltradas, 'menos-reciente')
+          break;
+      case 'menor-monto':
+          operacionesFiltradas = ordenarMayorMenorMonto(operacionesFiltradas, 'menor-monto')
+          break;
+      case 'mayor-monto':
+          operacionesFiltradas = ordenarMayorMenorMonto(operacionesFiltradas, 'mayor-monto')
+          break;
+      case 'a-z':
+          operacionesFiltradas = ordenarAZ_ZA(operacionesFiltradas, 'a-z')
+          break;
+      case 'z-a':
+          operacionesFiltradas = ordenarAZ_ZA(operacionesFiltradas, 'z-a')
+          break;
+      default:
+          break;
+  }
+
+  escribirOperacion(operacionesFiltradas);
+  balanceHTML(operacionesFiltradas);
+
+}
+
+filtroTipo.addEventListener("change", filtrarOperaciones);
+selectCategorias.addEventListener("change", filtrarOperaciones);
+filtroFecha.addEventListener('change', filtrarOperaciones);
+filtroOrdenar.addEventListener('change', filtrarOperaciones);
+
+/*
+ ************************************************************************************
                                     Balance
  ************************************************************************************
 */
@@ -522,14 +640,15 @@ const balanceHTML = (operaciones) => {
   balanceTotal.innerHTML = `$${objBalance["total"]}`;
 };
 
+
 /*
  ************************************************************************************
                                     Reportes
  ************************************************************************************
 */
 //Reporte elementos
-const gananciaSumar = operaciones.some(el => el.tipo === 'ganancia');
-const gastoRestar = operaciones.some(el => el.tipo === 'gasto');
+const gananciaSumar = operaciones.some(e => e.tipo === 'ganancia');
+const gastoRestar = operaciones.some(e => e.tipo === 'gasto');
 //DOM Reportes
 const listadoReportes = document.getElementById("listado-reportes");
 const sinReportes = document.getElementById("sin-reportes");
@@ -544,19 +663,18 @@ let reportsSections = {
 };
 
 //Mostrar/ocultar la sección no hay reportes o la lista de reportes.
-const mostrarListaReportes = (Operaciones) => {
+const mostrarListaReportes = (operaciones) => {
     for (let i = 0; i < operaciones.length; i++) {
     //Si no hay operaciones mostrar imagen.
-    if (Operaciones === 0){
-      listadoReportes.classList.add("is-hidden");
-      sinReportes.classList.remove("is-hidden");
+    if (operaciones === 0){
+      sinReportes.style.display = 'block'
+      listadoReportes.style.display = 'none'
     //Si hay operaciones mostrar lista y ocultar imagen. 
     } else {
-      sinReportes.classList.add("is-hidden");
-      listadoReportes.classList.remove("is-hidden");
+      sinReportes.style.display = 'none'
+      listadoReportes.style.display = 'block'
     }
   }};
-  mostrarListaReportes(operaciones)
 
   //Generar Reporte
   generaReporte = ()=>{
@@ -566,6 +684,7 @@ const mostrarListaReportes = (Operaciones) => {
       totalesCategory: [],
       totalesMes: [],
     };
+    
     let reportesGeneralesCategorias = [];
     categories.forEach((category) => {
         let itemReport = {
@@ -574,13 +693,13 @@ const mostrarListaReportes = (Operaciones) => {
          gasto: 0,
          balance: 0,
         };
-        operaciones.forEach((pintarOperacion) => {
-            if (category.name === pintarOperacion.categoria) {
-                if (pintarOperacion.tipo === "gasto") {
-                    itemReport.gasto += parseFloat(pintarOperacion.monto);
+        operaciones.forEach((escribirOperacion) => {
+            if (category.name === escribirOperacion.categoria) {
+                if (escribirOperacion.tipo === "gasto") {
+                    itemReport.gasto += parseFloat(escribirOperacion.monto);
                 }
-                if (pintarOperacion.tipo === "ganancia") {
-                    itemReport.ganancia += parseFloat(pintarOperacion.monto);
+                if (escribirOperacion.tipo === "ganancia") {
+                    itemReport.ganancia += parseFloat(escribirOperacion.monto);
             }
         }
     });
@@ -719,117 +838,3 @@ const getMaximosMes = (campo) => {
     });
   };
    
-/*
- ************************************************************************************
-                                    Filtros
- ************************************************************************************
-*/
-
-//Botón ocultar-mostrar filtros
-btnOcultarFiltros.addEventListener('click', () => {
-  if (btnOcultarFiltros.innerText === 'Ocultar filtros') {
-    btnOcultarFiltros.innerText = 'Mostrar filtros'
-    filtros.style.display = 'none'
-  } else {
-    btnOcultarFiltros.innerText = 'Ocultar filtros'
-    filtros.style.display = 'block'
-  }
-});
-
-const filtrarTipo = (tipo, operacionesFiltradas) => {
-  const result = operacionesFiltradas.filter((operacionDeFiltro) => operacionDeFiltro.tipo === tipo);
-  return result;
-};
-
-const filtrarCategoria = (categoria, operacionesFiltradas) => {
-  const result = operacionesFiltradas.filter((operacionDeFiltro) => operacionDeFiltro.categoria === categoria);
-  return result;
-};
-
-const filtrarFechaMayorOIgual = (fecha, operacionesFiltradas) => {
-  const result = operacionesFiltradas.filter(
-      (operacionDeFiltro) => new Date(operacionDeFiltro.fecha).getTime() >= new Date(fecha).getTime());
-  return result;
-};
-
-const ordenarMasMenosReciente = (operacionDeFiltro, orden) => {
-  let result
-  if (orden === 'mas-reciente') {
-      result = [...operacionDeFiltro].sort((a, b) => a.fecha > b.fecha ? 1 : -1)
-  } else {
-      result = [...operacionDeFiltro].sort((a, b) => a.fecha < b.fecha ? 1 : -1)
-  }
-  return result
-}
-
-const ordenarMayorMenorMonto = (operacionDeFiltro, orden) => {
-  let result
-  if (orden === 'mayor-monto') {
-      result = [...operacionDeFiltro].sort((a, b) => a.monto < b.monto ? 1 : -1)
-  } else {
-      result = [...operacionDeFiltro].sort((a, b) => a.monto > b.monto ? 1 : -1)
-  }
-  return result
-};
-
-const ordenarAZ_ZA = (operacionDeFiltro, orden) => {
-  let result
-  if (orden === 'a-z') {
-      result = [...operacionDeFiltro].sort((a, b) => a.descripcion > b.descripcion ? 1 : -1)
-  } else {
-      result = [...operacionDeFiltro].sort((a, b) => a.descripcion < b.descripcion ? 1 : -1)
-  }
-  return result
-};
-
-const filtrarOperaciones = () => {
-  const tipo = filtroTipo.value;
-  const categoria = selectCategorias.value;
-  const fecha = filtroFecha.value;
-  const orden = filtroOrdenar.value;
-
-  let operacionesFiltradas = [...operaciones];
-
-  if (tipo !== 'todos') {
-      operacionesFiltradas = filtrarTipo(tipo, operacionesFiltradas);
-  }
-
-  if (categoria !== 'Todas') {
-      operacionesFiltradas = filtrarCategoria(categoria, operacionesFiltradas);
-  }
-
-  operacionesFiltradas = filtrarFechaMayorOIgual(fecha, operacionesFiltradas);
-
-
-  switch (orden) {
-      case 'mas-reciente':
-          operacionesFiltradas = ordenarMasMenosReciente(operacionesFiltradas, 'mas-reciente')
-          break;
-      case 'menos-reciente':
-          operacionesFiltradas = ordenarMasMenosReciente(operacionesFiltradas, 'menos-reciente')
-          break;
-      case 'menor-monto':
-          operacionesFiltradas = ordenarMayorMenorMonto(operacionesFiltradas, 'menor-monto')
-          break;
-      case 'mayor-monto':
-          operacionesFiltradas = ordenarMayorMenorMonto(operacionesFiltradas, 'mayor-monto')
-          break;
-      case 'a-z':
-          operacionesFiltradas = ordenarAZ_ZA(operacionesFiltradas, 'a-z')
-          break;
-      case 'z-a':
-          operacionesFiltradas = ordenarAZ_ZA(operacionesFiltradas, 'z-a')
-          break;
-      default:
-          break;
-  }
-
-  escribirOperacion(operacionesFiltradas);
-  balanceHTML(operacionesFiltradas);
-
-}
-
-filtroTipo.addEventListener("change", filtrarOperaciones);
-selectCategorias.addEventListener("change", filtrarOperaciones);
-filtroFecha.addEventListener('change', filtrarOperaciones);
-filtroOrdenar.addEventListener('change', filtrarOperaciones);
