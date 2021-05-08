@@ -481,83 +481,52 @@
                                                               REPORTES
     ____________________________________________________________________________________________________________________________________
     -------->
-    <section id="pagina-reportes" class = "section pt-5 hidden vista">
-      <div class="container">
-        <div class="columns">
-          <div
-          class="column is-8-widescreen is-10-desktop is-offset-2-widescreen is-offset-1-desktop">
-           <div class="box">
-            <h2 class="title is-size-2 has-text-weight-bold pb-2">
-              Reportes
-            </h2>
-           <!-- SECCION SIN REPORTES -->
-            <div id="sin-reportes" class="field">
-             <div class="my-6 py-6">
-              <figure class="image">
-                <img src="./img/añade-reporte.svg" alt="Sin reportes">
-              </figure>
-             </div>
-            <div class="column is-align-items-center">
-            <p class="title is-size-4 is-size-6-mobile has-text-centered">Operaciones insuficientes</p>
-            <p class="subtitle is-size-6 is-size-7-mobile has-text-centered">Prueba agregando más operaciones</p>
+    <section id="pagina-reportes" class="is-hidden">
+      <div class="box">
+        <h1 class="title mb-3">Reportes</h1>
+         <!-- SECCION SIN REPORTES -->
+         <div id="sin-reportes" class="field">
+          <div class="my-6 py-6">
+           <figure class="image">
+             <img src="./img/añade-reporte.svg" alt="Sin reportes">
+           </figure>
           </div>
-        </div>
-
+          <div class="column is-align-items-center">
+           <p class="title is-size-4 is-size-6-mobile has-text-centered">Operaciones insuficientes</p>
+           <p class="subtitle is-size-6 is-size-7-mobile has-text-centered">Prueba agregando más operaciones</p>
+          </div>
+         </div>
         <!-- COMIENZA LISTADO DE REPORTES -->
-        <article id="listado-reportes" class="is-hidden mb-2"> 
-        <div  class="column has-text-weight-medium m-0 mt-6 ">
-          <!-- RESUMEN -->
-          <p class="subtitle has-text-weight-medium">Resumen</p>
-          <div class="columns m-0 is-mobile is-justify-content-space-between" id="reporte-resumen">
-            <div class="column is-6">Categoría con mayor ganancia</div>
-            <div id="categoria-mayor-ganancia"></div>
-          </div>
-          <div class="columns m-0 is-mobile is-justify-content-space-between">
-            <div class="column is-6">Categoría con mayor gasto</div>
-            <div id="categoria-mayor-gasto"></div>
-          </div>
-          <div class="columns m-0 is-mobile is-justify-content-space-between">
-            <div class="column is-6">Categoría con mayor balance</div>
-            <div id="categoria-mayor-balance"></div>
-          </div>
-          <div class="columns m-0 is-mobile is-justify-content-space-between mr-5 pr-2">
-            <div class="column is-4">Mes con mayor ganancia</div>
-            <div id="mes-mayor-ganancia"></div>
-          </div>
-          <div class="columns m-0 is-mobile is-justify-content-space-between mr-5 pr-2">
-            <div class="column is-4">Mes con mayor gasto</div>
-            <div id="mes-mayor-gasto"></div>
-          </div>
+        <div class="mb-4">
+          <h2 class="is-size-4 mb-5">Resumen</h2>
+          <div id="report-resumen"></div>
         </div>
         <!-- TOTALES POR CATEGORIA -->
-        <p class="subtitle has-text-weight-medium mt-6">Totales por categorías</p>
-        <div class="columns has-text-weight-medium m-0">
-          <div class="column has-text-centered is-3">Categoría</div>
-          <div class="column has-text-centered is-3">Ganancias</div>
-          <div class="column has-text-centered is-3">Gastos</div>
-          <div class="column has-text-centered is-3">Balance</div>
+        <div class="mb-4" id="listado-reportes">
+          <h2 class="is-size-4 mb-5">Totales por categoría</h2>
+          <div class="columns has-text-weight-medium is-mobile mb-5">
+            <div class="column">Categoría</div>
+            <div class="column blue-cero">Ganancias</div>
+            <div class="column red-cero">Gastos</div>
+            <div class="column">Balance</div>
+          </div>
+          <div id="reporte-total-categorias"></div>
         </div>
-        <div id="reporte-total-categorias"></div>
-
-        <!-- TOTALES POR MES -->
-        <p class="subtitle has-text-weight-medium mt-6">Totales por mes</p>
-        <div class="columns has-text-weight-medium m-0">
-          <div class="column has-text-centered is-3">Mes</div>
-          <div class="column has-text-centered is-3">Ganancias</div>
-          <div class="column has-text-centered is-3">Gastos</div>
-          <div class="column has-text-centered is-3">Balance</div>
+         <!-- TOTALES POR MES -->
+        <div id="total-month" class="mb-4">
+          <h2 class="is-size-4">Totales por mes</h2>
+          <div class="columns has-text-weight-medium is-mobile mb-5">
+            <div class="column">Mes</div>
+            <div class="column blue-cero">Ganancias</div>
+            <div class="column red-cero">Gastos</div>
+            <div class="column">Balance</div>
         </div>
         <div id="reporte-total-mes"></div>
-
-      </article>
-      <!-- TERMINA LISTADO DE REPORTES -->
       </div>
-      </div>
-        </div>
-      </div>
-    </section>
-    <!-- TERMINA SECCION REPORTES -->
-    
+    </div>
+  </section> 
+   <!-- TERMINA SECCION REPORTES --> 
+       
     <!-------
                                                             EDITAR CATEGORÍA
     ____________________________________________________________________________________________________________________________________
