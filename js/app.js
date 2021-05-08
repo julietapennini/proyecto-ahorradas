@@ -192,7 +192,6 @@ const operacionResetearFormulario = () => {
   inputFecha.value = date();
 };
 
-
 //Ocultar imagen - mostrar tabla
 const checkearOperaciones = (operaciones) => {
     //Si no hay operaciones, ocultar tabla y mostrar imagen.
@@ -531,16 +530,10 @@ const balanceHTML = (operaciones) => {
 //Reporte elementos
 const gananciaSumar = operaciones.some(el => el.tipo === 'ganancia');
 const gastoRestar = operaciones.some(el => el.tipo === 'gasto');
-
 //DOM Reportes
 const listadoReportes = document.getElementById("listado-reportes");
 const sinReportes = document.getElementById("sin-reportes");
 const reporteResumen = document.getElementById("reporte-resumen");
-const categoriaMayorGanancia = document.getElementById("categoria-mayor-ganancia");
-const categoriaMayorGasto = document.getElementById("categoria-mayor-gasto");
-const categoriaMayorBalance = document.getElementById("categoria-mayor-balance");
-const mesMayorGanancia = document.getElementById("mes-mayor-ganancia");
-const mesMayorGasto = document.getElementById("mes-mayor-gasto");
 const reporteTotalCateg = document.getElementById("reporte-total-categorias");
 const reporteTotalMes = document.getElementById("reporte-total-mes");
 
@@ -557,15 +550,22 @@ const mostrarListaReportes = (Operaciones) => {
     if (Operaciones === 0){
       listadoReportes.classList.add("is-hidden");
       sinReportes.classList.remove("is-hidden");
-    //Si hay operaciones mostrar lista y ocultar imagen
+    //Si hay operaciones mostrar lista y ocultar imagen. 
     } else {
       sinReportes.classList.add("is-hidden");
       listadoReportes.classList.remove("is-hidden");
     }
   }};
-  mostrarListaReportes(operaciones);
+  mostrarListaReportes(operaciones)
 
+  //Generar Reporte
   generaReporte = ()=>{
+    //inicializamos nuestras secciones de reports
+    reportsSections = {
+      resumen: [],
+      totalesCategory: [],
+      totalesMes: [],
+    };
     let reportesGeneralesCategorias = [];
     categories.forEach((category) => {
         let itemReport = {
@@ -574,13 +574,13 @@ const mostrarListaReportes = (Operaciones) => {
          gasto: 0,
          balance: 0,
         };
-        operaciones.forEach((operaciones) => {
-            if (category.name === operaciones.category) {
-                if (operaciones.tipo === "gasto") {
-                    itemReport.gasto += parseFloat(operaciones.monto);
+        operaciones.forEach((pintarOperacion) => {
+            if (category.name === pintarOperacion.categoria) {
+                if (pintarOperacion.tipo === "gasto") {
+                    itemReport.gasto += parseFloat(pintarOperacion.monto);
                 }
-                if (operaciones.tipo === "ganancia") {
-                    itemReport.ganancia += parseFloat(operaciones.monto);
+                if (pintarOperacion.tipo === "ganancia") {
+                    itemReport.ganancia += parseFloat(pintarOperacion.monto);
             }
         }
     });
@@ -588,10 +588,13 @@ const mostrarListaReportes = (Operaciones) => {
     reportesGeneralesCategorias.push(itemReport);
  });
  reportsSections.totalesCategory = reportesGeneralesCategorias;
+ console.log(reportesGeneralesCategorias);
 
- let maxGanancia = getMaximosCategory("ganancia");
- let maxGasto = getMaximosCategory("gasto");
- let maxBalance = getMaximosCategory("balance");
+ let maxGanancia = getMaximosCategoria("ganancia");
+ let maxGasto = getMaximosCategoria("gasto");
+ let maxBalance = getMaximosCategoria("balance");
+  
+ console.log("Maximos Categoriaa", maxGanancia, maxGasto, maxBalance);
 
  reportsSections.resumen.push({
     title: "Categoría con mayor ganancia",
@@ -608,14 +611,21 @@ const mostrarListaReportes = (Operaciones) => {
     category: maxBalance.category,
     monto: maxBalance.balance,
   });
+  console.log(reportsSections.resumen);
   pintarReporte();
 };
 
-const getMaximosCategory = (campo) => {
+const getMaximosCategoria = (campo) => {
     return reportsSections.totalesCategory.reduce((prev, current) =>
       prev[campo] > current[campo] ? prev : current
     );
   };
+
+const getMaximosMes = (campo) => {
+    return reportsSections.totalesMes.reduce((prev, current) =>
+      prev[campo] > current[campo] ? prev : current
+    );
+  }; 
 
   pintarReporte = () => {
     reporteTotalCateg.innerHTML = "";
@@ -629,10 +639,10 @@ const getMaximosCategory = (campo) => {
       <div class="column">${category.balance}</div>
     </div>
     `;
-     reporteTotalCateg.appendChild(nodo);
+      reporteTotalCateg.appendChild(nodo);
     });
   
-    reportResumen.innerHTML = "";
+    reporteResumen.innerHTML = "";
     reportsSections.resumen.forEach((resumen) => {
       let nodo = document.createElement("div");
       nodo.innerHTML = `
@@ -644,10 +654,73 @@ const getMaximosCategory = (campo) => {
         <div class="column">${resumen.monto}</div>
       </div>
     `;
-      reportResumen.appendChild(nodo);
+      reporteResumen.appendChild(nodo);
+    });
+
+    reporteTotalMes.innerHTML = "";
+    reportsSections.totalesMes.forEach((item) => {
+    let nodo = document.createElement("div");
+    node.innerHTML = `
+    <div class="columns has-text-weight-medium is-mobile">
+    <div class="column">${item.mesName}</div>
+    <div class="column">${item.ganancia}</div>
+    <div class="column">${item.gasto}</div>
+    <div class="column">${item.balance}</div>
+  </div>
+  `;
+    reporteTotalMes.appendChild(nodo);
+  });
+  };
+
+  const reportesPorMes = () => {
+    let totalesMes = [];
+    for (let mes = 0; mes <= 12; mes++) {
+      let datex = new Date(2021, mes, 04);
+      let month = datex.toLocaleString("default", { month: "long" });
+      //console.log("EJEMPLO", mes, datex, month);
+      let itemReport = {
+        mes: mes,
+        mesName: month,
+        ganancia: 0,
+        gasto: 0,
+        balance: 0,
+      };
+      operations.forEach((pintarOperacion) => {
+        let date = new Date(pintarOperacion.fecha);
+        if (mes === date.getMonth()) {
+          if (pintarOperacion.tipo === "Gasto") {
+            itemReport.gasto += parseFloat(pintarOperacion.monto);
+          }
+          if (pintarOperacion.tipo === "Ganancia") {
+            itemReport.ganancia += parseFloat(pintarOperacion.monto);
+          }
+        }
+      });
+      itemReport.balance = itemReport.ganancia - itemReport.gasto;
+      if (itemReport.ganancia !== 0 || itemReport.gasto !== 0) {
+        totalesMes.push(itemReport);
+      }
+    }
+    reportsSections.totalesMes = totalesMes;
+    console.log("Totales Mes", totalesMes);
+
+    let maxGananciaMes = getMaximosMes("ganancia");
+    let maxGastoMes = getMaximosMes("gasto");
+  
+    console.log("MES", maxGananciaMes, maxGastoMes);
+  
+    reportsSections.resumen.push({
+      title: "Mes con mayor ganancia",
+      category: maxGananciaMes.mesName,
+      monto: maxGananciaMes.ganancia,
+    });
+    reportsSections.resumen.push({
+      title: "Mes con mayor gasto",
+      category: maxGastoMes.mesName,
+      monto: maxGastoMes.gasto,
     });
   };
-  
+   
 /*
  ************************************************************************************
                                     Filtros
