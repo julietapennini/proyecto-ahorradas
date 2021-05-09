@@ -481,28 +481,33 @@
                                                               REPORTES
     ____________________________________________________________________________________________________________________________________
     -------->
-    <section id="pagina-reportes" class="is-hidden">
+    <section id="pagina-reportes" class="section mt-5 hidden vista">
       <div class="box">
-        <h1 class="title mb-3">Reportes</h1>
-         <!-- SECCION SIN REPORTES -->
-         <div id="sin-reportes" class="field">
+        <h1 class="title title is-size-2 has-text-weight-bold pb-2">Reportes</h1>
+        <!-- SECCION SIN REPORTES -->
+        <div id="sin-reportes" class="field">
           <div class="my-6 py-6">
            <figure class="image">
-             <img src="./img/añade-reporte.svg" alt="Sin reportes">
+             <img src="./img/reportes.svg" alt="Sin reportes">
            </figure>
           </div>
           <div class="column is-align-items-center">
-           <p class="title is-size-4 is-size-6-mobile has-text-centered">Operaciones insuficientes</p>
-           <p class="subtitle is-size-6 is-size-7-mobile has-text-centered">Prueba agregando más operaciones</p>
+           <h4
+           class="is-size-4 has-text-centered mt-6 mb-4 has-text-weight-semibold">
+           Operaciones insuficientes
+            </h4>
+            <p class="has-text-centered">
+           Prueba agregando más operaciones
+            </p>
           </div>
-         </div>
-        <!-- COMIENZA LISTADO DE REPORTES -->
-        <div class="mb-4">
-          <h2 class="is-size-4 mb-5">Resumen</h2>
-          <div id="report-resumen"></div>
         </div>
-        <!-- TOTALES POR CATEGORIA -->
-        <div class="mb-4" id="listado-reportes">
+          <!-- COMIENZA LISTADO DE REPORTES -->
+        <div class="section mb-5" id="listado-reportes">
+          <h2 class="title is-size-4 mb-5 pb-4">Resumen</h2>
+          <div id="reporte-resumen"></div>
+        </div>
+        <!-- TOTALES POR CATEGORÍA -->
+        <div class="mb-4">
           <h2 class="is-size-4 mb-5">Totales por categoría</h2>
           <div class="columns has-text-weight-medium is-mobile mb-5">
             <div class="column">Categoría</div>
@@ -512,7 +517,7 @@
           </div>
           <div id="reporte-total-categorias"></div>
         </div>
-         <!-- TOTALES POR MES -->
+        <!-- TOTALES POR MES -->
         <div id="total-month" class="mb-4">
           <h2 class="is-size-4">Totales por mes</h2>
           <div class="columns has-text-weight-medium is-mobile mb-5">
@@ -520,13 +525,12 @@
             <div class="column blue-cero">Ganancias</div>
             <div class="column red-cero">Gastos</div>
             <div class="column">Balance</div>
-        </div>
-        <div id="reporte-total-mes"></div>
+            <div id="reporte-total-mes"></div>
+          </div>
       </div>
     </div>
   </section> 
-   <!-- TERMINA SECCION REPORTES --> 
-       
+   <!-- TERMINA SECCION REPORTES -->      
     <!-------
                                                             EDITAR CATEGORÍA
     ____________________________________________________________________________________________________________________________________

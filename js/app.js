@@ -121,6 +121,8 @@ btnReportes.addEventListener('click', () => {
   paginaNuevaOperacion.style.display = 'none'
   paginaEditarOperacion.style.display = 'none'
   editarCategoria.style.display = 'none'
+  filtrarOperaciones()
+  mostrarListaReportes(operaciones)
 })
 
 //Botón nueva operación
@@ -156,8 +158,8 @@ const date = () => {
 };
 
 inputFecha.value = date();
-filtroFecha.value = date();
 inputEditarFecha.value = inputFecha.value;
+filtroFecha.value = inputFecha.value;
 
 
 /*
@@ -206,6 +208,7 @@ const checkearOperaciones = (operaciones) => {
 };
 
 let operaciones = [];
+let balance = [];
 
 //AGREGAR OPERACIÓN
 
@@ -228,13 +231,12 @@ btnAgregar.addEventListener('click', () => {
 
   operaciones.push(pintarOperacion);
   localStorage.setItem('operacionesStorage', JSON.stringify(operaciones));
-  const tomarOperacionesStorage = JSON.parse(
-    localStorage.getItem('operacionesStorage')
-  );
+  const tomarOperacionesStorage = JSON.parse(localStorage.getItem('operacionesStorage'));
 
-  operacionResetearFormulario()
+  operacionResetearFormulario();
   escribirOperacion(tomarOperacionesStorage);
   balanceHTML(tomarOperacionesStorage);
+  filtrarOperaciones(tomarOperacionesStorage);
   /*paginaReportes(tomarOperacionesStorage);*/
 
   //Volver a Balance
@@ -324,6 +326,7 @@ btnEditarEditar.addEventListener("click", () => {
   localStorage.setItem("operacionesStorage", JSON.stringify(operaciones));
   escribirOperacion(operaciones);
   balanceHTML(operaciones);
+  filtrarOperaciones();
   /*reportes(operaciones);*/
   
   //volver a balance
@@ -341,6 +344,7 @@ const eliminarOperacion = (operacion) => {
     localStorage.setItem("operacionesStorage", JSON.stringify(operaciones));
     escribirOperacion(operaciones);
     balanceHTML(operaciones);
+    filtrarOperaciones();
     /*reportes(operations);*/
   }
 };
@@ -385,6 +389,7 @@ btnEditarCategoria.addEventListener("click", () => {
   editarCategoria.style.display = 'none'
   paginaCategorias.style.display = 'block'
 });
+
 //Eliminar categorías
 const deleteCategory = (category) => {
   const value = categories.findIndex((e) => e.id == category);
@@ -467,6 +472,121 @@ main();
 
 /*
  ************************************************************************************
+                                    Filtros
+ ************************************************************************************
+*/
+
+//Botón ocultar-mostrar filtros
+btnOcultarFiltros.addEventListener('click', () => {
+  if (btnOcultarFiltros.innerText === 'Ocultar filtros') {
+    btnOcultarFiltros.innerText = 'Mostrar filtros'
+    filtros.style.display = 'none'
+  } else {
+    btnOcultarFiltros.innerText = 'Ocultar filtros'
+    filtros.style.display = 'block'
+  }
+});
+
+const filtrarTipo = (tipo, operacionesFiltradas) => {
+  const result = operacionesFiltradas.filter((operacionDeFiltro) => operacionDeFiltro.tipo === tipo);
+  return result;
+};
+
+const filtrarCategoria = (categoria, operacionesFiltradas) => {
+  const result = operacionesFiltradas.filter((operacionDeFiltro) => operacionDeFiltro.categoria === categoria);
+  return result;
+};
+
+const filtrarFechaMayorOIgual = (fecha, operacionesFiltradas) => {
+  const result = operacionesFiltradas.filter(
+      (operacionDeFiltro) => new Date(operacionDeFiltro.fecha).getTime() >= new Date(fecha).getTime());
+  return result;
+};
+
+const ordenarMasMenosReciente = (operacionDeFiltro, orden) => {
+  let result
+  if (orden === 'mas-reciente') {
+      result = [...operacionDeFiltro].sort((a, b) => a.fecha > b.fecha ? 1 : -1)
+  } else {
+      result = [...operacionDeFiltro].sort((a, b) => a.fecha < b.fecha ? 1 : -1)
+  }
+  return result
+}
+
+const ordenarMayorMenorMonto = (operacionDeFiltro, orden) => {
+  let result
+  if (orden === 'mayor-monto') {
+      result = [...operacionDeFiltro].sort((a, b) => a.monto < b.monto ? 1 : -1)
+  } else {
+      result = [...operacionDeFiltro].sort((a, b) => a.monto > b.monto ? 1 : -1)
+  }
+  return result
+};
+
+const ordenarAZ_ZA = (operacionDeFiltro, orden) => {
+  let result
+  if (orden === 'a-z') {
+      result = [...operacionDeFiltro].sort((a, b) => a.descripcion > b.descripcion ? 1 : -1)
+  } else {
+      result = [...operacionDeFiltro].sort((a, b) => a.descripcion < b.descripcion ? 1 : -1)
+  }
+  return result
+};
+
+const filtrarOperaciones = () => {
+  const tipo = filtroTipo.value;
+  const categoria = selectCategorias.value;
+  const fecha = filtroFecha.value;
+  const orden = filtroOrdenar.value;
+
+  let operacionesFiltradas = [...operaciones];
+
+  if (tipo !== 'todos') {
+      operacionesFiltradas = filtrarTipo(tipo, operacionesFiltradas);
+  }
+
+  if (categoria !== 'Todas') {
+      operacionesFiltradas = filtrarCategoria(categoria, operacionesFiltradas);
+  }
+
+  operacionesFiltradas = filtrarFechaMayorOIgual(fecha, operacionesFiltradas);
+
+
+  switch (orden) {
+      case 'mas-reciente':
+          operacionesFiltradas = ordenarMasMenosReciente(operacionesFiltradas, 'mas-reciente')
+          break;
+      case 'menos-reciente':
+          operacionesFiltradas = ordenarMasMenosReciente(operacionesFiltradas, 'menos-reciente')
+          break;
+      case 'menor-monto':
+          operacionesFiltradas = ordenarMayorMenorMonto(operacionesFiltradas, 'menor-monto')
+          break;
+      case 'mayor-monto':
+          operacionesFiltradas = ordenarMayorMenorMonto(operacionesFiltradas, 'mayor-monto')
+          break;
+      case 'a-z':
+          operacionesFiltradas = ordenarAZ_ZA(operacionesFiltradas, 'a-z')
+          break;
+      case 'z-a':
+          operacionesFiltradas = ordenarAZ_ZA(operacionesFiltradas, 'z-a')
+          break;
+      default:
+          break;
+  }
+
+  escribirOperacion(operacionesFiltradas);
+  balanceHTML(operacionesFiltradas);
+
+}
+
+filtroTipo.addEventListener("change", filtrarOperaciones);
+selectCategorias.addEventListener("change", filtrarOperaciones);
+filtroFecha.addEventListener('change', filtrarOperaciones);
+filtroOrdenar.addEventListener('change', filtrarOperaciones);
+
+/*
+ ************************************************************************************
                                     Balance
  ************************************************************************************
 */
@@ -520,7 +640,6 @@ const balanceHTML = (operaciones) => {
   balanceTotal.innerHTML = `$${objBalance["total"]}`;
 };
 
-//Los ejecutamos en la funcíon de pintar operaciones, editar operaciones y en filtros. Para que tome los valores cada vez que cambiamos las operaciones.
 
 /*
  ************************************************************************************
@@ -528,8 +647,8 @@ const balanceHTML = (operaciones) => {
  ************************************************************************************
 */
 //Reporte elementos
-const gananciaSumar = operaciones.some(el => el.tipo === 'ganancia');
-const gastoRestar = operaciones.some(el => el.tipo === 'gasto');
+const gananciaSumar = operaciones.some(e => e.tipo === 'ganancia');
+const gastoRestar = operaciones.some(e => e.tipo === 'gasto');
 //DOM Reportes
 const listadoReportes = document.getElementById("listado-reportes");
 const sinReportes = document.getElementById("sin-reportes");
@@ -544,19 +663,18 @@ let reportsSections = {
 };
 
 //Mostrar/ocultar la sección no hay reportes o la lista de reportes.
-const mostrarListaReportes = (Operaciones) => {
+const mostrarListaReportes = (operaciones) => {
     for (let i = 0; i < operaciones.length; i++) {
     //Si no hay operaciones mostrar imagen.
-    if (Operaciones === 0){
-      listadoReportes.classList.add("is-hidden");
-      sinReportes.classList.remove("is-hidden");
+    if (operaciones === 0){
+      sinReportes.style.display = 'block'
+      listadoReportes.style.display = 'none'
     //Si hay operaciones mostrar lista y ocultar imagen. 
     } else {
-      sinReportes.classList.add("is-hidden");
-      listadoReportes.classList.remove("is-hidden");
+      sinReportes.style.display = 'none'
+      listadoReportes.style.display = 'block'
     }
   }};
-  mostrarListaReportes(operaciones)
 
   //Generar Reporte
   generaReporte = ()=>{
@@ -566,6 +684,7 @@ const mostrarListaReportes = (Operaciones) => {
       totalesCategory: [],
       totalesMes: [],
     };
+    
     let reportesGeneralesCategorias = [];
     categories.forEach((category) => {
         let itemReport = {
@@ -574,13 +693,13 @@ const mostrarListaReportes = (Operaciones) => {
          gasto: 0,
          balance: 0,
         };
-        operaciones.forEach((pintarOperacion) => {
-            if (category.name === pintarOperacion.categoria) {
-                if (pintarOperacion.tipo === "gasto") {
-                    itemReport.gasto += parseFloat(pintarOperacion.monto);
+        operaciones.forEach((escribirOperacion) => {
+            if (category.name === escribirOperacion.categoria) {
+                if (escribirOperacion.tipo === "gasto") {
+                    itemReport.gasto += parseFloat(escribirOperacion.monto);
                 }
-                if (pintarOperacion.tipo === "ganancia") {
-                    itemReport.ganancia += parseFloat(pintarOperacion.monto);
+                if (escribirOperacion.tipo === "ganancia") {
+                    itemReport.ganancia += parseFloat(escribirOperacion.monto);
             }
         }
     });
@@ -588,13 +707,11 @@ const mostrarListaReportes = (Operaciones) => {
     reportesGeneralesCategorias.push(itemReport);
  });
  reportsSections.totalesCategory = reportesGeneralesCategorias;
- console.log(reportesGeneralesCategorias);
 
  let maxGanancia = getMaximosCategoria("ganancia");
  let maxGasto = getMaximosCategoria("gasto");
  let maxBalance = getMaximosCategoria("balance");
   
- console.log("Maximos Categoriaa", maxGanancia, maxGasto, maxBalance);
 
  reportsSections.resumen.push({
     title: "Categoría con mayor ganancia",
@@ -646,21 +763,22 @@ const getMaximosMes = (campo) => {
     reportsSections.resumen.forEach((resumen) => {
       let nodo = document.createElement("div");
       nodo.innerHTML = `
-      <div class="columns has-text-weight-medium is-mobile">
-        <div class="column">${resumen.title}</div>
-        <div class="column">
+      <div class="columns is-mobile">
+        <div class="column is-6 has-text-weight-semibold">${resumen.title}</div>
+        <div class="column is-3 has-text-right">
           <span class="tag is-info is-light is-medium">${resumen.category}</span>
         </div>
-        <div class="column">${resumen.monto}</div>
+        <div class="column is-3 has-text-weight-semibold has-text-right has-text-success">${resumen.monto}</div>
       </div>
     `;
       reporteResumen.appendChild(nodo);
     });
 
     reporteTotalMes.innerHTML = "";
+    
     reportsSections.totalesMes.forEach((item) => {
     let nodo = document.createElement("div");
-    node.innerHTML = `
+    nodo.innerHTML = `
     <div class="columns has-text-weight-medium is-mobile">
     <div class="column">${item.mesName}</div>
     <div class="column">${item.ganancia}</div>
@@ -669,6 +787,7 @@ const getMaximosMes = (campo) => {
   </div>
   `;
     reporteTotalMes.appendChild(nodo);
+   
   });
   };
 
@@ -685,13 +804,13 @@ const getMaximosMes = (campo) => {
         gasto: 0,
         balance: 0,
       };
-      operations.forEach((pintarOperacion) => {
+      operaciones.forEach((pintarOperacion) => {
         let date = new Date(pintarOperacion.fecha);
         if (mes === date.getMonth()) {
-          if (pintarOperacion.tipo === "Gasto") {
+          if (pintarOperacion.tipo === "gasto") {
             itemReport.gasto += parseFloat(pintarOperacion.monto);
           }
-          if (pintarOperacion.tipo === "Ganancia") {
+          if (pintarOperacion.tipo === "ganancia") {
             itemReport.ganancia += parseFloat(pintarOperacion.monto);
           }
         }
@@ -721,81 +840,3 @@ const getMaximosMes = (campo) => {
     });
   };
    
-/*
- ************************************************************************************
-                                    Filtros
- ************************************************************************************
-*/
-
-//Botón ocultar-mostrar filtros
-btnOcultarFiltros.addEventListener('click', () => {
-  if (btnOcultarFiltros.innerText === 'Ocultar filtros') {
-    btnOcultarFiltros.innerText = 'Mostrar filtros'
-    filtros.style.display = 'none'
-  } else {
-    btnOcultarFiltros.innerText = 'Ocultar filtros'
-    filtros.style.display = 'block'
-  }
-});
-
-//Filtros tipo y categoría
-const filtrado = (e) => {
-  operacionesFiltradas = [...operaciones];
-
-  let elegirValor = '';
-
-  if (e.target.id === 'filtro-tipo'){
-    operacionesFiltradas = [...operaciones];
-    selectCategorias.value = 'Todas';
-    elegirValor = 'tipo';
-    
-  } else{
-    filtroTipo.value = 'todos';
-    elegirValor = 'categoria';
-  }
-
-  operacionesFiltradas = operacionesFiltradas.filter(operaciones => operaciones[elegirValor]=== e.target.value);
-  if (e.target.value === 'todos'|| e.target.value === 'Todas') {
-    escribirOperacion(operaciones);
-  } else{
-    escribirOperacion(operacionesFiltradas);
-  }
-}
-
-selectCategorias.addEventListener('change', (e)=> {filtrado(e)});
-filtroTipo.addEventListener('change', (e)=> {filtrado(e)});
-
-//Filtro fecha
-filtroFecha.addEventListener('change', (e)=> {
-  let resultadoFecha = operaciones.filter(operaciones => operaciones.fecha === e.target.value);
-
-  escribirOperacion(resultadoFecha);
-})
-
-//Filtro ordenar
-filtroOrdenar.addEventListener('change', ()=>{
-
-  let resultadoOrdenar = [...operaciones];
-
-  if(filtroOrdenar.value === 'a-z'){
-    resultadoOrdenar.sort((a, b) => a.descripcion > b.descripcion ? 1 : -1)
-  }
-  if(filtroOrdenar.value === 'z-a'){
-    resultadoOrdenar.sort((a, b) => a.description < b.description ? 1 : -1)
-  }
-  if(filtroOrdenar.value === 'mas-reciente'){
-    resultadoOrdenar.sort((a, b) => a.fecha < b.fecha ? 1 : -1)
-  }
-  if(filtroOrdenar.value === 'menos-reciente'){
-    resultadoOrdenar.sort((a, b) => a.fecha > b.fecha ? 1 : -1)
-  }
-  if(filtroOrdenar.value === 'mayor-monto'){
-    resultadoOrdenar.sort((a, b) => Number(a.amount) < Number(b.amount) ? -1 : 1)
-  }
-  if(filtroOrdenar.value === 'menor-monto'){
-    resultadoOrdenar.sort((a, b) => Number(a.amount) > Number(b.amount) ? 1 : -1)
-  }
-
-  escribirOperacion(resultadoOrdenar);
-  balanceHTML(operaciones);
-})
