@@ -763,21 +763,22 @@ const getMaximosMes = (campo) => {
     reportsSections.resumen.forEach((resumen) => {
       let nodo = document.createElement("div");
       nodo.innerHTML = `
-      <div class="columns has-text-weight-medium is-mobile">
-        <div class="column">${resumen.title}</div>
-        <div class="column">
+      <div class="columns is-mobile">
+        <div class="column is-6 has-text-weight-semibold">${resumen.title}</div>
+        <div class="column is-3 has-text-right">
           <span class="tag is-info is-light is-medium">${resumen.category}</span>
         </div>
-        <div class="column">${resumen.monto}</div>
+        <div class="column is-3 has-text-weight-semibold has-text-right has-text-success">${resumen.monto}</div>
       </div>
     `;
       reporteResumen.appendChild(nodo);
     });
 
     reporteTotalMes.innerHTML = "";
+    
     reportsSections.totalesMes.forEach((item) => {
     let nodo = document.createElement("div");
-    node.innerHTML = `
+    nodo.innerHTML = `
     <div class="columns has-text-weight-medium is-mobile">
     <div class="column">${item.mesName}</div>
     <div class="column">${item.ganancia}</div>
@@ -786,6 +787,7 @@ const getMaximosMes = (campo) => {
   </div>
   `;
     reporteTotalMes.appendChild(nodo);
+   
   });
   };
 
@@ -802,13 +804,13 @@ const getMaximosMes = (campo) => {
         gasto: 0,
         balance: 0,
       };
-      operations.forEach((pintarOperacion) => {
+      operaciones.forEach((pintarOperacion) => {
         let date = new Date(pintarOperacion.fecha);
         if (mes === date.getMonth()) {
-          if (pintarOperacion.tipo === "Gasto") {
+          if (pintarOperacion.tipo === "gasto") {
             itemReport.gasto += parseFloat(pintarOperacion.monto);
           }
-          if (pintarOperacion.tipo === "Ganancia") {
+          if (pintarOperacion.tipo === "ganancia") {
             itemReport.ganancia += parseFloat(pintarOperacion.monto);
           }
         }
