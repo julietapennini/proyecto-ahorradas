@@ -775,6 +775,8 @@ const getMaximosMes = (campo) => {
     });
 
     reporteTotalMes.innerHTML = "";
+    reportesPorMes();
+  
     
     reportsSections.totalesMes.forEach((item) => {
     let nodo = document.createElement("div");
