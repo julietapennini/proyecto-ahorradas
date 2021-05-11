@@ -33,14 +33,13 @@
 ##  📂Este proyecto utiliza las siguientes dependencias:
 -  [Bulma](https://bulma.io/documentation/elements/)
 -  [Font Awesome](https://fontawesome.com/icons)
--  [uuid](https://github.com/uuidjs/uuid#readme)
 
 
 ***
 ## Esta es la vista final del proyecto:
 <br>
  
-![images]()
+![imagen](./img/paginafrontal.png)
 
 ***
 ## Agradecimientos🙌
