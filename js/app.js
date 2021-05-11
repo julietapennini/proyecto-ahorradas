@@ -652,6 +652,7 @@ const gastoRestar = operaciones.some(e => e.tipo === 'gasto');
 //DOM Reportes
 const listadoReportes = document.getElementById("listado-reportes");
 const sinReportes = document.getElementById("sin-reportes");
+const conReportes = document.getElementById("con-reportes");
 const reporteResumen = document.getElementById("reporte-resumen");
 const reporteTotalCateg = document.getElementById("reporte-total-categorias");
 const reporteTotalMes = document.getElementById("reporte-total-mes");
@@ -668,11 +669,11 @@ const mostrarListaReportes = (operaciones) => {
     //Si no hay operaciones mostrar imagen.
     if (operaciones === 0){
       sinReportes.style.display = 'block'
-      listadoReportes.style.display = 'none'
+      conReportes.style.display = 'none'
     //Si hay operaciones mostrar lista y ocultar imagen. 
     } else {
       sinReportes.style.display = 'none'
-      listadoReportes.style.display = 'block'
+      conReportes.style.display = 'block'
     }
   }};
 
@@ -748,14 +749,13 @@ const getMaximosMes = (campo) => {
     reporteTotalCateg.innerHTML = "";
     reportsSections.totalesCategory.forEach((category) => {
       let nodo = document.createElement("div");
-      nodo.innerHTML = `
-      <div class="columns has-text-weight-medium is-mobile">
-      <div class="column">${category.category}</div>
-      <div class="column">${category.ganancia}</div>
-      <div class="column">${category.gasto}</div>
-      <div class="column">${category.balance}</div>
-    </div>
-    `;
+      nodo.innerHTML = 
+      `<div class="columns has-text-weight-medium is-mobile">
+        <div class="column">${category.category}</div>
+        <div class="column">${category.ganancia}</div>
+        <div class="column">${category.gasto}</div>
+        <div class="column">${category.balance}</div>
+      </div>`;
       reporteTotalCateg.appendChild(nodo);
     });
   

@@ -481,57 +481,70 @@
                                                               REPORTES
     ____________________________________________________________________________________________________________________________________
     -------->
-    <section id="pagina-reportes" class="section mt-5 hidden vista">
-      <div class="box">
-        <h1 class="title title is-size-2 has-text-weight-bold pb-2">Reportes</h1>
-        <!-- SECCION SIN REPORTES -->
-        <div id="sin-reportes" class="field">
-          <div class="my-6 py-6">
-           <figure class="image">
-             <img src="./img/reportes.svg" alt="Sin reportes">
-           </figure>
+    <section class="container pt-5 hidden" id="pagina-reportes" >
+      <section class="columns is-multiline">
+        <section class="column is-8-widescreen is-10-desktop is-offset-2-widescreen is-offset-1-desktop">
+          <div class="box">
+            <h1 class="title is-size-2 has-text-weight-bold">Reportes</h1>
+            <!---
+          *************************************************************************************
+                                          Sección SIN reportes
+          *************************************************************************************
+          ---->
+            <div class="field" id="sin-reportes">
+              <div class="my-5 py-5">
+              <figure class="image mt-5">
+                <img src="./img/reportes.svg" alt="Sin reportes">
+              </figure>
+              </div>
+              <div class="column is-align-items-center">
+                <h4 class="title is-size-4 is-size-6-mobile has-text-centered">Operaciones insuficientes</h4>
+                <p class="subtitle is-size-6 is-size-7-mobile has-text-centered">Prueba agregando más operaciones</p>
+              </div>
+            </div>
+          <!---
+          *************************************************************************************
+                                          Sección CON reportes
+          *************************************************************************************
+          ---->
+            <!-- COMIENZA LISTADO DE REPORTES -->
+            <div class="hidden" id="con-reportes" >
+
+              <!-- Resumen -->
+              <div class="section mb-5" id="listado-reportes">
+                <h2 class="title is-size-4 mb-5 pb-4">Resumen</h2>
+                <div id="reporte-resumen"></div>
+              </div>
+              
+              <!-- Totales por categoría -->
+              <div class="section mb-5">
+                <h2 class="title is-size-4 mb-5 pb-4">Totales por categoría</h2>
+                <div class="columns has-text-weight-medium is-mobile mb-5">
+                  <div class="column">Categoría</div>
+                  <div class="column blue-cero">Ganancias</div>
+                  <div class="column red-cero">Gastos</div>
+                  <div class="column">Balance</div>
+                </div>
+                <div id="reporte-total-categorias"></div>
+              </div>
+
+              <!-- totales por mes -->
+              <div class="section mb-5" id="total-month">
+                <h2 class="title is-size-4 mb-5 pb-4">Totales por mes</h2>
+                <div class="columns has-text-weight-medium is-mobile mb-5">
+                  <div class="column">Mes</div>
+                  <div class="column blue-cero">Ganancias</div>
+                  <div class="column red-cero">Gastos</div>
+                  <div class="column">Balance</div>
+                </div>
+                <div id="reporte-total-mes"></div>
+              </div>
+            </div>
           </div>
-          <div class="column is-align-items-center">
-           <h4
-           class="is-size-4 has-text-centered mt-6 mb-4 has-text-weight-semibold">
-           Operaciones insuficientes
-            </h4>
-            <p class="has-text-centered">
-           Prueba agregando más operaciones
-            </p>
-          </div>
-        </div>
-          <!-- COMIENZA LISTADO DE REPORTES -->
-        <div class="section mb-5" id="listado-reportes">
-          <h2 class="title is-size-4 mb-5 pb-4">Resumen</h2>
-          <div id="reporte-resumen"></div>
-        </div>
-        <!-- TOTALES POR CATEGORÍA -->
-        <div class="mb-4">
-          <h2 class="is-size-4 mb-5">Totales por categoría</h2>
-          <div class="columns has-text-weight-medium is-mobile mb-5">
-            <div class="column">Categoría</div>
-            <div class="column blue-cero">Ganancias</div>
-            <div class="column red-cero">Gastos</div>
-            <div class="column">Balance</div>
-          </div>
-          <div id="reporte-total-categorias"></div>
-        </div>
-        <!-- TOTALES POR MES -->
-        <div id="total-month" class="mb-4">
-          <h2 class="is-size-4 mb-5">Totales por mes</h2>
-          <div class="columns has-text-weight-medium is-mobile mb-5">
-            <div class="column">Mes</div>
-            <div class="column blue-cero">Ganancias</div>
-            <div class="column red-cero">Gastos</div>
-            <div class="column">Balance</div>
-          </div>
-            <div id="reporte-total-mes"></div>
-          </div>
-      </div>
+        </section>
+      </section>
     </div>
-  </section> 
-   <!-- TERMINA SECCION REPORTES -->      
+  </section>      
     <!-------
                                                             EDITAR CATEGORÍA
     ____________________________________________________________________________________________________________________________________
@@ -553,8 +566,7 @@
             <article class="field is-grouped is-grouped-right">
               <p class="control">
                 <a class="button is-light is-rounded" id="btn-cancel-edit-category" aria-label="Botón de cancelar editar categoría">
-                  Cancelar
-              </a>
+                  Cancelar</a>
               </p>
               <p class="control">
                 <a class="button button is-link is-rounded" id="btn-edit-edit-category" aria-label="Botón de editar categoría">
